@@ -8,7 +8,8 @@ public class Window extends JFrame  {
     final static int width = 800;
     final static int height = 600;
 
-    private JPanel menu;
+    protected JPanel menu;
+    protected JPanel board_view;
 
     public Window() {
 
@@ -34,6 +35,7 @@ public class Window extends JFrame  {
         selectLevel.setPreferredSize(new Dimension(100, 50));
 
         JButton playBtn = new JButton("Play");
+        menu.putClientProperty("play_button", playBtn);
         playBtn.setPreferredSize(new Dimension(100, 50));
         playBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
 
