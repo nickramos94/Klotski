@@ -2,6 +2,8 @@ public class Board {
     private Piece[] pieces;
     private Piece selected_piece;
     private boolean hasWon;
+    final static int LENGTH = 4;
+    final static int HEIGHT = 5;
 
     public Board(int configuration)
     {
@@ -34,11 +36,11 @@ public class Board {
         return null;
     }
 
-    public boolean selectPiece(int x, int y)
+    public boolean selectPiece(Position pos)
     {
         for(int i=0; i<10; i++)
         {
-            if(pieces[i].contains(x,y))
+            if(pieces[i].contains(pos.x,pos.y))
             {
                 selected_piece = pieces[i];
                 return true;
@@ -50,7 +52,7 @@ public class Board {
 
     public boolean movePiece(int direction)
     {
-        if(selected_piece == null)
+        if(selected_piece == null || direction == -1)
             return false;
 
         if(direction>3 || direction <0)
@@ -131,6 +133,10 @@ public class Board {
     public boolean checkWin()
     {
         return hasWon;
+    }
+
+    public Position getSelectedPiece() {
+        return new Position(selected_piece.x, selected_piece.y);
     }
 }
 

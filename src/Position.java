@@ -3,6 +3,7 @@ import java.awt.*;
 public class Position extends Point {
 
     final int MIN_MOUSE_DRAG = 5;
+    final int UNIT_IN_PIXEL = Window.BOARD_LENGTH/Board.LENGTH;
 
     public Position(int x, int y) {
         if(x < 0 || y < 0 || x > Window.BOARD_LENGTH || y > Window.BOARD_HEIGHT)
@@ -48,13 +49,19 @@ public class Position extends Point {
         return xDistance(pos)==0 && yDistance(pos)==0;
     }
 
-    public int pixel_converter() {  //todo
-        return 0;
-    }
-    public int unitConverter() {    //todo
-        return 0;
-    }
-    public Position correspondantPiece() {  //todo
+    public Position pixel_converter() {
         return null;
+    }
+    public Position unitConverter() {
+        return new Position(x/UNIT_IN_PIXEL, y/UNIT_IN_PIXEL);
+    }
+
+    public Position pixelConverter() {
+        return new Position(x*UNIT_IN_PIXEL, y*UNIT_IN_PIXEL);
+    }
+
+    @Override
+    public String toString() {
+        return "[" + Integer.toString(x) + "," + Integer.toString(y) + "]";
     }
 }
