@@ -7,6 +7,8 @@ public class Window extends JFrame  {
     final static String winName = "Klotski";
     final static int width = 800;
     final static int height = 600;
+    final static int BOARD_LENGTH = 400;
+    final static int BOARD_HEIGHT = 500;
 
     protected JPanel menu;
     protected JPanel board_view;
@@ -24,6 +26,13 @@ public class Window extends JFrame  {
         // Create MENU
         menu = new JPanel();
         menu.setLayout(new BorderLayout());
+
+        // Create BOARD
+        board_view = new JPanel();
+        board_view.setLayout(new BorderLayout());
+        board_view.setBackground(Color.GRAY);
+        board_view.setBounds(50, 50, BOARD_LENGTH, BOARD_HEIGHT);
+
 
         JLabel title = new JLabel("Klotski");
         title.setFont(new Font("Arial", Font.BOLD, 88));
@@ -57,6 +66,12 @@ public class Window extends JFrame  {
     }
 
     public void showBoard() {
+        add(board_view);
+    }
 
+    public void remove(JPanel panel) {
+        super.remove(panel);
+        revalidate();
+        repaint();
     }
 }
