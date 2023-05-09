@@ -2,12 +2,10 @@ import java.awt.*;
 
 public class Position extends Point {
 
-    final int BOARD_LENGTH = 400;
-    final int BOARD_HEIGHT = 500;
     final int MIN_MOUSE_DRAG = 5;
 
     public Position(int x, int y) {
-        if(x < 0 || y < 0 || x > BOARD_LENGTH || y > BOARD_HEIGHT)
+        if(x < 0 || y < 0 || x > Window.BOARD_LENGTH || y > Window.BOARD_HEIGHT)
             throw new IllegalArgumentException("Position outside the board");
         this.x = x;
         this.y = y;
