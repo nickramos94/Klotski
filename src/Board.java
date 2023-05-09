@@ -22,7 +22,7 @@ public class Board {
         }
     }
 
-    public Piece getPiece(int x, int y) //METODO INUTILE?
+    public Piece getPiece(int x, int y) //METODO INUTILE ?
     {
         for(int i=0; i<10; i++)
         {
