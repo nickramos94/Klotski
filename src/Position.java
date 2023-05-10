@@ -1,7 +1,8 @@
 import java.awt.*;
 
-public class Position extends Point {
-
+public class Position{
+    int x;
+    int y;
     final int MIN_MOUSE_DRAG = 5;
     final int UNIT_IN_PIXEL = Window.BOARD_LENGTH/Board.LENGTH;
 

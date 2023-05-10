@@ -1,24 +1,21 @@
 public class Piece {
-    //variabili protected e non private perche usate in Board
-    protected int x;  //per ora non uso class Position
-    protected int y;  //per ora non uso class Position
-    protected int width;
-    protected int height;
+    Position position;
+    int width;
+    int height;
 
-    public Piece(int x, int y, int width, int height)
+    public Piece(int x, int y, int w, int h)
     {
-        if (is_legal(x,y,width,height))  //il controllo della posizione non posso farlo in Position, in quanto la validita della posizione dipende dalla forma
+        if (is_legal(x,y,w,h))  //il controllo della posizione non posso farlo in Position, in quanto la validita della posizione dipende dalla forma
         {
-            this.x = x;
-            this.y = y;
-            this.width = width;
-            this.height = height;
+            position = new Position(x,y);
+            width = w;
+            height = h;
         }
         else
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Forma o posizione del pezzo non valida");
     }
 
-    private boolean is_legal(int x, int y, int w, int h) //METODO INUTILE? visto che siamo noi in Board a creare i pezzi e sicuramente non sbaglio
+    private boolean is_legal(int x, int y, int w, int h) //METODO INUTILE? visto che siamo noi in Board() a creare i pezzi e sicuramente non sbagliamo
     {
         if(w==1 && h==1) //caso quadrato 1x1
         {
@@ -45,25 +42,33 @@ public class Piece {
 
     public boolean contains(int x, int y)    //verifico se questo Piece contiene il punto (x;y)
     {
-        return (x >= this.x && y >= this.y &&
-                x < (this.x + this.width) && y < (this.y + this.height));
+        return (x >= position.x && y >= position.y &&
+                x < (position.x + this.width) && y < (position.y + this.height));
     }
 
     public void move(int direction)  //funzione chiamata da movePiece() di Board, dove sara fatto anche il controllo della validita del valore di direction
     {
         if (direction == 0) // up
-            y--;
+            position.y--;
         else if (direction == 1) // right
-            x++;
+            position.x++;
         else if (direction == 2) // down
-            y++;
+            position.y++;
         else if (direction == 3) // left
-            x--;
+            position.x--;
+    }
+    public int getX()
+    {
+        return position.x;
+    }
+    public int getY()
+    {
+        return position.y;
     }
 
     public int[] getProperties()
     {
-        int[] properties = {x, y, width, height};
+        int[] properties = {position.x, position.y, width, height};
         return properties;
     }
 
