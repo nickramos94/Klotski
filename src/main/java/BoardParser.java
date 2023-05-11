@@ -44,7 +44,7 @@ public class BoardParser {
             properties = pieces[i].getProperties().clone();
             pieceList.add(properties);
             jBlock = jblocks.addObject();
-            jBlock.putArray("shape").add(properties[2]).add(properties[3]);
+            jBlock.putArray("shape").add(properties[3]).add(properties[2]);
             jBlock.putArray("position").add(properties[1]).add(properties[0]);
         }
 
