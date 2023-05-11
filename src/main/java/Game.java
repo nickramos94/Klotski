@@ -59,6 +59,6 @@ public class Game extends Window {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        //Fine sezione di prova per il parser
+        //Fine sezione di prova per il parser//
     }
 }

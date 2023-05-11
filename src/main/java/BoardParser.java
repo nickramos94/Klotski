@@ -25,7 +25,7 @@ public class BoardParser {
         try {
             mapper.writeValue(new File("prova.json"), pieceList); //Converto le proprietá di ogni posizione in un file json
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException(e); //
         }
 
     }
