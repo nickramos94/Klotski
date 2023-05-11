@@ -3,8 +3,8 @@ public class Board {
     private Piece selected_piece;
     private boolean hasWon;
     private int moves_counter;
-    final static int LENGTH = 4;
-    final static int HEIGHT = 5;
+    public final static int WIDTH = 4;
+    public final static int HEIGHT = 5;
 
     public Board(int configuration)
     {
@@ -103,9 +103,9 @@ public class Board {
         boolean out_of_bounds = false;
         if(dir==0 && selected_piece.getY()==0)
             out_of_bounds = true;
-        if(dir==1 && (selected_piece.getX() + selected_piece.width)==LENGTH)
+        if(dir==1 && (selected_piece.getX() + selected_piece.width) == WIDTH)
             out_of_bounds = true;
-        if(dir==2 && (selected_piece.getY() + selected_piece.height)==HEIGHT)
+        if(dir==2 && (selected_piece.getY() + selected_piece.height) == HEIGHT)
             out_of_bounds = true;
         if(dir==3 && selected_piece.getX()==0)
             out_of_bounds = true;

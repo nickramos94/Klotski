@@ -4,10 +4,10 @@ public class Position{
     int x;
     int y;
     final int MIN_MOUSE_DRAG = 5;
-    final int UNIT_IN_PIXEL = Window.BOARD_LENGTH/Board.LENGTH;
+    final int UNIT_IN_PIXEL = Window.BOARD_WIDTH / Board.WIDTH;  // BLOCK SIZE?
 
     public Position(int x, int y) {
-        if(x < 0 || y < 0 || x > Window.BOARD_LENGTH || y > Window.BOARD_HEIGHT)
+        if(x < 0 || y < 0 || x > Window.BOARD_WIDTH || y > Window.BOARD_HEIGHT)
             throw new IllegalArgumentException("Position outside the board");
         this.x = x;
         this.y = y;

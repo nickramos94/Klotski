@@ -1,27 +1,22 @@
-import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class Game extends Window {
-    Board board;
-    Position press_position;
-    boolean pause_listener;
+    private Board board;
+    private Position press_position;
+    private boolean pause_listener;
 
     public Game() {
         super();
-        showMenu();
 
+        board = new Board(1);
 
-        ((JButton)menu.getClientProperty("play_button")).addActionListener(new ActionListener() {
+        getButton("play_button").addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
-                int level = ((JComboBox)menu.getClientProperty("level_selection")).getSelectedIndex();
-                level++;
-                System.out.println("Level number: " + (level));     //DEBUG: selected level number
-                remove(menu);
-                board = new Board(level);
-                showBoard();
+                startGame();
             }
         });
 
@@ -48,10 +43,20 @@ public class Game extends Window {
                     if(board.movePiece(move_direction))
                     {
                         System.out.println(" -> has moved");    //DEBUG: movePiece method
-                        moveLabel(unit_pos.pixelConverter(), move_direction);
+                        // moveLabel(unit_pos.pixelConverter(), move_direction);
                     }
                 }
             }
         });
+
+        startMenu();
+    }
+
+    void startMenu() {
+        showMenu();
+    }
+
+    void startGame() {
+        showBoard(board);
     }
 }
