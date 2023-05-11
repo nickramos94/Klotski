@@ -2,9 +2,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
 
 public class Game extends Window {
     private Board board;
+
+    private BoardParser bParser;
     private Position press_position;
     private boolean pause_listener;
 
@@ -50,6 +53,15 @@ public class Game extends Window {
         });
 
         startMenu();
+
+        bParser = new BoardParser();
+
+        try {
+            bParser.parseBoard(board.getPieces());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
     void startMenu() {
