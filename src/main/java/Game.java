@@ -3,13 +3,17 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
 
 public class Game extends Window {
     Board board;
     Position press_position;
+
+    BoardParser board_P;
     boolean pause_listener;
 
-    public Game() {
+
+    public Game() throws IOException {
         super();
         board = new Board(1);
         showMenu();
@@ -47,5 +51,14 @@ public class Game extends Window {
                 }
             }
         });
+
+        // Sezione di prova per il parser, dopo dovremmo aggiungere un ascoltatore appropriato
+        board_P = new BoardParser();
+        try {
+            board_P.parseBoard(board.getPieces());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        //Fine sezione di prova per il parser
     }
 }
