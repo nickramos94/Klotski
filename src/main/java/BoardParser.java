@@ -45,7 +45,7 @@ public class BoardParser {
             pieceList.add(properties);
             jBlock = jblocks.addObject();
             jBlock.putArray("shape").add(properties[2]).add(properties[3]);
-            jBlock.putArray("position").add(properties[0]).add(properties[1]);
+            jBlock.putArray("position").add(properties[1]).add(properties[0]);
         }
 
         String jsonString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(root);
