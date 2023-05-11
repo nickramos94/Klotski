@@ -11,11 +11,16 @@ public class Game extends Window {
 
     public Game() {
         super();
-        board = new Board(1);
         showMenu();
+
+
         ((JButton)menu.getClientProperty("play_button")).addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                int level = ((JComboBox)menu.getClientProperty("level_selection")).getSelectedIndex();
+                level++;
+                System.out.println("Level number: " + (level));     //DEBUG: selected level number
                 remove(menu);
+                board = new Board(level);
                 showBoard();
             }
         });
@@ -35,14 +40,15 @@ public class Game extends Window {
             @Override
             public void mouseReleased(MouseEvent e) {
                 if (!pause_listener) {
-                    board.selectPiece(press_position.unitConverter());
+                    Position unit_pos = press_position.unitConverter();
+                    board.selectPiece(unit_pos);
                     int move_direction = press_position.direction(new Position(e.getPoint()));
-                    System.out.print("\n\npiece selected position: " + board.getSelectedPiece()); //DEBUG: interaction with board selection
-                    System.out.print("\nmove direction: " + move_direction);   //DEBUG: direction
+                    System.out.println("\npiece selected position: " + board.getSelectedPiece()); //DEBUG: interaction with board selection
+                    System.out.println("move direction: " + move_direction);   //DEBUG: direction
                     if(board.movePiece(move_direction))
                     {
-                        System.out.print("\n -> has moved");    //DEBUG: movePiece method
-                    //    board_view.move(press_position, move_direction);
+                        System.out.println(" -> has moved");    //DEBUG: movePiece method
+                        moveLabel(unit_pos.pixelConverter(), move_direction);
                     }
                 }
             }

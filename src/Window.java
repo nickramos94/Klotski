@@ -39,8 +39,11 @@ public class Window extends JFrame  {
         title.setBorder(new EmptyBorder(150, 10, 10, 10));
         title.setHorizontalAlignment(JLabel.CENTER);
 
+
+
         String[] levels = { "Level 1", "Level 2", "Level 3", "Level 4", "Level 5", "Level 6" };
         JComboBox<String>  selectLevel = new JComboBox<String>(levels);
+        menu.putClientProperty("level_selection", selectLevel);
         selectLevel.setPreferredSize(new Dimension(100, 50));
 
         JButton playBtn = new JButton("Play");
@@ -74,4 +77,9 @@ public class Window extends JFrame  {
         revalidate();
         repaint();
     }
+
+    // move the label (that correspond to a piece) with position p in the direction dir
+    // for a length of Position.UNIT_IN_PIXEL
+    public void moveLabel(Position p, int dir)
+    {}
 }

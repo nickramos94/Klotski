@@ -42,7 +42,7 @@ public class Board {
 
     public boolean movePiece(int direction)
     {
-        if(selected_piece == null)
+        if(selected_piece == null || direction == -1)   //empty space selection and no movement cases
             return false;
 
         if(direction>3 || direction <0)
@@ -127,8 +127,9 @@ public class Board {
         return hasWon;
     }
 
-    public Position getSelectedPiece()
-    {
+    public Position getSelectedPiece() {
+        if(selected_piece == null)
+            return null;
         return new Position(selected_piece.getX(), selected_piece.getY());
     }
 
