@@ -1,24 +1,11 @@
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-
-import java.io.File;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
 public class BoardParser {
-
-//    private class PieceParse { //Classe che converte un piece standard in un piece adatto per
-//        private int[] shape = new int[2];
-//        private int[] position = new int[2];
-//
-//        private PieceParse(){}
-//
-//        //private static void parsePiece();
-//
-//    }
 
     private static Piece[] pieces;
     public BoardParser()
@@ -26,7 +13,8 @@ public class BoardParser {
     public static void parseBoard(Piece[] p) throws IOException {
         pieces = p;
 
-        ObjectMapper mapper = new ObjectMapper(); //oggetto del parser json
+        //Oggetti della libreria Jackson per serializzare gli attributi dei pezzi in un JSON
+        ObjectMapper mapper = new ObjectMapper();
         ArrayNode root = mapper.createArrayNode();
         ObjectNode jBoard = root.addObject();
         jBoard.put("name", "Game");
@@ -48,20 +36,9 @@ public class BoardParser {
             jBlock.putArray("position").add(properties[1]).add(properties[0]);
         }
 
-        String jsonString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(root);
-        System.out.println(jsonString);
+        String jBoardString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(root);
+        System.out.println(jBoardString);
 
-
-
-//        for(int i = 0; i < pieces.length; i++){ //Creo una lista delle posizioni contenute nella board
-//            pieceList.add(pieces[i]);
-//        }
-//
-//        try {
-//            mapper.writeValue(new File("prova.json"), pieceList); //Converto le proprietá di ogni posizione in un file json
-//        } catch (IOException e) {
-//            throw new RuntimeException(e); //
-//        }
 
     }
 }
