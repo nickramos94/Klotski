@@ -55,11 +55,12 @@ public class Game extends Window {
         startMenu();
 
        bParser = new BoardParser();
+       bParser.saveState(board.getPieces());
 //
-//        bParser.exportBoard(board.getPieces());
-
+//       bParser.exportBoard(board.getPieces());
+//
         try {
-            bParser.importBoard();
+            bParser.importBoard("save.json");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

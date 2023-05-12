@@ -6,7 +6,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -42,17 +44,17 @@ public class BoardParser {
         }
 
         String jBoardString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(root);
-        System.out.println(jBoardString);
+        //System.out.println(jBoardString);
         return jBoardString;
     }
 
     //Metodo che genera un array di Pieces a partire da un file JSON
-    public List<int[]> importBoard() throws IOException {
+    public List<int[]> importBoard(String fileName) throws IOException {
 
         List<int[]> pieces = new ArrayList<int[]>();
 
         ObjectMapper objectMapper = new ObjectMapper();
-        List<Map<String, Object>> jsonList = objectMapper.readValue(new File("import.json"), List.class);
+        List<Map<String, Object>> jsonList = objectMapper.readValue(new File(fileName), List.class);
 
         //Lettura del file JSON
         for (Map<String, Object> jsonMap : jsonList) {
@@ -76,6 +78,17 @@ public class BoardParser {
         }
 
         return pieces;
+    }
+
+    public void saveState(Piece[] p) throws IOException {
+        try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter("save.json"));
+            writer.write(exportBoard(p));
+            writer.close();
+            System.out.println("\n");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 }
