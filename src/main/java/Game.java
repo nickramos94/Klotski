@@ -11,7 +11,7 @@ public class Game extends Window {
     private Position press_position;
     private boolean pause_listener;
 
-    public Game() {
+    public Game() throws IOException {
         super();
 
         board = new Board(1);
@@ -54,9 +54,15 @@ public class Game extends Window {
 
         startMenu();
 
-        bParser = new BoardParser();
+       bParser = new BoardParser();
+//
+//        bParser.exportBoard(board.getPieces());
 
-        bParser.exportBoard(board.getPieces());
+        try {
+            bParser.importBoard();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
     }
 
