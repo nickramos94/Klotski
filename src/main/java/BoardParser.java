@@ -7,11 +7,9 @@ import java.util.List;
 
 public class BoardParser {
 
-    private static Piece[] pieces;
     public BoardParser()
     {}
-    public static void parseBoard(Piece[] p) throws IOException {
-        pieces = p;
+    public String exportBoard(Piece[] p) {
 
         //Oggetti della libreria Jackson per serializzare gli attributi dei pezzi in un JSON
         ObjectMapper mapper = new ObjectMapper();
@@ -23,13 +21,12 @@ public class BoardParser {
 
         ObjectNode jBlock;
 
-        Position value;
-        String result = null;
         int[] properties = new int[4];
         List<int[]> pieceList = new LinkedList<>();
 
-        for(int i = 0; i < pieces.length; i++){
-            properties = pieces[i].getProperties().clone();
+        //Costruzione del JSON
+        for(int i = 0; i < p.length; i++){
+            properties = p[i].getProperties().clone();
             pieceList.add(properties);
             jBlock = jblocks.addObject();
             jBlock.putArray("shape").add(properties[3]).add(properties[2]);
@@ -38,7 +35,11 @@ public class BoardParser {
 
         String jBoardString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(root);
         System.out.println(jBoardString);
+        return jBoardString;
+    }
 
+    public int[] importBoard(String jBoard){
 
     }
+
 }

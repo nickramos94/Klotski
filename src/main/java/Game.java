@@ -54,13 +54,9 @@ public class Game extends Window {
 
         startMenu();
 
-//        bParser = new BoardParser();
-//
-//        try {
-//            bParser.parseBoard(board.getPieces());
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
+        bParser = new BoardParser();
+
+        bParser.exportBoard(board.getPieces());
 
     }
 
