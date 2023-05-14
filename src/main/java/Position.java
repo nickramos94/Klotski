@@ -4,7 +4,6 @@ public class Position{
     int x;
     int y;
     final int MIN_MOUSE_DRAG = 5;
-    final int UNIT_IN_PIXEL = Window.BOARD_WIDTH / Board.WIDTH;  // BLOCK SIZE?
 
     public Position(int x, int y) {
         if(x < 0 || y < 0 || x > Window.BOARD_WIDTH || y > Window.BOARD_HEIGHT)
@@ -54,11 +53,11 @@ public class Position{
         return null;
     }
     public Position unitConverter() {
-        return new Position(x/UNIT_IN_PIXEL, y/UNIT_IN_PIXEL);
+        return new Position(x/Window.BLOCK_SIZE, y/Window.BLOCK_SIZE);
     }
 
     public Position pixelConverter() {
-        return new Position(x*UNIT_IN_PIXEL, y*UNIT_IN_PIXEL);
+        return new Position(x*Window.BLOCK_SIZE, y*Window.BLOCK_SIZE);
     }
 
     @Override

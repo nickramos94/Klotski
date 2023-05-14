@@ -1,10 +1,8 @@
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class Window extends JFrame  {
     final static String winName = "Klotski";
@@ -18,6 +16,7 @@ public class Window extends JFrame  {
     protected JPanel menu;
     protected JPanel board_view;
     private JMenuBar menuBar;
+    private JPanel[] pieces_view;
 
     public Window() {
         super(winName);
@@ -102,19 +101,62 @@ public class Window extends JFrame  {
     public void setBoard(Board board) {
 
         Piece[] pieces = board.getPieces();
-
+        pieces_view = new JPanel[pieces.length];
         for(int i = 0; i < pieces.length; i++) {
-            JButton b = new JButton();
             int[] prop = pieces[i].getProperties();
-            b.setBounds(prop[0] * BLOCK_SIZE, prop[1] * BLOCK_SIZE, prop[2] * BLOCK_SIZE, prop[3] * BLOCK_SIZE);
-            b.setBackground(Color.ORANGE);
-            b.setMargin(new Insets(0, 0, 0, 0));
-            b.setFocusPainted(false);
-            board_view.add(b);
+            pieces_view[i] = new JPanel();
+            pieces_view[i].setBounds(prop[0] * BLOCK_SIZE, prop[1] * BLOCK_SIZE, prop[2] * BLOCK_SIZE, prop[3] * BLOCK_SIZE);
+            pieces_view[i].setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, Color.GRAY));
+            pieces_view[i].setBackground(Color.ORANGE);
+            // possibile aggiunta di listener se si vuole fare che quando si passa sopra ad un pezzo
+            // con il mouse cambi colore, problema di conflitto con il listener della board
+            /*JPanel temp = pieces_view[i];
+            pieces_view[i].addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseEntered(MouseEvent e) {
+                    temp.setBackground(Color.BLUE);
+                }
+                @Override
+                public void mouseExited(MouseEvent e) {
+                    temp.setBackground(Color.ORANGE);;
+                }
+            });*/
+            board_view.add(pieces_view[i]);
         }
-
         revalidate();
         repaint();
+    }
+
+    public void movePiecePanel(Position piece_pos, int direction) {
+        int x_temp = piece_pos.x;
+        int y_temp = piece_pos.y;
+        if(direction == 0) {
+            getPiece(piece_pos).setLocation(new Point(x_temp, y_temp - BLOCK_SIZE));
+        }
+        else if(direction == 1) {
+            getPiece(piece_pos).setLocation(new Point(x_temp + BLOCK_SIZE, y_temp));
+        }
+        else if(direction == 2) {
+            getPiece(piece_pos).setLocation(new Point(x_temp, y_temp + BLOCK_SIZE));
+        }
+        else if(direction == 3) {
+            getPiece(piece_pos).setLocation(new Point(x_temp - BLOCK_SIZE, y_temp));
+        }
+        else {
+            throw new IllegalArgumentException("wrong direction use: 0 up, 1 right, 2 down, 3 left");
+        }
+    }
+
+    public void displayWin() {  //todo
+
+    }
+
+    public void pressedPiece(Position pos) {
+        getPiece(pos).setBackground(Color.BLUE);
+    }
+
+    public void releasedPiece(Position pos) {
+        getPiece(pos).setBackground(Color.ORANGE);
     }
 
     public void remove(JPanel panel) {
@@ -123,7 +165,19 @@ public class Window extends JFrame  {
         repaint();
     }
 
+    private JPanel getPiece(Position piece_pos) {
+        for (int i = 0; i < pieces_view.length; i++) {
+            if(piece_pos.isEqual(new Position(pieces_view[i].getLocation()))) {
+                return pieces_view[i];
+            }
+        }
+        return null;
+    }
+
     public JButton getButton(String key) {
         return ((JButton)menu.getClientProperty(key));
+    }
+    public JComboBox getComboBox(String key) {
+        return (JComboBox) menu.getClientProperty("level_selection");
     }
 }

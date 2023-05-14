@@ -24,6 +24,19 @@ public class Board {
             pieces[8] = new Piece(2, 3, 1, 1);   //quadrato 1x1
             pieces[9] = new Piece(1, 4, 2, 1);   //rettangolo 2x1
         }
+        else if(configuration == 2) {       // TEMPORARY ADDITION: second configuration
+                                            // to try level selection and win condition
+            pieces[0] = new Piece(1, 2, 2, 2);   //quadrato 2x2
+            pieces[1] = new Piece(0, 0, 1, 2);   //rettangolo 1x2
+            pieces[2] = new Piece(3, 0, 1, 2);   //rettangolo 1x2
+            pieces[3] = new Piece(0, 2, 1, 2);   //rettangolo 1x2
+            pieces[4] = new Piece(3, 2, 1, 2);   //rettangolo 1x2
+            pieces[5] = new Piece(1, 0, 1, 1);   //quadrato 1x1
+            pieces[6] = new Piece(2, 0, 1, 1);   //quadrato 1x1
+            pieces[7] = new Piece(1, 1, 1, 1);   //quadrato 1x1
+            pieces[8] = new Piece(2, 1, 1, 1);   //quadrato 1x1
+            pieces[9] = new Piece(1, 4, 1, 1);   //quadrato 1x1
+        }
     }
 
     public boolean selectPiece(Position pos)
@@ -48,10 +61,10 @@ public class Board {
         if(direction>3 || direction <0)
             throw new IllegalArgumentException();
 
-        if(selected_piece == pieces[0] && pieces[0].getX() == 1 && pieces[0].getY() == 3 && direction == 3) //caso in cui il pezzo 2x2 si trova l'uscita e voglio spingerlo giu
+        if(selected_piece == pieces[0] && pieces[0].getX() == 1 && pieces[0].getY() == 3 && direction == 2) //caso in cui il pezzo 2x2 si trova l'uscita e voglio spingerlo giu
         {
             hasWon = true;
-            return true;
+            return false;
         }
 
         if(out_of_bounds(direction))
