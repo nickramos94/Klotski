@@ -15,6 +15,8 @@ public class BoardParser {
 
     public BoardParser()
     {}
+
+    //Metodo che trasforma la scacchiera in una stringa JSON
     public String exportBoard(Piece[] p) throws JsonProcessingException {
 
         //Oggetti della libreria Jackson per serializzare gli attributi dei pezzi in un JSON
@@ -76,12 +78,12 @@ public class BoardParser {
         return pieces;
     }
 
+    //Salva la posizione dei pezzi sulla scacchiera in un file JSOn
     public void saveState(Piece[] p) throws IOException {
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter("save.json"));
             writer.write(exportBoard(p));
             writer.close();
-            System.out.println("\n");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
