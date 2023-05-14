@@ -1,13 +1,18 @@
+import com.fasterxml.jackson.core.JsonProcessingException;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
+import java.net.MalformedURLException;
 
 public class Game extends Window {
     private Board board;
 
     private BoardParser bParser;
+
+    private Solver solver;
     private Position press_position;
     private boolean pause_listener;
 
@@ -22,7 +27,13 @@ public class Game extends Window {
                 System.out.println("Level number: " + (level));     //DEBUG: selected level number
                 remove(menu);
                 board = new Board(level);
-                startGame();
+                try {
+                    startGame();
+                } catch (JsonProcessingException ex) {
+                    throw new RuntimeException(ex);
+                } catch (MalformedURLException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
         });
 
@@ -67,10 +78,11 @@ public class Game extends Window {
         });
 
         startMenu();
+
     }
 
     public void saveState() {
-        bParser = new BoardParser();
+
 //
 //       bParser.exportBoard(board.getPieces());
 //
@@ -86,7 +98,18 @@ public class Game extends Window {
         showMenu();
     }
 
-    void startGame() {
+    void startGame() throws JsonProcessingException, MalformedURLException {
         showBoard(board);
+        bParser = new BoardParser();
+
+        solver = new Solver();
+        try {
+            solver.sendToSolver(bParser.exportBoard(board.getPieces()));
+        } catch (MalformedURLException e) {
+            throw new RuntimeException(e);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+        board.getPieces();
     }
 }

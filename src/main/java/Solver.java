@@ -9,6 +9,8 @@ import java.nio.charset.StandardCharsets;
 public class Solver {
     private static URL url;
 
+    public Solver() {};
+
     public static void sendToSolver(String file) throws MalformedURLException {
         try {
             URL url = new URL("http://16.16.110.46/");
@@ -17,10 +19,12 @@ public class Solver {
             con.setDoOutput(true);
             con.setRequestProperty("Content-Type", "application/json");
             con.setRequestProperty("Accept", "application/json");
-            byte[] out = file.getBytes(StandardCharsets.UTF_8);
-            OutputStream stream = con.getOutputStream();
-            stream.write(out);
-            System.out.println(con.getResponseCode() + " " + con.getResponseMessage()); // THis is optional
+            con.setDoOutput(true);
+            try(OutputStream os = con.getOutputStream()) {
+                byte[] input = file.getBytes("utf-8");
+                os.write(input, 0, input.length);
+            }
+            System.out.println(con.getResponseCode() + " " + con.getResponseMessage());
             con.disconnect();
         } catch (MalformedURLException e) {
             throw new RuntimeException(e);
