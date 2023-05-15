@@ -59,7 +59,9 @@ public class Window extends JFrame  {
         // Menu bar
         menuBar = new JMenuBar();
         JMenu fileMenu = new JMenu("Settings");
+        menuBar.putClientProperty("Settings", fileMenu);
         JMenu fileUndo = new JMenu("Undo");
+        menuBar.putClientProperty("Undo", fileUndo);
         menuBar.add(fileMenu);
         menuBar.add(fileUndo);
 
@@ -67,9 +69,7 @@ public class Window extends JFrame  {
         JMenuItem openItem = new JMenuItem("Load");
         fileMenu.add(newItem);
         fileMenu.add(openItem);
-        menuBar.
-
-        setVisible(true);
+        menuBar.setVisible(true);
     }
 
     public void setWindowSize(int width, int height) {
@@ -87,11 +87,9 @@ public class Window extends JFrame  {
     }
 
     public void showBoard(Board board) {
+        setJMenuBar(menuBar);
         setWindowSize(BOARD_WIDTH, BOARD_HEIGHT);
         pack();
-
-        // setJMenuBar(menuBar);
-
         remove(menu);
         setBoard(board);
         add(board_view);
@@ -178,6 +176,10 @@ public class Window extends JFrame  {
         return ((JButton)menu.getClientProperty(key));
     }
     public JComboBox getComboBox(String key) {
-        return (JComboBox) menu.getClientProperty("level_selection");
+        return (JComboBox) menu.getClientProperty(key);
+    }
+
+    public JMenuItem getMenuItem(int menu_index, int item_index) {
+        return (JMenuItem) menuBar.getMenu(menu_index).getItem(item_index);
     }
 }
