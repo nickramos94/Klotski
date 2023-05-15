@@ -68,8 +68,7 @@ public class Piece {
 
     public int[] getProperties()
     {
-        int[] properties = {position.x, position.y, width, height};
-        return properties;
+        return new int[]{position.x, position.y, width, height};
     }
 
 }

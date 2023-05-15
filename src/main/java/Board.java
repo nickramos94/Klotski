@@ -3,15 +3,18 @@ public class Board {
     private Piece selected_piece;
     private boolean hasWon;
     private int moves_counter;
+    private int configuration;
     public final static int WIDTH = 4;
     public final static int HEIGHT = 5;
 
-    public Board(int configuration)
+    public Board(int config)
     {
         pieces = new Piece[10];
         selected_piece = null;
         hasWon = false;
         moves_counter = 0;
+        configuration = config;
+
         if (configuration == 1) {
             pieces[0] = new Piece(1, 0, 2, 2);   //quadrato 2x2
             pieces[1] = new Piece(0, 0, 1, 2);   //rettangolo 1x2
@@ -59,7 +62,7 @@ public class Board {
             return false;
 
         if(direction>3 || direction <0)
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Direzione non valida");
 
         if(selected_piece == pieces[0] && pieces[0].getX() == 1 && pieces[0].getY() == 3 && direction == 2) //caso in cui il pezzo 2x2 si trova l'uscita e voglio spingerlo giu
         {
@@ -140,7 +143,8 @@ public class Board {
         return hasWon;
     }
 
-    public Position getSelectedPiece() {
+    public Position getSelectedPiece()
+    {
         if(selected_piece == null)
             return null;
         return new Position(selected_piece.getX(), selected_piece.getY());
@@ -168,50 +172,9 @@ public class Board {
         return moves_counter;
     }
 
-   /* public String toString()                    METODO SCRAUSO GIUSTO PER AVERE UNA VISIONE GRAFICA DI QUELLO CHE SUCCEDE, USATO SOLO PER PROVARE A FARE QUALCHE TEST, METODO CHE HO CHIAMATO DOPO OGNI movePiece()
+    public int getConfiguration()
     {
-        char[][] board = new char[LENGTH][HEIGHT];
-        int x=pieces[0].getX();
-        int y=pieces[0].getY();
-        board[x][y]='Q'; board[x+1][y]='Q'; board[x][y+1]='Q'; board[x+1][y+1]='Q';
-        x=pieces[5].getX();
-        y=pieces[5].getY();
-        board[x][y]='a';
-        x=pieces[6].getX();
-        y=pieces[6].getY();
-        board[x][y]='b';
-        x=pieces[7].getX();
-        y=pieces[7].getY();
-        board[x][y]='c';
-        x=pieces[8].getX();
-        y=pieces[8].getY();
-        board[x][y]='d';
-        x=pieces[1].getX();
-        y=pieces[1].getY();
-        board[x][y]='e';board[x][y+1]='e';
-        x=pieces[2].getX();
-        y=pieces[2].getY();
-        board[x][y]='f';board[x][y+1]='f';
-        x=pieces[3].getX();
-        y=pieces[3].getY();
-        board[x][y]='g';board[x][y+1]='g';
-        x=pieces[4].getX();
-        y=pieces[4].getY();
-        board[x][y]='h';board[x][y+1]='h';
-        x=pieces[9].getX();
-        y=pieces[9].getY();
-        board[x][y]='i';board[x+1][y]='i';
-
-        String grafico="";
-        for(int i=0;i<5;i++)
-        {
-            for(int j=0;j<4;j++)
-            {
-                grafico = grafico + ' ' + board[j][i];
-            }
-            grafico += '\n';
-        }
-        return grafico;
-    } */
+        return configuration;
+    }
 }
 
