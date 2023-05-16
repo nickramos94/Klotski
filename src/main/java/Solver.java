@@ -13,7 +13,7 @@ public class Solver {
 
     public static void sendToSolver(String file) throws MalformedURLException {
         try {
-            URL url = new URL("http://16.16.110.46/");
+            URL url = new URL("http://13.49.148.80/");
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
             con.setRequestMethod("POST");
             con.setDoOutput(true);
