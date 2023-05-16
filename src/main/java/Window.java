@@ -20,7 +20,7 @@ public class Window extends JFrame  {
 
     public Window() {
         super(winName);
-        setSize(MENU_WIDTH, MENU_HEIGHT);
+        setSize(BOARD_WIDTH, BOARD_HEIGHT);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
@@ -45,12 +45,12 @@ public class Window extends JFrame  {
         playBtn.setPreferredSize(new Dimension(100, 50));
         playBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        JPanel levelMenu = new JPanel();
-        levelMenu.add(selectLevel);
-        levelMenu.add(playBtn);
+        JPanel levelSelection = new JPanel();
+        levelSelection.add(selectLevel);
+        levelSelection.add(playBtn);
 
         menu.add(title, BorderLayout.NORTH);
-        menu.add(levelMenu, BorderLayout.CENTER);
+        menu.add(levelSelection, BorderLayout.CENTER);
 
         // Create BOARD
         board_view = new JPanel(null);
@@ -60,16 +60,38 @@ public class Window extends JFrame  {
         menuBar = new JMenuBar();
         JMenu fileMenu = new JMenu("Settings");
         menuBar.putClientProperty("Settings", fileMenu);
-        JMenu fileUndo = new JMenu("Undo");
-        menuBar.putClientProperty("Undo", fileUndo);
-        menuBar.add(fileMenu);
-        menuBar.add(fileUndo);
+        JMenu levelMenu = new JMenu("Levels");
+        menuBar.putClientProperty("Levels", levelMenu);
+        JButton reset = new JButton("Reset");
+        menuBar.putClientProperty("Reset", reset);
+        JButton undo = new JButton("Undo");
+        menuBar.putClientProperty("Undo", undo);
+        JButton bestMove = new JButton("Best move");
+        menuBar.putClientProperty("Best move", bestMove);
 
+        // fileMenu items
         JMenuItem newItem = new JMenuItem("Save");
         JMenuItem openItem = new JMenuItem("Load");
+        JMenuItem mainItem = new JMenuItem("Main menu");
         fileMenu.add(newItem);
         fileMenu.add(openItem);
+        fileMenu.add(mainItem);
         menuBar.setVisible(true);
+
+        // levelMenu items
+        JMenuItem level1 = new JMenuItem("Level 1");
+        JMenuItem level2 = new JMenuItem("Level 2");
+        levelMenu.add(level1);
+        levelMenu.add(level2);
+        menuBar.setVisible(true);
+
+        // add to menu and buttons to menu bar
+        menuBar.add(fileMenu);
+        menuBar.add(levelMenu);
+        menuBar.add(reset);
+        menuBar.add(Box.createGlue());
+        menuBar.add(undo);
+        menuBar.add(bestMove);
     }
 
     public void setWindowSize(int width, int height) {
@@ -79,7 +101,7 @@ public class Window extends JFrame  {
     }
 
     public void showMenu() {
-        setSize(MENU_WIDTH, MENU_HEIGHT);
+        setWindowSize(BOARD_WIDTH, BOARD_HEIGHT);
         remove(board_view);
         add(menu, BorderLayout.CENTER);
         revalidate();
@@ -96,8 +118,13 @@ public class Window extends JFrame  {
         setVisible(true);
     }
 
-    public void setBoard(Board board) {
+    // method for reset
+    public void reloadBoard(Board board) {
+        board_view.removeAll();
+        setBoard(board);
+    }
 
+    public void setBoard(Board board) {
         Piece[] pieces = board.getPieces();
         pieces_view = new JPanel[pieces.length];
         for(int i = 0; i < pieces.length; i++) {
@@ -172,7 +199,7 @@ public class Window extends JFrame  {
         return null;
     }
 
-    public JButton getButton(String key) {
+    public JButton getPlayButton(String key) {
         return ((JButton)menu.getClientProperty(key));
     }
     public JComboBox getComboBox(String key) {
@@ -181,5 +208,9 @@ public class Window extends JFrame  {
 
     public JMenuItem getMenuItem(int menu_index, int item_index) {
         return (JMenuItem) menuBar.getMenu(menu_index).getItem(item_index);
+    }
+
+    public JButton getMenuBarButton(String key) {
+        return (JButton) menuBar.getClientProperty(key);
     }
 }
