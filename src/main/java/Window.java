@@ -1,6 +1,29 @@
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
+
+class Button extends JButton {
+    Button(String str) {
+        super(str);
+        setBackground(Color.BLACK);
+        setForeground(Color.WHITE);
+        setBorderPainted(false);
+        setFocusable(false);
+
+        addMouseListener(new MouseAdapter() {
+            public void mouseEntered(MouseEvent e) {
+                setForeground(Color.ORANGE);
+            }
+        
+            public void mouseExited(MouseEvent e) {
+                setForeground(Color.WHITE);
+            }
+        });
+    }
+}
 
 public class Window extends JFrame  {
 
@@ -54,15 +77,19 @@ public class Window extends JFrame  {
 
         // Menu bar
         menuBar = new JMenuBar();
+        menuBar.setBackground(Color.WHITE);
+        
         JMenu fileMenu = new JMenu("Settings");
         menuBar.putClientProperty("Settings", fileMenu);
         JMenu levelMenu = new JMenu("Levels");
         menuBar.putClientProperty("Levels", levelMenu);
-        JButton reset = new JButton("Reset");
+        
+        Button reset = new Button("Reset");
         menuBar.putClientProperty("Reset", reset);
-        JButton undo = new JButton("Undo");
+        Button undo = new Button("Undo");
+
         menuBar.putClientProperty("Undo", undo);
-        JButton bestMove = new JButton("Best move");
+        Button bestMove = new Button("Best move");
         menuBar.putClientProperty("Best move", bestMove);
 
         JLabel moves = new JLabel("Moves: 0");
