@@ -33,6 +33,7 @@ public class Window extends JFrame  {
     final static public int BOARD_HEIGHT = Board.HEIGHT * BLOCK_SIZE;
 
     protected JPanel menu;
+    private JMenuBar mainBar;
     private JMenuBar menuBar;
     protected JPanel board_view;
     private JPanel[] pieces_view;
@@ -40,6 +41,7 @@ public class Window extends JFrame  {
     public Window() {
         super(winName);
         setSize(BOARD_WIDTH, BOARD_HEIGHT);
+        setWindowSize(BOARD_WIDTH, BOARD_HEIGHT);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
@@ -116,9 +118,20 @@ public class Window extends JFrame  {
         menuBar.add(levelMenu);
         menuBar.add(reset);
         menuBar.add(moves);
-        menuBar.add(Box.createGlue());
+        menuBar.add(Box.createHorizontalGlue());
         menuBar.add(undo);
         menuBar.add(bestMove);
+
+
+        // main menu bar
+        mainBar = new JMenuBar();
+        mainBar.setBackground(Color.WHITE);
+
+        Button info = new Button("Info");
+        Button help = new Button("Help");
+
+        mainBar.add(info);
+        mainBar.add(help);
     }
 
     public void setWindowSize(int width, int height) {
@@ -128,21 +141,22 @@ public class Window extends JFrame  {
     }
 
     public void showMenu() {
-        setWindowSize(BOARD_WIDTH, BOARD_HEIGHT);
         remove(board_view);
+        setJMenuBar(mainBar);
+        pack();
         add(menu, BorderLayout.CENTER);
         revalidate();
         repaint();
     }
 
     public void showBoard(Board board) {
-        setJMenuBar(menuBar);
-        setWindowSize(BOARD_WIDTH, BOARD_HEIGHT);
-        pack();
         remove(menu);
-        setBoard(board);
+        setJMenuBar(menuBar);
+        pack();
+        reloadBoard(board);
         add(board_view);
-        setVisible(true);
+        revalidate();
+        repaint();
     }
 
     public void reloadBoard(Board board) {

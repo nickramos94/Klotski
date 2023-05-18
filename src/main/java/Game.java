@@ -15,9 +15,7 @@ public class Game extends Window {
 
         getPlayButton("play_button").addActionListener(e -> {
             level = getComboBox("level_selection").getSelectedIndex() + 1;
-            remove(menu);
-            board = new Board(level);
-            startGame();
+            startGame(level);
         });
 
         // mouse listener for movePiece
@@ -64,26 +62,36 @@ public class Game extends Window {
             }
         });
 
-        getMenuItem(0, 0).addActionListener(e -> { saveState(); });
-        getMenuBarButton("Reset").addActionListener(e -> { reset(); });
+        getMenuItem(0, 0).addActionListener(e -> saveState());  // save action listener
+        getMenuItem(0, 2).addActionListener(e -> startMenu());   // return to main menu action listener
+        getMenuItem(1, 0).addActionListener(e -> setLevel(1));  // level 1 action listener
+        getMenuItem(1, 1).addActionListener(e -> setLevel(2));  // level 2 action listener
+        getMenuBarButton("Reset").addActionListener(e -> reset());     // reset action listener
 
         startMenu();
     }
 
-    void startMenu() {
+    private void startMenu() {
         showMenu();
     }
 
-    void startGame() {
+    private void startGame(int level) {
+        board = new Board(level);
         showBoard(board);
     }
 
-    public void reset() {
+    private void setLevel(int level_number) {
+        level = level_number;
+        board = new Board(level_number);
+        reloadBoard(board);
+    }
+
+    private void reset() {
         board = new Board(level);
         reloadBoard(board);
     }
 
-    public void saveState() {
+    private void saveState() {
         bParser = new BoardParser();
         try {
             bParser.saveState(board.getPieces());
