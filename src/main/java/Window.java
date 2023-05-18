@@ -1,21 +1,17 @@
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 public class Window extends JFrame  {
-    final static String winName = "Klotski";
-    final static int MENU_WIDTH = 800;
-    final static int MENU_HEIGHT = 600;
-    final static int BLOCK_SIZE = 120;
 
-    static public int BOARD_WIDTH = Board.WIDTH * BLOCK_SIZE;
-    static public int BOARD_HEIGHT = Board.HEIGHT * BLOCK_SIZE;
+    final static String winName = "Klotski";
+    final static public int BLOCK_SIZE = 120;
+    final static public int BOARD_WIDTH = Board.WIDTH * BLOCK_SIZE;
+    final static public int BOARD_HEIGHT = Board.HEIGHT * BLOCK_SIZE;
 
     protected JPanel menu;
-    protected JPanel board_view;
     private JMenuBar menuBar;
+    protected JPanel board_view;
     private JPanel[] pieces_view;
 
     public Window() {
@@ -69,6 +65,9 @@ public class Window extends JFrame  {
         JButton bestMove = new JButton("Best move");
         menuBar.putClientProperty("Best move", bestMove);
 
+        JLabel moves = new JLabel("Moves: 0");
+        menuBar.putClientProperty("moves", moves);
+
         // fileMenu items
         JMenuItem newItem = new JMenuItem("Save");
         JMenuItem openItem = new JMenuItem("Load");
@@ -89,6 +88,7 @@ public class Window extends JFrame  {
         menuBar.add(fileMenu);
         menuBar.add(levelMenu);
         menuBar.add(reset);
+        menuBar.add(moves);
         menuBar.add(Box.createGlue());
         menuBar.add(undo);
         menuBar.add(bestMove);
@@ -118,13 +118,13 @@ public class Window extends JFrame  {
         setVisible(true);
     }
 
-    // method for reset
     public void reloadBoard(Board board) {
         board_view.removeAll();
         setBoard(board);
     }
 
     public void setBoard(Board board) {
+        setMoves(board.getMoves());
         Piece[] pieces = board.getPieces();
         pieces_view = new JPanel[pieces.length];
         for(int i = 0; i < pieces.length; i++) {
@@ -133,28 +133,20 @@ public class Window extends JFrame  {
             pieces_view[i].setBounds(prop[0] * BLOCK_SIZE, prop[1] * BLOCK_SIZE, prop[2] * BLOCK_SIZE, prop[3] * BLOCK_SIZE);
             pieces_view[i].setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, Color.GRAY));
             pieces_view[i].setBackground(Color.ORANGE);
-            // possibile aggiunta di listener se si vuole fare che quando si passa sopra ad un pezzo
-            // con il mouse cambi colore, problema di conflitto con il listener della board
-            /*JPanel temp = pieces_view[i];
-            pieces_view[i].addMouseListener(new MouseAdapter() {
-                @Override
-                public void mouseEntered(MouseEvent e) {
-                    temp.setBackground(Color.BLUE);
-                }
-                @Override
-                public void mouseExited(MouseEvent e) {
-                    temp.setBackground(Color.ORANGE);;
-                }
-            });*/
             board_view.add(pieces_view[i]);
         }
         revalidate();
         repaint();
     }
 
+    public void setMoves(int m) {
+        getLabel(menuBar, "moves").setText("Moves: " + m);
+    }
+
     public void movePiecePanel(Position piece_pos, int direction) {
         int x_temp = piece_pos.x;
         int y_temp = piece_pos.y;
+
         if(direction == 0) {
             getPiece(piece_pos).setLocation(new Point(x_temp, y_temp - BLOCK_SIZE));
         }
@@ -202,6 +194,11 @@ public class Window extends JFrame  {
     public JButton getPlayButton(String key) {
         return ((JButton)menu.getClientProperty(key));
     }
+
+    public JLabel getLabel(JComponent c, String key) {
+        return ((JLabel) c.getClientProperty(key));
+    }
+
     public JComboBox getComboBox(String key) {
         return (JComboBox) menu.getClientProperty(key);
     }

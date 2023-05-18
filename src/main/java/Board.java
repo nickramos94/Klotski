@@ -1,8 +1,9 @@
 public class Board {
+    
     private Piece[] pieces;
     private Piece selected_piece;
     private boolean hasWon;
-    private int moves_counter;
+    private int moves;
     private int configuration;
     public final static int WIDTH = 4;
     public final static int HEIGHT = 5;
@@ -12,7 +13,7 @@ public class Board {
         pieces = new Piece[10];
         selected_piece = null;
         hasWon = false;
-        moves_counter = 0;
+        moves = 0;
         configuration = config;
 
         if (configuration == 1) {
@@ -110,7 +111,7 @@ public class Board {
         }
 
         selected_piece.move(direction);
-        moves_counter++;
+        moves++;
         return true;
     }
 
@@ -169,7 +170,7 @@ public class Board {
 
     public int getMoves()
     {
-        return moves_counter;
+        return moves;
     }
 
     public int getConfiguration()
