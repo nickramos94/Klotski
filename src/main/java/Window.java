@@ -30,7 +30,7 @@ public class Window extends JFrame  {
     final static String winName = "Klotski";
     final static public int BLOCK_SIZE = 120;
     final static public int BOARD_WIDTH = Board.WIDTH * BLOCK_SIZE;
-    final static public int BOARD_HEIGHT = Board.HEIGHT * BLOCK_SIZE;
+    final static public int BOARD_HEIGHT = Board.HEIGHT * BLOCK_SIZE + 5;
 
     protected JPanel menu;
     private JMenuBar mainBar;
@@ -42,6 +42,7 @@ public class Window extends JFrame  {
         super(winName);
         setSize(BOARD_WIDTH, BOARD_HEIGHT);
         setWindowSize(BOARD_WIDTH, BOARD_HEIGHT);
+        pack();
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
@@ -76,6 +77,12 @@ public class Window extends JFrame  {
         // Create BOARD
         board_view = new JPanel(null);
         board_view.setBackground(Color.GRAY);
+
+        JButton b = new JButton("TEST");
+        b.setBackground(Color.ORANGE);
+        // button.setEnabled(false); // Set the button as disabled
+        b.setBounds(0, 0,BOARD_WIDTH, BOARD_HEIGHT);
+        board_view.add(b);
 
         // Menu bar
         menuBar = new JMenuBar();
@@ -143,7 +150,6 @@ public class Window extends JFrame  {
     public void showMenu() {
         remove(board_view);
         setJMenuBar(mainBar);
-        pack();
         add(menu, BorderLayout.CENTER);
         revalidate();
         repaint();
@@ -168,6 +174,13 @@ public class Window extends JFrame  {
         setMoves(board.getMoves());
         Piece[] pieces = board.getPieces();
         pieces_view = new JPanel[pieces.length];
+        
+        JButton exit = new JButton();
+        exit.setBackground(Color.RED);
+        exit.setEnabled(false); // Set the button as disabled
+        exit.setBounds(BLOCK_SIZE, BOARD_HEIGHT - 5, BLOCK_SIZE * 2, 5);
+        board_view.add(exit);
+
         for(int i = 0; i < pieces.length; i++) {
             int[] prop = pieces[i].getProperties();
             pieces_view[i] = new JPanel();
@@ -176,6 +189,7 @@ public class Window extends JFrame  {
             pieces_view[i].setBackground(Color.ORANGE);
             board_view.add(pieces_view[i]);
         }
+
         revalidate();
         repaint();
     }
