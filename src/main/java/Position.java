@@ -40,17 +40,13 @@ public class Position{
                 return 3;   // left
         else                                // x axis
             if(dy > 0)
-                return 2;   //down
+                return 0;   //down
             else
-                return 0;   //up
+                return 2;   //up
     }
 
     public boolean isEqual(Position pos) {
         return xDistance(pos)==0 && yDistance(pos)==0;
-    }
-
-    public Position pixel_converter() {
-        return null;
     }
     public Position unitConverter() {
         return new Position(x/Window.BLOCK_SIZE, y/Window.BLOCK_SIZE);

@@ -202,13 +202,13 @@ public class Window extends JFrame  {
         int x_temp = piece_pos.x;
         int y_temp = piece_pos.y;
 
-        if(direction == 0) {
+        if(direction == 2) {
             getPiece(piece_pos).setLocation(new Point(x_temp, y_temp - BLOCK_SIZE));
         }
         else if(direction == 1) {
             getPiece(piece_pos).setLocation(new Point(x_temp + BLOCK_SIZE, y_temp));
         }
-        else if(direction == 2) {
+        else if(direction == 0) {
             getPiece(piece_pos).setLocation(new Point(x_temp, y_temp + BLOCK_SIZE));
         }
         else if(direction == 3) {

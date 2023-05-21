@@ -66,7 +66,7 @@ public class Board {
         if(direction>3 || direction <0)
             throw new IllegalArgumentException("Direzione non valida");
 
-        if(selected_piece == pieces[0] && pieces[0].getX() == 1 && pieces[0].getY() == 3 && direction == 2) //caso in cui il pezzo 2x2 si trova l'uscita e voglio spingerlo giu
+        if(selected_piece == pieces[0] && pieces[0].getX() == 1 && pieces[0].getY() == 3 && direction == 0) //caso in cui il pezzo 2x2 si trova l'uscita e voglio spingerlo giu
         {
             hasWon = true;
             return false;
