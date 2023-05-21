@@ -3,7 +3,7 @@ import java.awt.*;
 public class Position{
     int x;
     int y;
-    final int MIN_MOUSE_DRAG = 5;
+    final int MIN_MOUSE_DRAG = 3;
 
     public Position(int x, int y) {
         if(x < 0 || y < 0 || x > Window.BOARD_WIDTH || y > Window.BOARD_HEIGHT)

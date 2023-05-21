@@ -4,23 +4,45 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class Window extends JFrame  {
-    final static String winName = "Klotski";
-    final static int MENU_WIDTH = 800;
-    final static int MENU_HEIGHT = 600;
-    final static int BLOCK_SIZE = 120;
 
-    static public int BOARD_WIDTH = Board.WIDTH * BLOCK_SIZE;
-    static public int BOARD_HEIGHT = Board.HEIGHT * BLOCK_SIZE;
+class Button extends JButton {
+    Button(String str) {
+        super(str);
+        setBackground(Color.BLACK);
+        setForeground(Color.WHITE);
+        setBorderPainted(false);
+        setFocusable(false);
+
+        addMouseListener(new MouseAdapter() {
+            public void mouseEntered(MouseEvent e) {
+                setForeground(Color.ORANGE);
+            }
+        
+            public void mouseExited(MouseEvent e) {
+                setForeground(Color.WHITE);
+            }
+        });
+    }
+}
+
+public class Window extends JFrame  {
+
+    final static String winName = "Klotski";
+    final static public int BLOCK_SIZE = 120;
+    final static public int BOARD_WIDTH = Board.WIDTH * BLOCK_SIZE;
+    final static public int BOARD_HEIGHT = Board.HEIGHT * BLOCK_SIZE + 5;
 
     protected JPanel menu;
-    protected JPanel board_view;
+    private JMenuBar mainBar;
     private JMenuBar menuBar;
+    protected JPanel board_view;
     private JPanel[] pieces_view;
 
     public Window() {
         super(winName);
-        setSize(MENU_WIDTH, MENU_HEIGHT);
+        setSize(BOARD_WIDTH, BOARD_HEIGHT);
+        setWindowSize(BOARD_WIDTH, BOARD_HEIGHT);
+        pack();
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
@@ -45,31 +67,78 @@ public class Window extends JFrame  {
         playBtn.setPreferredSize(new Dimension(100, 50));
         playBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        JPanel levelMenu = new JPanel();
-        levelMenu.add(selectLevel);
-        levelMenu.add(playBtn);
+        JPanel levelSelection = new JPanel();
+        levelSelection.add(selectLevel);
+        levelSelection.add(playBtn);
 
         menu.add(title, BorderLayout.NORTH);
-        menu.add(levelMenu, BorderLayout.CENTER);
+        menu.add(levelSelection, BorderLayout.CENTER);
 
         // Create BOARD
         board_view = new JPanel(null);
         board_view.setBackground(Color.GRAY);
 
+        JButton b = new JButton("TEST");
+        b.setBackground(Color.ORANGE);
+        // button.setEnabled(false); // Set the button as disabled
+        b.setBounds(0, 0,BOARD_WIDTH, BOARD_HEIGHT);
+        board_view.add(b);
+
         // Menu bar
         menuBar = new JMenuBar();
+        menuBar.setBackground(Color.WHITE);
+        
         JMenu fileMenu = new JMenu("Settings");
-        JMenu fileUndo = new JMenu("Undo");
-        menuBar.add(fileMenu);
-        menuBar.add(fileUndo);
+        menuBar.putClientProperty("Settings", fileMenu);
+        JMenu levelMenu = new JMenu("Levels");
+        menuBar.putClientProperty("Levels", levelMenu);
+        
+        Button reset = new Button("Reset");
+        menuBar.putClientProperty("Reset", reset);
+        Button undo = new Button("Undo");
 
+        menuBar.putClientProperty("Undo", undo);
+        Button bestMove = new Button("Best move");
+        menuBar.putClientProperty("Best move", bestMove);
+
+        JLabel moves = new JLabel("Moves: 0");
+        menuBar.putClientProperty("moves", moves);
+
+        // fileMenu items
         JMenuItem newItem = new JMenuItem("Save");
         JMenuItem openItem = new JMenuItem("Load");
+        JMenuItem mainItem = new JMenuItem("Main menu");
         fileMenu.add(newItem);
         fileMenu.add(openItem);
-        menuBar.
+        fileMenu.add(mainItem);
+        menuBar.setVisible(true);
 
-        setVisible(true);
+        // levelMenu items
+        JMenuItem level1 = new JMenuItem("Level 1");
+        JMenuItem level2 = new JMenuItem("Level 2");
+        levelMenu.add(level1);
+        levelMenu.add(level2);
+        menuBar.setVisible(true);
+
+        // add to menu and buttons to menu bar
+        menuBar.add(fileMenu);
+        menuBar.add(levelMenu);
+        menuBar.add(reset);
+        menuBar.add(moves);
+        menuBar.add(Box.createHorizontalGlue());
+        menuBar.add(undo);
+        menuBar.add(bestMove);
+
+
+        // main menu bar
+        mainBar = new JMenuBar();
+        mainBar.setBackground(Color.WHITE);
+
+        Button info = new Button("Info");
+        Button help = new Button("Help");
+
+        mainBar.add(info);
+        mainBar.add(help);
     }
 
     public void setWindowSize(int width, int height) {
@@ -79,57 +148,60 @@ public class Window extends JFrame  {
     }
 
     public void showMenu() {
-        setSize(MENU_WIDTH, MENU_HEIGHT);
         remove(board_view);
+        setJMenuBar(mainBar);
         add(menu, BorderLayout.CENTER);
         revalidate();
         repaint();
     }
 
     public void showBoard(Board board) {
-        setWindowSize(BOARD_WIDTH, BOARD_HEIGHT);
-        pack();
-
-        // setJMenuBar(menuBar);
-
         remove(menu);
-        setBoard(board);
+        setJMenuBar(menuBar);
+        pack();
+        reloadBoard(board);
         add(board_view);
-        setVisible(true);
+        revalidate();
+        repaint();
+    }
+
+    public void reloadBoard(Board board) {
+        board_view.removeAll();
+        setBoard(board);
     }
 
     public void setBoard(Board board) {
-
+        setMoves(board.getMoves());
         Piece[] pieces = board.getPieces();
         pieces_view = new JPanel[pieces.length];
+        
+        JButton exit = new JButton();
+        exit.setBackground(Color.RED);
+        exit.setEnabled(false); // Set the button as disabled
+        exit.setBounds(BLOCK_SIZE, BOARD_HEIGHT - 5, BLOCK_SIZE * 2, 5);
+        board_view.add(exit);
+
         for(int i = 0; i < pieces.length; i++) {
             int[] prop = pieces[i].getProperties();
             pieces_view[i] = new JPanel();
             pieces_view[i].setBounds(prop[0] * BLOCK_SIZE, prop[1] * BLOCK_SIZE, prop[2] * BLOCK_SIZE, prop[3] * BLOCK_SIZE);
             pieces_view[i].setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, Color.GRAY));
             pieces_view[i].setBackground(Color.ORANGE);
-            // possibile aggiunta di listener se si vuole fare che quando si passa sopra ad un pezzo
-            // con il mouse cambi colore, problema di conflitto con il listener della board
-            /*JPanel temp = pieces_view[i];
-            pieces_view[i].addMouseListener(new MouseAdapter() {
-                @Override
-                public void mouseEntered(MouseEvent e) {
-                    temp.setBackground(Color.BLUE);
-                }
-                @Override
-                public void mouseExited(MouseEvent e) {
-                    temp.setBackground(Color.ORANGE);;
-                }
-            });*/
             board_view.add(pieces_view[i]);
         }
+
         revalidate();
         repaint();
+    }
+
+    public void setMoves(int m) {
+        getLabel(menuBar, "moves").setText("Moves: " + m);
     }
 
     public void movePiecePanel(Position piece_pos, int direction) {
         int x_temp = piece_pos.x;
         int y_temp = piece_pos.y;
+
         if(direction == 0) {
             getPiece(piece_pos).setLocation(new Point(x_temp, y_temp - BLOCK_SIZE));
         }
@@ -174,10 +246,23 @@ public class Window extends JFrame  {
         return null;
     }
 
-    public JButton getButton(String key) {
+    public JButton getPlayButton(String key) {
         return ((JButton)menu.getClientProperty(key));
     }
+
+    public JLabel getLabel(JComponent c, String key) {
+        return ((JLabel) c.getClientProperty(key));
+    }
+
     public JComboBox getComboBox(String key) {
-        return (JComboBox) menu.getClientProperty("level_selection");
+        return (JComboBox) menu.getClientProperty(key);
+    }
+
+    public JMenuItem getMenuItem(int menu_index, int item_index) {
+        return (JMenuItem) menuBar.getMenu(menu_index).getItem(item_index);
+    }
+
+    public JButton getMenuBarButton(String key) {
+        return (JButton) menuBar.getClientProperty(key);
     }
 }
