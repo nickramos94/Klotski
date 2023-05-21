@@ -47,7 +47,6 @@ public class Window extends JFrame  {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
         setVisible(true);
-
         // Create MENU
         menu = new JPanel();
         menu.setLayout(new BorderLayout());
@@ -167,10 +166,10 @@ public class Window extends JFrame  {
 
     public void reloadBoard(Board board) {
         board_view.removeAll();
-        setBoard(board);
+        setBoardView(board);
     }
 
-    public void setBoard(Board board) {
+    public void setBoardView(Board board) {
         setMoves(board.getMoves());
         Piece[] pieces = board.getPieces();
         pieces_view = new JPanel[pieces.length];

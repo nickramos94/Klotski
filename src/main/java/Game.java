@@ -70,8 +70,8 @@ public class Game extends Window {
         getMenuItem(0, 0).addActionListener(e -> saveState());  // save action listener
         getMenuItem(0, 1).addActionListener(e -> loadState());  // load action listener
         getMenuItem(0, 2).addActionListener(e -> startMenu());   // return to main menu action listener
-        getMenuItem(1, 0).addActionListener(e -> setLevel(1));  // level 1 action listener
-        getMenuItem(1, 1).addActionListener(e -> setLevel(2));  // level 2 action listener
+        getMenuItem(1, 0).addActionListener(e -> setBoard(1));  // level 1 action listener
+        getMenuItem(1, 1).addActionListener(e -> setBoard(2));  // level 2 action listener
         getMenuBarButton("Reset").addActionListener(e -> reset());     // reset action listener
         getMenuBarButton("Undo").addActionListener(e -> undo());     // undo action listener
         getMenuBarButton("Best move").addActionListener(e -> bestMove());     // best move action listener
@@ -88,9 +88,14 @@ public class Game extends Window {
         showBoard(board);
     }
 
-    private void setLevel(int level_number) {
+    private void setBoard(int level_number) {
         level = level_number;
         board = new Board(level_number);
+        reloadBoard(board);
+    }
+
+    private void setBoard(Board board) {
+        this.board = board;
         reloadBoard(board);
     }
 
@@ -109,6 +114,21 @@ public class Game extends Window {
         }
     }
 
+    public void loadState() {
+        bParser = new BoardParser();
+        try {
+            setBoard(new Board(bParser.importBoard("save.json")));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void undo() { }
+
+    public void bestMove() {
+        solve();
+    }
+
     //Manda la configurazione della tastiera ad un server esterno che ritorna la lista delle mosse necessarie per vincere il gioco
     public void solve() {
         bParser = new BoardParser();
@@ -121,12 +141,5 @@ public class Game extends Window {
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
-    }
-    public void loadState() { }
-
-    public void undo() { }
-
-    public void bestMove() {
-        solve();
     }
 }

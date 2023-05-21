@@ -27,7 +27,7 @@ public class Position{
 
     // return the direction of the vector this->final_pos
     // approximate to:
-    // up=0, right=1, down=2, left=3
+    // up=2, right=1, down=0, left=3
     public int direction(Position final_pos) {
         int dx = xDistance(final_pos);
         int dy = yDistance(final_pos);

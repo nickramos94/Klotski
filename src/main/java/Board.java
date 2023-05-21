@@ -1,3 +1,5 @@
+import java.util.List;
+
 public class Board {
     
     private Piece[] pieces;
@@ -9,14 +11,26 @@ public class Board {
     final static int HEIGHT = 5;
     private final static int PIECES_NUMBER = 10;
 
-    public Board(int config)
-    {
-        pieces = new Piece[10];
+    public Board() {
+        pieces = new Piece[PIECES_NUMBER];
         selected_piece = null;
         hasWon = false;
         moves = 0;
-        configuration = config;
+    }
 
+    public Board(List<int[]> pieces) {
+        this();
+        int index = 0;
+        for(int[] piece : pieces) {
+            this.pieces[index] = new Piece(piece[0], piece[1], piece[2], piece[3]);
+            index++;
+        }
+    }
+
+    public Board(int config)
+    {
+        this();
+        configuration = config;
         if (configuration == 1) {
             pieces[0] = new Piece(1, 0, 2, 2);   //quadrato 2x2
             pieces[1] = new Piece(0, 0, 1, 2);   //rettangolo 1x2
