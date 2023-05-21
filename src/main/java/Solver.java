@@ -10,6 +10,7 @@ public class Solver {
 
     public Solver() {};
 
+    //Manda il JSON delle posizioni dei pezzi sulla scacchiera al server esterno e riceve la lista delle mosse per vincere la partita
     public static void sendToSolver(String file) throws MalformedURLException {
         String resp = null;
         try {
@@ -20,11 +21,14 @@ public class Solver {
             con.setRequestProperty("Content-Type", "application/json");
             con.setRequestProperty("Accept", "application/json");
             con.setDoOutput(true);
+
+            //Manda il JSON al server
             try(OutputStream os = con.getOutputStream()) {
                 byte[] input = file.getBytes("utf-8");
                 os.write(input, 0, input.length);
             }
 
+            //Riceve in risposta il JSON con le mosse
             if(con.getResponseCode() == HttpURLConnection.HTTP_OK) {
                 try (InputStream inputStream = con.getInputStream()) {
                     StringBuilder response = new StringBuilder();

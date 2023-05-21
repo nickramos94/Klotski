@@ -1,12 +1,17 @@
+import com.fasterxml.jackson.core.JsonProcessingException;
+
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
+import java.net.MalformedURLException;
 
 public class Game extends Window {
     
     private Board board;
     private int level;
     private BoardParser bParser;
+
+    private Solver solver;
     private Position press_position;
     private boolean pause_listener;
 
@@ -91,16 +96,29 @@ public class Game extends Window {
         reloadBoard(board);
     }
 
+    //salva la configurazione attuale della scacchiera in un file JSON nel file-system locale
     private void saveState() {
         bParser = new BoardParser();
         try {
             bParser.saveState(board.getPieces());
-            bParser.importBoard("save.json");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
+    //Manda la configurazione della tastiera ad un server esterno che ritorna la lista delle mosse necessarie per vincere il gioco
+    public void solve() throws JsonProcessingException, MalformedURLException {
+        bParser = new BoardParser();
+        solver = new Solver();
+
+        try {
+            solver.sendToSolver(bParser.exportBoard(board.getPieces()));
+        } catch (MalformedURLException e) {
+            throw new RuntimeException(e);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+    }
     public void loadState() { }
 
     public void undo() { }
