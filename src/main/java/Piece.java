@@ -48,12 +48,12 @@ public class Piece {
 
     public void move(int direction)  //funzione chiamata da movePiece() di Board, dove sara fatto anche il controllo della validita del valore di direction
     {
-        if (direction == 0) // up
-            position.y--;
+        if (direction == 0) // down
+            position.y++;
         else if (direction == 1) // right
             position.x++;
-        else if (direction == 2) // down
-            position.y++;
+        else if (direction == 2) // up
+            position.y--;
         else if (direction == 3) // left
             position.x--;
     }

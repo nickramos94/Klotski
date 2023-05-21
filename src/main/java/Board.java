@@ -5,8 +5,9 @@ public class Board {
     private boolean hasWon;
     private int moves;
     private int configuration;
-    public final static int WIDTH = 4;
-    public final static int HEIGHT = 5;
+    final static int WIDTH = 4;
+    final static int HEIGHT = 5;
+    private final static int PIECES_NUMBER = 10;
 
     public Board(int config)
     {
@@ -45,7 +46,7 @@ public class Board {
 
     public boolean selectPiece(Position pos)
     {
-        for(int i=0; i<10; i++)
+        for(int i=0; i<PIECES_NUMBER; i++)
         {
             if(pieces[i].contains(pos.x,pos.y))
             {
@@ -80,28 +81,28 @@ public class Board {
 
         //il resto del codice si occupa delle possibili sovrapposizioni fra pezzi
         int i;
-        if(direction == 0)
+        if(direction == 0) //down
         {
             for(i=x; i<=(x+w-1); i++)  //scorro orizzontalmente il pezzo
             {
-                if(isOccupied(i,y-1)) //e guardo se e libero sopra di 1
+                if(isOccupied(i,y+h))  // e controllo che sotto la parte piu bassa del pezzo sia libero
                     return false;
             }
-        } else if(direction == 1)
+        } else if(direction == 1) //right
         {
             for(i=y; i<=(y+h-1); i++)  //scorro verticalmente il pezzo
             {
                 if(isOccupied((x+w),i))  // e controllo che accanto alla parte piu a destra del pezzo sia libero
                     return false;
             }
-        } else if(direction == 2)
+        } else if(direction == 2) //up
         {
             for(i=x; i<=(x+w-1); i++)  //scorro orizzontalmente il pezzo
             {
-                if(isOccupied(i,y+h))  // e controllo che sotto la parte piu bassa del pezzo sia liberp
+                if(isOccupied(i,y-1)) //e guardo se e libero sopra di 1
                     return false;
             }
-        } else if(direction == 3)
+        } else if(direction == 3) //left
         {
             for(i=y; i<=(y+h-1); i++)  //scorro verticalmente il pezzo
             {
@@ -118,11 +119,11 @@ public class Board {
     private boolean out_of_bounds(int dir)  //metodo a parte per semplificare movePieces(). Si occupa di una parte dei movimenti non fattibili
     {
         boolean out_of_bounds = false;
-        if(dir==0 && selected_piece.getY()==0)
+        if(dir==0 && (selected_piece.getY() + selected_piece.height) == HEIGHT)
             out_of_bounds = true;
         if(dir==1 && (selected_piece.getX() + selected_piece.width) == WIDTH)
             out_of_bounds = true;
-        if(dir==2 && (selected_piece.getY() + selected_piece.height) == HEIGHT)
+        if(dir==2 && selected_piece.getY()==0)
             out_of_bounds = true;
         if(dir==3 && selected_piece.getX()==0)
             out_of_bounds = true;
@@ -131,7 +132,7 @@ public class Board {
 
     private boolean isOccupied(int x, int y)
     {
-        for(int i=0; i<10;i++)
+        for(int i=0; i<PIECES_NUMBER; i++)
         {
             if(pieces[i].contains(x,y))   //scorro tutti e 10 i pezzi
                 return true;
@@ -158,7 +159,7 @@ public class Board {
 
     public Piece getPiece(Position pos)
     {
-        for(int i=0; i<10; i++)
+        for(int i=0; i<PIECES_NUMBER; i++)
         {
             if(pieces[i].contains(pos.x,pos.y))
             {
