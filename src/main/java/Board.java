@@ -188,6 +188,13 @@ public class Board {
         return moves;
     }
 
+    public boolean undoMove() {
+        if(moves == 0)
+            return false;
+        moves--;
+        return true;
+    }
+
     public int getConfiguration()
     {
         return configuration;

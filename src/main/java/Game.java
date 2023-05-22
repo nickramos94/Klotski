@@ -10,10 +10,11 @@ public class Game extends Window {
     private Board board;
     private int level;
     private BoardParser bParser;
-
     private Solver solver;
     private Position press_position;
     private boolean pause_listener;
+    final private String SAVE_FILE = "save.json";
+    final private String UNDO_FILE = "undo.json";
 
     public Game() {
         super();
@@ -52,6 +53,7 @@ public class Game extends Window {
                 if(board.getSelectedPiece() != null) {
                     Position piece_pos = board.getSelectedPiece().pixelConverter();
                     if (!pause_listener) {
+                        saveState(UNDO_FILE);
                         int move_direction = press_position.direction(new Position(e.getPoint()));
                         if (board.movePiece(move_direction)) {
                             setMoves(board.getMoves());
@@ -67,8 +69,8 @@ public class Game extends Window {
             }
         });
 
-        getMenuItem(0, 0).addActionListener(e -> saveState());  // save action listener
-        getMenuItem(0, 1).addActionListener(e -> loadState());  // load action listener
+        getMenuItem(0, 0).addActionListener(e -> saveState(SAVE_FILE));  // save action listener
+        getMenuItem(0, 1).addActionListener(e -> loadState(SAVE_FILE));  // load action listener
         getMenuItem(0, 2).addActionListener(e -> startMenu());   // return to main menu action listener
         getMenuItem(1, 0).addActionListener(e -> setBoard(1));  // level 1 action listener
         getMenuItem(1, 1).addActionListener(e -> setBoard(2));  // level 2 action listener
@@ -105,25 +107,28 @@ public class Game extends Window {
     }
 
     //salva la configurazione attuale della scacchiera in un file JSON nel file-system locale
-    private void saveState() {
+    private void saveState(String file) {
         bParser = new BoardParser();
         try {
-            bParser.saveState(board.getPieces());
+            bParser.saveState(board.getPieces(), file);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public void loadState() {
+    public void loadState(String file) {
         bParser = new BoardParser();
         try {
-            setBoard(new Board(bParser.importBoard("save.json")));
+            setBoard(new Board(bParser.importBoard(file)));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public void undo() { }
+    public void undo() {
+        if(board.undoMove())
+            loadState(UNDO_FILE);
+    }
 
     public void bestMove() {
         solve();

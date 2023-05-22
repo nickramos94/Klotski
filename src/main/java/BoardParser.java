@@ -79,9 +79,9 @@ public class BoardParser {
     }
 
     //Salva la posizione dei pezzi sulla scacchiera in un file JSOn
-    public void saveState(Piece[] p) throws IOException {
+    public void saveState(Piece[] p, String file) throws IOException {
         try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter("save.json"));
+            BufferedWriter writer = new BufferedWriter(new FileWriter(file));
             writer.write(exportBoard(p));
             writer.close();
         } catch (IOException e) {
