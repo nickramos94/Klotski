@@ -27,6 +27,12 @@ public class Board {
         }
     }
 
+    public Board(List<int[]> pieces, int move_num)
+    {
+        this(pieces);
+        moves = move_num;
+    }
+
     public Board(int config)
     {
         this();

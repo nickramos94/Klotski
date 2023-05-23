@@ -4,6 +4,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.util.List;
 
 public class Game extends Window {
     
@@ -11,10 +12,11 @@ public class Game extends Window {
     private int level;
     private BoardParser bParser;
     private Solver solver;
+    private List<Move> moves;
     private Position press_position;
+    private int move;
     private boolean pause_listener;
     final private String SAVE_FILE = "save.json";
-    final private String UNDO_FILE = "undo.json";
 
     public Game() {
         super();
@@ -53,7 +55,6 @@ public class Game extends Window {
                 if(board.getSelectedPiece() != null) {
                     Position piece_pos = board.getSelectedPiece().pixelConverter();
                     if (!pause_listener) {
-                        saveState(UNDO_FILE);
                         int move_direction = press_position.direction(new Position(e.getPoint()));
                         if (board.movePiece(move_direction)) {
                             setMoves(board.getMoves());
@@ -110,6 +111,7 @@ public class Game extends Window {
     private void saveState(String file) {
         bParser = new BoardParser();
         try {
+            move = board.getMoves();
             bParser.saveState(board.getPieces(), file);
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -119,16 +121,14 @@ public class Game extends Window {
     public void loadState(String file) {
         bParser = new BoardParser();
         try {
-            setBoard(new Board(bParser.importBoard(file)));
+            System.out.println("\nMove:" + move);
+            setBoard(new Board(bParser.importBoard(file), move));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public void undo() {
-        if(board.undoMove())
-            loadState(UNDO_FILE);
-    }
+    public void undo() { }
 
     public void bestMove() {
         solve();
@@ -140,7 +140,9 @@ public class Game extends Window {
         solver = new Solver();
 
         try {
-            solver.sendToSolver(bParser.exportBoard(board.getPieces()));
+            moves = solver.sendToSolver(bParser.exportBoard(board.getPieces()));
+            Move next_move = moves.get(0);
+            System.out.println("mossa: " + next_move.getBlockIdx() +" "+ next_move.getDirIdx());
         } catch (MalformedURLException e) {
             throw new RuntimeException(e);
         } catch (JsonProcessingException e) {
