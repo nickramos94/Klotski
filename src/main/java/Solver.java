@@ -53,6 +53,8 @@ public class Solver {
 
             List<Move> moves;
 
+            //Legge il JSON delle mosse e le memorizza in una lista
+
             ObjectMapper objectMapper = new ObjectMapper();
             moves = objectMapper.readValue(resp, new TypeReference<List<Move>>() {
             });
