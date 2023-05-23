@@ -42,6 +42,7 @@ public class BoardParser {
         }
 
         String jBoardString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(root);
+        //System.out.println(jBoardString);
         return jBoardString;
     }
 

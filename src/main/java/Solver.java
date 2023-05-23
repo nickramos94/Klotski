@@ -22,7 +22,7 @@ public class Solver {
 
         String resp = null;
         try {
-            URL url = new URL("http://13.48.196.51/");
+            URL url = new URL("http://16.16.193.73/");
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
             con.setRequestMethod("POST");
             con.setDoOutput(true);
@@ -59,7 +59,7 @@ public class Solver {
             });
 
 
-            System.out.println(con.getResponseCode() + " " + con.getResponseMessage());
+            //System.out.println(con.getResponseCode() + " " + con.getResponseMessage());
 
             con.disconnect();
 
