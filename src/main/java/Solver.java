@@ -49,7 +49,6 @@ public class Solver {
                     resp = response.toString();
                 }
             }
-            System.out.println(resp);
 
             List<Move> moves;
 
