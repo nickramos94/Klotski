@@ -4,6 +4,7 @@ public class Board {
     
     private Piece[] pieces;
     private Piece selected_piece;
+    private Piece last_moved;     //non sempre il pezzo selezionato è l'ultimo mosso. (Es. selezionando un pezzo che non posso muovere, quel pezzo diventa selected_piece)
     private boolean hasWon;
     private int moves;
     private int configuration;
@@ -132,8 +133,16 @@ public class Board {
         }
 
         selected_piece.move(direction);
+        last_moved = selected_piece;
         moves++;
         return true;
+    }
+
+    public boolean invertedMove(int direction)
+    {
+        selected_piece = last_moved;
+        this.movePiece(-direction);
+        moves -= 2;                      //sottraggo 2 perché movePiece aumenta moves;
     }
 
     private boolean out_of_bounds(int dir)  //metodo a parte per semplificare movePieces(). Si occupa di una parte dei movimenti non fattibili
@@ -192,13 +201,6 @@ public class Board {
     public int getMoves()
     {
         return moves;
-    }
-
-    public boolean undoMove() {
-        if(moves == 0)
-            return false;
-        moves--;
-        return true;
     }
 
     public int getConfiguration()
