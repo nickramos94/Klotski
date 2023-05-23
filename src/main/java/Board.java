@@ -140,13 +140,22 @@ public class Board {
 
     public boolean invertedMove(int direction)
     {
+        if(moves<1)
+            return false;
         selected_piece = last_moved;
-        boolean b = this.movePiece(-direction);
+        boolean b = this.movePiece(invertedDirection(direction));
         if(b)
         {
             moves -= 2;                      //sottraggo 2 perché movePiece aumenta moves;
         }
         return b;
+    }
+
+    private int invertedDirection(int direction)
+    {
+        if (direction == 0 || direction == 1)
+            return direction+2;
+        else return direction-2;
     }
 
     private boolean out_of_bounds(int dir)  //metodo a parte per semplificare movePieces(). Si occupa di una parte dei movimenti non fattibili
