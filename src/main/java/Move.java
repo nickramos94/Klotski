@@ -36,4 +36,8 @@ public class Move {
     public int getStep() {
         return step;
     }
+
+    public String toString() {
+        return step + ", " + blockIdx + ", " + dirIdx;
+    }
 }

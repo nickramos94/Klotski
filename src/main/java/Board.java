@@ -4,7 +4,7 @@ public class Board {
     
     private Piece[] pieces;
     private Piece selected_piece;
-    private Piece last_moved;     //non sempre il pezzo selezionato è l'ultimo mosso. (Es. selezionando un pezzo che non posso muovere, quel pezzo diventa selected_piece)
+    private int selected_index;
     private boolean hasWon;
     private int moves;
     private int configuration;
@@ -15,6 +15,7 @@ public class Board {
     public Board() {
         pieces = new Piece[PIECES_NUMBER];
         selected_piece = null;
+        selected_index = -1;
         hasWon = false;
         moves = 0;
     }
@@ -72,6 +73,7 @@ public class Board {
             if(pieces[i].contains(pos.x,pos.y))
             {
                 selected_piece = pieces[i];
+                selected_index = i;
                 return true;
             }
         }
@@ -133,20 +135,19 @@ public class Board {
         }
 
         selected_piece.move(direction);
-        last_moved = selected_piece;
         moves++;
         return true;
     }
 
-    public boolean invertedMove(int direction)
+    public boolean invertedMove(Move move)
     {
         if(moves<1)
             return false;
-        selected_piece = last_moved;
-        boolean b = this.movePiece(invertedDirection(direction));
+        selected_piece = pieces[move.getBlockIdx()];
+        boolean b = this.movePiece(invertedDirection(move.getDirIdx()));
         if(b)
         {
-            moves -= 2;                      //sottraggo 2 perché movePiece aumenta moves;
+            moves = move.getStep();
         }
         return b;
     }
@@ -192,6 +193,10 @@ public class Board {
         if(selected_piece == null)
             return null;
         return new Position(selected_piece.getX(), selected_piece.getY());
+    }
+
+    public int getSelectedIndex() {
+        return selected_index;
     }
 
     public Piece[] getPieces()

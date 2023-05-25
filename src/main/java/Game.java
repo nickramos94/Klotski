@@ -5,6 +5,7 @@ import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.List;
+import java.util.Stack;
 
 public class Game extends Window {
     
@@ -12,9 +13,11 @@ public class Game extends Window {
     private int level;
     private BoardParser bParser;
     private Solver solver;
-    private List<Move> moves;
+    private int step;
+    private Stack<Move> moves_log;
+    private Stack<Move> saved_moves_log;
+    private List<Move> best_moves;
     private Position press_position;
-    private int move;
     private boolean pause_listener;
     final private String SAVE_FILE = "save.json";
 
@@ -57,8 +60,11 @@ public class Game extends Window {
                     if (!pause_listener) {
                         int move_direction = press_position.direction(new Position(e.getPoint()));
                         if (board.movePiece(move_direction)) {
+                            moves_log.push(new Move(step, board.getSelectedIndex(), move_direction));
                             setMoves(board.getMoves());
                             movePiecePanel(piece_pos, move_direction);
+                            System.out.println(moves_log.get(step));
+                            step++;
                         }
                     }
                     releasedPiece(board.getSelectedPiece().pixelConverter());
@@ -88,18 +94,25 @@ public class Game extends Window {
 
     private void startGame(int level) {
         board = new Board(level);
+        setLog();
         showBoard(board);
     }
 
     private void setBoard(int level_number) {
         level = level_number;
         board = new Board(level_number);
+        setLog();
         reloadBoard(board);
     }
 
     private void setBoard(Board board) {
         this.board = board;
         reloadBoard(board);
+    }
+
+    private void setLog() {
+        moves_log = new Stack<>();
+        step = 0;
     }
 
     private void reset() {
@@ -111,7 +124,7 @@ public class Game extends Window {
     private void saveState(String file) {
         bParser = new BoardParser();
         try {
-            move = board.getMoves();
+            saved_moves_log = moves_log;
             bParser.saveState(board.getPieces(), file);
             bParser.exportBoard(board.getPieces());
         } catch (IOException e) {
@@ -122,14 +135,22 @@ public class Game extends Window {
     public void loadState(String file) {
         bParser = new BoardParser();
         try {
-            System.out.println("\nMove:" + move);
-            setBoard(new Board(bParser.importBoard(file), move));
+            moves_log = saved_moves_log;
+            step = moves_log.peek().getStep();
+            setBoard(new Board(bParser.importBoard(file), step+1));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public void undo() { }
+    public void undo() {
+        if(moves_log != null && !moves_log.isEmpty()) {
+            board.invertedMove(moves_log.pop());
+            step--;
+            reloadBoard(board);
+        }
+
+    }
 
     public void bestMove() {
         solve();
@@ -141,8 +162,8 @@ public class Game extends Window {
         solver = new Solver();
 
         try {
-            moves = solver.sendToSolver(bParser.exportBoard(board.getPieces()));
-            Move next_move = moves.get(0);
+            best_moves = solver.sendToSolver(bParser.exportBoard(board.getPieces()));
+            Move next_move = best_moves.get(0);
             System.out.println("mossa: " + next_move.getBlockIdx() +" "+ next_move.getDirIdx());
         } catch (MalformedURLException e) {
             throw new RuntimeException(e);
