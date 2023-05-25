@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Stack;
 
 public class Game extends Window {
-    
     private Board board;
     private int level;
     private BoardParser bParser;
@@ -63,7 +62,6 @@ public class Game extends Window {
                             moves_log.push(new Move(step, board.getSelectedIndex(), move_direction));
                             setMoves(board.getMoves());
                             movePiecePanel(piece_pos, move_direction);
-                            System.out.println(moves_log.get(step));
                             step++;
                         }
                     }
@@ -124,7 +122,7 @@ public class Game extends Window {
     private void saveState(String file) {
         bParser = new BoardParser();
         try {
-            saved_moves_log = moves_log;
+            saved_moves_log = (Stack<Move>) moves_log.clone();
             bParser.saveState(board.getPieces(), file);
             bParser.exportBoard(board.getPieces());
         } catch (IOException e) {
@@ -135,7 +133,7 @@ public class Game extends Window {
     public void loadState(String file) {
         bParser = new BoardParser();
         try {
-            moves_log = saved_moves_log;
+            moves_log = (Stack<Move>) saved_moves_log.clone();
             step = moves_log.peek().getStep();
             setBoard(new Board(bParser.importBoard(file), step+1));
         } catch (IOException e) {
@@ -164,7 +162,7 @@ public class Game extends Window {
         try {
             best_moves = solver.sendToSolver(bParser.exportBoard(board.getPieces()));
             Move next_move = best_moves.get(0);
-            System.out.println("mossa: " + next_move.getBlockIdx() +" "+ next_move.getDirIdx());
+            System.out.println("mossa: " + next_move.getBlockIdx() + " " + next_move.getDirIdx());
         } catch (MalformedURLException e) {
             throw new RuntimeException(e);
         } catch (JsonProcessingException e) {
