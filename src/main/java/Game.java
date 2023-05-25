@@ -113,6 +113,7 @@ public class Game extends Window {
         try {
             move = board.getMoves();
             bParser.saveState(board.getPieces(), file);
+            bParser.exportBoard(board.getPieces());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

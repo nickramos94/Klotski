@@ -33,7 +33,7 @@ public class BoardParser {
         List<int[]> pieceList = new LinkedList<>();
 
         //Costruzione del JSON
-        for(int i = 0; i < p.length; i++){
+        for(int i = 0; (i < p.length) && p[i]!=null; i++){
             properties = p[i].getProperties().clone();
             pieceList.add(properties);
             jBlock = jblocks.addObject();
@@ -42,7 +42,7 @@ public class BoardParser {
         }
 
         String jBoardString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(root);
-        //System.out.println(jBoardString);
+        System.out.println(jBoardString);
         return jBoardString;
     }
 
