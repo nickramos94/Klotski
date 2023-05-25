@@ -1,8 +1,18 @@
+import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class BoardParserTest {
 
-    @org.junit.jupiter.api.Test
-    void parseBoard() {
+    @Test
+    void exportBoard() {
+    }
+
+    @Test
+    void importBoard() {
+    }
+
+    @Test
+    void saveState() {
     }
 }
