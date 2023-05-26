@@ -12,9 +12,7 @@ public class Game extends Window {
     private int level;
     private BoardParser bParser;
     private Solver solver;
-    private int step;
-    private Stack<Move> moves_log;
-    private Stack<Move> saved_moves_log;
+    private MovesLog log;
     private List<Move> best_moves;
     private Position press_position;
     private boolean pause_listener;
@@ -59,10 +57,9 @@ public class Game extends Window {
                     if (!pause_listener) {
                         int move_direction = press_position.direction(new Position(e.getPoint()));
                         if (board.movePiece(move_direction)) {
-                            moves_log.push(new Move(step, board.getSelectedIndex(), move_direction));
+                            log.pushMove(board.getSelectedIndex(), move_direction);
                             setMoves(board.getMoves());
                             movePiecePanel(piece_pos, move_direction);
-                            step++;
                         }
                     }
                     releasedPiece(board.getSelectedPiece().pixelConverter());
@@ -92,25 +89,20 @@ public class Game extends Window {
 
     private void startGame(int level) {
         board = new Board(level);
-        setLog();
+        log = new MovesLog();
         showBoard(board);
     }
 
     private void setBoard(int level_number) {
         level = level_number;
         board = new Board(level_number);
-        setLog();
+        log.resetLog();
         reloadBoard(board);
     }
 
     private void setBoard(Board board) {
         this.board = board;
         reloadBoard(board);
-    }
-
-    private void setLog() {
-        moves_log = new Stack<>();
-        step = 0;
     }
 
     private void reset() {
@@ -122,7 +114,7 @@ public class Game extends Window {
     private void saveState(String file) {
         bParser = new BoardParser();
         try {
-            saved_moves_log = (Stack<Move>) moves_log.clone();
+            log.saveLog();
             bParser.saveState(board.getPieces(), file);
             bParser.exportBoard(board.getPieces());
         } catch (IOException e) {
@@ -133,21 +125,18 @@ public class Game extends Window {
     public void loadState(String file) {
         bParser = new BoardParser();
         try {
-            moves_log = (Stack<Move>) saved_moves_log.clone();
-            step = moves_log.peek().getStep();
-            setBoard(new Board(bParser.importBoard(file), step+1));
+            log.loadLog();
+            setBoard(new Board(bParser.importBoard(file), log.getStep()+1));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
     public void undo() {
-        if(moves_log != null && !moves_log.isEmpty()) {
-            board.invertedMove(moves_log.pop());
-            step--;
+        if(!log.isEmpty()) {
+            board.invertedMove(log.popMove());
             reloadBoard(board);
         }
-
     }
 
     public void bestMove() {
