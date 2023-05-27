@@ -53,14 +53,9 @@ public class Game extends Window {
             public void mouseReleased(MouseEvent e) {
                 board_view.requestFocus();
                 if(board.getSelectedPiece() != null) {
-                    Position piece_pos = board.getSelectedPiece().pixelConverter();
                     if (!pause_listener) {
                         int move_direction = press_position.direction(new Position(e.getPoint()));
-                        if (board.movePiece(move_direction)) {
-                            log.pushMove(board.getSelectedIndex(), move_direction);
-                            setMoves(board.getMoves());
-                            movePiecePanel(piece_pos, move_direction);
-                        }
+                        move(move_direction);
                     }
                     releasedPiece(board.getSelectedPiece().pixelConverter());
                     if (board.checkWin()) {
@@ -105,6 +100,15 @@ public class Game extends Window {
         reloadBoard(board);
     }
 
+    private void move(int move_direction) {
+        Position piece_pos = board.getSelectedPiece().pixelConverter();
+        if (board.movePiece(move_direction)) {
+            log.pushMove(board.getSelectedIndex(), move_direction);
+            setMoves(board.getMoves());
+            movePiecePanel(piece_pos, move_direction);
+        }
+    }
+
     private void reset() {
         board = new Board(level);
         reloadBoard(board);
@@ -145,17 +149,20 @@ public class Game extends Window {
 
     //Manda la configurazione della tastiera ad un server esterno che ritorna la lista delle mosse necessarie per vincere il gioco
     public void solve() {
-        bParser = new BoardParser();
-        solver = new Solver();
-
-        try {
-            best_moves = solver.sendToSolver(bParser.exportBoard(board.getPieces()));
-            Move next_move = best_moves.get(0);
-            System.out.println("mossa: " + next_move.getBlockIdx() + " " + next_move.getDirIdx());
-        } catch (MalformedURLException e) {
-            throw new RuntimeException(e);
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
+        if(!board.checkWin()) {
+            bParser = new BoardParser();
+            solver = new Solver();
+            try {
+                best_moves = solver.sendToSolver(bParser.exportBoard(board.getPieces()));
+                Move next_move = best_moves.get(0);
+                System.out.println("mossa: " + next_move.getBlockIdx() + " " + next_move.getDirIdx());
+                board.selectPiece(next_move.getBlockIdx());
+                move(next_move.getDirIdx());
+            } catch (MalformedURLException e) {
+                throw new RuntimeException(e);
+            } catch (JsonProcessingException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 }

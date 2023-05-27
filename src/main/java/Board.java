@@ -72,13 +72,18 @@ public class Board {
         {
             if(pieces[i].contains(pos.x,pos.y))
             {
-                selected_piece = pieces[i];
-                selected_index = i;
+                selectPiece(i);
                 return true;
             }
         }
         selected_piece = null;
         return false;
+    }
+
+    public void selectPiece(int piece_index)
+    {
+        selected_piece = pieces[piece_index];
+        selected_index = piece_index;
     }
 
     public boolean movePiece(int direction)
@@ -219,11 +224,6 @@ public class Board {
     public int getMoves()
     {
         return moves;
-    }
-
-    public int getConfiguration()
-    {
-        return configuration;
     }
 }
 
