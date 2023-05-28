@@ -15,6 +15,10 @@ public class Piece {
             throw new IllegalArgumentException("Forma o posizione del pezzo non valida");
     }
 
+    public Piece(Piece piece) {
+        this(piece.getX(), piece.getY(), piece.width, piece.height);
+    }
+
     private boolean is_legal(int x, int y, int w, int h) //METODO INUTILE? visto che siamo noi in Board() a creare i pezzi e sicuramente non sbagliamo
     {
         if(w==1 && h==1) //caso quadrato 1x1
@@ -71,4 +75,9 @@ public class Piece {
         return new int[]{position.x, position.y, width, height};
     }
 
+    public boolean isEqual(Piece other_piece) {
+        return position.isEqual(other_piece.position) &&
+                width == other_piece.width &&
+                height == other_piece.height;
+    }
 }

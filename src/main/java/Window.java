@@ -89,14 +89,19 @@ public class Window extends JFrame  {
         
         JMenu fileMenu = new JMenu("Settings");
         menuBar.putClientProperty("Settings", fileMenu);
+
         JMenu levelMenu = new JMenu("Levels");
         menuBar.putClientProperty("Levels", levelMenu);
         
         Button reset = new Button("Reset");
         menuBar.putClientProperty("Reset", reset);
-        Button undo = new Button("Undo");
 
+        Button solveAll = new Button("Solve all");
+        menuBar.putClientProperty("Solve all", solveAll);
+
+        Button undo = new Button("Undo");
         menuBar.putClientProperty("Undo", undo);
+
         Button bestMove = new Button("Best move");
         menuBar.putClientProperty("Best move", bestMove);
 
@@ -125,6 +130,7 @@ public class Window extends JFrame  {
         menuBar.add(reset);
         menuBar.add(moves);
         menuBar.add(Box.createHorizontalGlue());
+        menuBar.add(solveAll);
         menuBar.add(undo);
         menuBar.add(bestMove);
 

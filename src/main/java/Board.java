@@ -21,6 +21,13 @@ public class Board {
         moves = 0;
     }
 
+    public  Board(Piece[] pieces) {
+        this();
+        for(int i=0; i < PIECES_NUMBER; i++) {
+            this.pieces[i] = new Piece(pieces[i]);
+        }
+    }
+
     public Board(List<int[]> pieces) {
         this();
         int index = 0;
@@ -95,12 +102,6 @@ public class Board {
         if(direction>3 || direction <0)
             throw new IllegalArgumentException("Direzione non valida");
 
-        if(selected_piece == pieces[0] && pieces[0].getX() == 1 && pieces[0].getY() == 3 && direction == 0) //caso in cui il pezzo 2x2 si trova l'uscita e voglio spingerlo giu
-        {
-            hasWon = true;
-            return false;
-        }
-
         if(out_of_bounds(direction))
             return false;
         int x = selected_piece.getX();     //uso nomi variabili piu comodi
@@ -142,6 +143,10 @@ public class Board {
 
         selected_piece.move(direction);
         moves++;
+        if(pieces[0].getX() == 1 && pieces[0].getY() == 3) //caso in cui il pezzo 2x2 si trova all'uscita
+        {
+            hasWon = true;
+        }
         return true;
     }
 
@@ -230,7 +235,11 @@ public class Board {
     public boolean isEqual(Board other_board) {
         if(other_board == null)
             return false;
-        return Arrays.equals(pieces, other_board.getPieces());
+        for(int i=0; i < PIECES_NUMBER; i++) {
+            if(!pieces[i].isEqual(other_board.getPieces()[i]))
+                return false;
+        }
+        return true;
     }
 }
 

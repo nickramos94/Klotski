@@ -5,11 +5,10 @@ import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.List;
-import java.util.Stack;
 
 public class Game extends Window {
     private Board board;
-    private Board saved_board;
+    private Board temp_board;
     private int level;
     private BoardParser bParser;
     private Solver solver;
@@ -23,7 +22,7 @@ public class Game extends Window {
         super();
 
         log = new MovesLog();
-        saved_board = null;
+        temp_board = null;
 
         getPlayButton("play_button").addActionListener(e -> {
             level = getComboBox("level_selection").getSelectedIndex() + 1;
@@ -72,6 +71,7 @@ public class Game extends Window {
         getMenuItem(1, 0).addActionListener(e -> setBoard(1));  // level 1 action listener
         getMenuItem(1, 1).addActionListener(e -> setBoard(2));  // level 2 action listener
         getMenuBarButton("Reset").addActionListener(e -> reset());     // reset action listener
+        getMenuBarButton("Solve all").addActionListener(e -> solveAll());
         getMenuBarButton("Undo").addActionListener(e -> undo());     // undo action listener
         getMenuBarButton("Best move").addActionListener(e -> bestMove());     // best move action listener
 
@@ -142,27 +142,39 @@ public class Game extends Window {
         }
     }
 
+    public void solveAll() {
+        pause_listener = true;
+        while(!board.checkWin()) {
+            bestMove();
+            /*try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }*/
+        }
+    }
+
     public void bestMove() {
-        if(board.isEqual(saved_board))
-            makeBestMove();
-        else
-            solve();
-        saved_board = board;
+        if(!board.checkWin()) {
+            if (board.isEqual(temp_board))
+                makeBestMove();
+            else
+                solve();
+            temp_board = new Board(board.getPieces());
+        }
     }
 
     //Manda la configurazione della tastiera ad un server esterno che ritorna la lista delle mosse necessarie per vincere il gioco
     public void solve() {
-        if(!board.checkWin()) {
-            bParser = new BoardParser();
-            solver = new Solver();
-            try {
-                best_moves = solver.sendToSolver(bParser.exportBoard(board.getPieces()));
-                makeBestMove();
-            } catch (MalformedURLException e) {
-                throw new RuntimeException(e);
-            } catch (JsonProcessingException e) {
-                throw new RuntimeException(e);
-            }
+        bParser = new BoardParser();
+        solver = new Solver();
+        try {
+            best_moves = solver.sendToSolver(bParser.exportBoard(board.getPieces()));
+            makeBestMove();
+        } catch (MalformedURLException e) {
+            throw new RuntimeException(e);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
         }
     }
 
