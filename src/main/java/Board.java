@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.List;
 
 public class Board {
@@ -224,6 +225,12 @@ public class Board {
     public int getMoves()
     {
         return moves;
+    }
+
+    public boolean isEqual(Board other_board) {
+        if(other_board == null)
+            return false;
+        return Arrays.equals(pieces, other_board.getPieces());
     }
 }
 

@@ -33,8 +33,10 @@ public class MovesLog {
     }
 
     public void loadLog() {
-        moves_log = (Stack<Move>) saved_moves_log.clone();
-        step = moves_log.peek().getStep();
+        if(!(saved_moves_log == null || saved_moves_log.isEmpty())) {
+            moves_log = (Stack<Move>) saved_moves_log.clone();
+            step = moves_log.peek().getStep();
+        }
     }
 
     public int getStep() {

@@ -9,6 +9,7 @@ import java.util.Stack;
 
 public class Game extends Window {
     private Board board;
+    private Board saved_board;
     private int level;
     private BoardParser bParser;
     private Solver solver;
@@ -20,6 +21,9 @@ public class Game extends Window {
 
     public Game() {
         super();
+
+        log = new MovesLog();
+        saved_board = null;
 
         getPlayButton("play_button").addActionListener(e -> {
             level = getComboBox("level_selection").getSelectedIndex() + 1;
@@ -58,36 +62,27 @@ public class Game extends Window {
                         move(move_direction);
                     }
                     releasedPiece(board.getSelectedPiece().pixelConverter());
-                    if (board.checkWin()) {
-                        System.out.println("You Won");
-                        displayWin();
-                    }
                 }
             }
         });
 
         getMenuItem(0, 0).addActionListener(e -> saveState(SAVE_FILE));  // save action listener
         getMenuItem(0, 1).addActionListener(e -> loadState(SAVE_FILE));  // load action listener
-        getMenuItem(0, 2).addActionListener(e -> startMenu());   // return to main menu action listener
+        getMenuItem(0, 2).addActionListener(e -> showMenu());   // return to main menu action listener
         getMenuItem(1, 0).addActionListener(e -> setBoard(1));  // level 1 action listener
         getMenuItem(1, 1).addActionListener(e -> setBoard(2));  // level 2 action listener
         getMenuBarButton("Reset").addActionListener(e -> reset());     // reset action listener
         getMenuBarButton("Undo").addActionListener(e -> undo());     // undo action listener
         getMenuBarButton("Best move").addActionListener(e -> bestMove());     // best move action listener
 
-        startMenu();
-    }
-
-    private void startMenu() {
         showMenu();
     }
 
     private void startGame(int level) {
         board = new Board(level);
-        log = new MovesLog();
         showBoard(board);
     }
-
+    
     private void setBoard(int level_number) {
         level = level_number;
         board = new Board(level_number);
@@ -106,6 +101,10 @@ public class Game extends Window {
             log.pushMove(board.getSelectedIndex(), move_direction);
             setMoves(board.getMoves());
             movePiecePanel(piece_pos, move_direction);
+        }
+        if (board.checkWin()) {
+            System.out.println("You Won");
+            displayWin();
         }
     }
 
@@ -144,7 +143,11 @@ public class Game extends Window {
     }
 
     public void bestMove() {
-        solve();
+        if(board.isEqual(saved_board))
+            makeBestMove();
+        else
+            solve();
+        saved_board = board;
     }
 
     //Manda la configurazione della tastiera ad un server esterno che ritorna la lista delle mosse necessarie per vincere il gioco
@@ -154,15 +157,19 @@ public class Game extends Window {
             solver = new Solver();
             try {
                 best_moves = solver.sendToSolver(bParser.exportBoard(board.getPieces()));
-                Move next_move = best_moves.get(0);
-                System.out.println("mossa: " + next_move.getBlockIdx() + " " + next_move.getDirIdx());
-                board.selectPiece(next_move.getBlockIdx());
-                move(next_move.getDirIdx());
+                makeBestMove();
             } catch (MalformedURLException e) {
                 throw new RuntimeException(e);
             } catch (JsonProcessingException e) {
                 throw new RuntimeException(e);
             }
         }
+    }
+
+    public void makeBestMove() {
+        Move next_move = best_moves.remove(0);
+        System.out.println("mossa: " + next_move.getBlockIdx() + " " + next_move.getDirIdx());
+        board.selectPiece(next_move.getBlockIdx());
+        move(next_move.getDirIdx());
     }
 }
