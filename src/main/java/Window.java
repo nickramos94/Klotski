@@ -228,7 +228,7 @@ public class Window extends JFrame  {
         Object[] options = {"Restart", "Main Menu"};
         return JOptionPane.showOptionDialog(this,
                 "You Won!",
-                "Win dow",
+                "level completed",
                 JOptionPane.YES_NO_OPTION,
                 JOptionPane.INFORMATION_MESSAGE,
                 null,
