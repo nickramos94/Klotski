@@ -52,6 +52,7 @@ public class BoardParser {
     public List<int[]> importBoard(String fileName) throws IOException {
 
         List<int[]> pieces = new ArrayList<int[]>();
+        int moves;
 
         ObjectMapper objectMapper = new ObjectMapper();
         List<Map<String, Object>> jsonList = objectMapper.readValue(new File(fileName), List.class);
@@ -59,6 +60,7 @@ public class BoardParser {
         //Lettura del file JSON
         for (Map<String, Object> jsonMap : jsonList) {
             String name = (String) jsonMap.get("name");
+            moves = (int) jsonMap.get("moves");
             List<Map<String, Object>> blocks = (List<Map<String, Object>>) jsonMap.get("blocks");
 
             //Lettura dei pezzi
