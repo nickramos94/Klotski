@@ -17,7 +17,7 @@ public class BoardParser {
     {}
 
     //Metodo che trasforma la scacchiera in una stringa JSON
-    public String exportBoard(Piece[] p) throws JsonProcessingException {
+    public String exportBoard(Piece[] p, int moves) throws JsonProcessingException {
 
         //Oggetti della libreria Jackson per serializzare gli attributi dei pezzi in un JSON
         ObjectMapper mapper = new ObjectMapper();
@@ -41,6 +41,8 @@ public class BoardParser {
             jBlock.putArray("position").add(properties[1]).add(properties[0]);
         }
 
+        jBoard.put("moves", moves);
+
         String jBoardString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(root);
         //System.out.println(jBoardString);
         return jBoardString;
@@ -50,6 +52,7 @@ public class BoardParser {
     public List<int[]> importBoard(String fileName) throws IOException {
 
         List<int[]> pieces = new ArrayList<int[]>();
+        int moves;
 
         ObjectMapper objectMapper = new ObjectMapper();
         List<Map<String, Object>> jsonList = objectMapper.readValue(new File(fileName), List.class);
@@ -57,6 +60,7 @@ public class BoardParser {
         //Lettura del file JSON
         for (Map<String, Object> jsonMap : jsonList) {
             String name = (String) jsonMap.get("name");
+            moves = (int) jsonMap.get("moves");
             List<Map<String, Object>> blocks = (List<Map<String, Object>>) jsonMap.get("blocks");
 
             //Lettura dei pezzi
@@ -79,10 +83,10 @@ public class BoardParser {
     }
 
     //Salva la posizione dei pezzi sulla scacchiera in un file JSOn
-    public void saveState(Piece[] p, String file) throws IOException {
+    public void saveState(Piece[] p, String file, int moves) throws IOException {
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter(file));
-            writer.write(exportBoard(p));
+            writer.write(exportBoard(p, moves));
             writer.close();
         } catch (IOException e) {
             throw new RuntimeException(e);
