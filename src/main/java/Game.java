@@ -118,8 +118,8 @@ public class Game extends Window {
         bParser = new BoardParser();
         try {
             log.saveLog();
-            bParser.saveState(board.getPieces(), file);
-            bParser.exportBoard(board.getPieces());
+            bParser.saveState(board.getPieces(), file , log.getStep());
+            bParser.exportBoard(board.getPieces(), log.getStep());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -169,7 +169,7 @@ public class Game extends Window {
         bParser = new BoardParser();
         solver = new Solver();
         try {
-            best_moves = solver.sendToSolver(bParser.exportBoard(board.getPieces()));
+            best_moves = solver.sendToSolver(bParser.exportBoard(board.getPieces(), log.getStep()));
             makeBestMove();
         } catch (MalformedURLException e) {
             throw new RuntimeException(e);
