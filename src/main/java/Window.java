@@ -225,7 +225,7 @@ public class Window extends JFrame  {
     }
 
     public void displayWin() {  //todo
-
+        JOptionPane.showMessageDialog(this, "Win!!");
     }
 
     public void pressedPiece(Position pos) {
