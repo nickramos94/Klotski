@@ -1,5 +1,6 @@
 import com.fasterxml.jackson.core.JsonProcessingException;
 
+import javax.swing.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
@@ -61,6 +62,7 @@ public class Game extends Window {
                         move(move_direction);
                     }
                     releasedPiece(board.getSelectedPiece().pixelConverter());
+                    checkWin();
                 }
             }
         });
@@ -102,14 +104,11 @@ public class Game extends Window {
             setMoves(board.getMoves());
             movePiecePanel(piece_pos, move_direction);
         }
-        if (board.checkWin()) {
-            System.out.println("You Won");
-            displayWin();
-        }
     }
 
-    private void reset() {
+    public void reset() {
         board = new Board(level);
+        log.resetLog();
         reloadBoard(board);
     }
 
@@ -118,8 +117,7 @@ public class Game extends Window {
         bParser = new BoardParser();
         try {
             log.saveLog();
-            bParser.saveState(board.getPieces(), file , log.getStep());
-            bParser.exportBoard(board.getPieces(), log.getStep());
+            bParser.saveState(board.getPieces(), file , log.getStep()+1);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -129,7 +127,9 @@ public class Game extends Window {
         bParser = new BoardParser();
         try {
             log.loadLog();
-            setBoard(new Board(bParser.importBoard(file), log.getStep()+1));
+            List<int[]> pieces = bParser.importBoard(file);
+            int moves = pieces.remove(0)[0];
+            setBoard(new Board(pieces, moves));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -144,8 +144,7 @@ public class Game extends Window {
 
     public void solveAll() {
         pause_listener = true;
-        while(!board.checkWin()) {
-            bestMove();
+        while(!bestMove()) {
             /*try {
                 Thread.sleep(500);
             } catch (InterruptedException e) {
@@ -154,7 +153,7 @@ public class Game extends Window {
         }
     }
 
-    public void bestMove() {
+    public boolean bestMove() {
         if(!board.checkWin()) {
             if (board.isEqual(temp_board))
                 makeBestMove();
@@ -162,6 +161,7 @@ public class Game extends Window {
                 solve();
             temp_board = new Board(board.getPieces());
         }
+        return checkWin();
     }
 
     //Manda la configurazione della tastiera ad un server esterno che ritorna la lista delle mosse necessarie per vincere il gioco
@@ -183,5 +183,20 @@ public class Game extends Window {
         System.out.println("mossa: " + next_move.getBlockIdx() + " " + next_move.getDirIdx());
         board.selectPiece(next_move.getBlockIdx());
         move(next_move.getDirIdx());
+    }
+
+    public boolean checkWin() {
+        if(board.checkWin()) {
+            int win_option = displayWin();
+            if(win_option == JOptionPane.YES_OPTION) {
+                reset();
+            }
+            if(win_option == JOptionPane.NO_OPTION) {
+                showMenu();
+            }
+            board.resetWin();
+            return true;
+        }
+        return false;
     }
 }
