@@ -44,9 +44,10 @@ class BoardParserTest {
         String pathTestJson = "test.json";
         BoardParser bp = new BoardParser();
         Assert.assertEquals(0, bp.importBoard(pathTestJson).get(0)[0]);
-        Assert.assertEquals(0, bp.importBoard(pathTestJson).get(0)[1]);
-        Assert.assertEquals(1, bp.importBoard(pathTestJson).get(0)[2]);
-        Assert.assertEquals(1, bp.importBoard(pathTestJson).get(0)[3]);
+        Assert.assertEquals(0, bp.importBoard(pathTestJson).get(1)[0]);
+        Assert.assertEquals(0, bp.importBoard(pathTestJson).get(1)[1]);
+        Assert.assertEquals(1, bp.importBoard(pathTestJson).get(1)[2]);
+        Assert.assertEquals(1, bp.importBoard(pathTestJson).get(1)[3]);
     }
 
     @Test
