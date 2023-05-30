@@ -199,6 +199,10 @@ public class Board {
         return hasWon;
     }
 
+    public void resetWin() {
+        hasWon = false;
+    }
+
     public Position getSelectedPiece()
     {
         if(selected_piece == null)

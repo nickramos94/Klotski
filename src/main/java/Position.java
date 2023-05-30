@@ -5,19 +5,19 @@ public class Position{
     int y;
     final int MIN_MOUSE_DRAG = 3;
 
+    // initialize x and y checking if they are inside the board (in pixel)
     public Position(int x, int y) {
         if(x < 0 || y < 0 || x > Window.BOARD_WIDTH || y > Window.BOARD_HEIGHT)
             throw new IllegalArgumentException("Position outside the board");
         this.x = x;
         this.y = y;
     }
+    // constructor with Point (mainly for the mouse getPoint() method that returns a point)
     public Position(Point point) {
         this(point.x, point.y);
     }
-    public Position() {
-        this(0, 0);
-    }
 
+    // x and y distance
     public int xDistance(Position final_pos) {
         return final_pos.x - x;
     }
@@ -25,7 +25,7 @@ public class Position{
         return final_pos.y - y;
     }
 
-    // return the direction of the vector this->final_pos
+    // return the cardinal direction of the vector this -> final_pos
     // approximate to:
     // up=2, right=1, down=0, left=3
     public int direction(Position final_pos) {
@@ -48,10 +48,13 @@ public class Position{
     public boolean isEqual(Position pos) {
         return xDistance(pos)==0 && yDistance(pos)==0;
     }
+
+    // convert the pos from pixels to unit of the board
     public Position unitConverter() {
         return new Position(x/Window.BLOCK_SIZE, y/Window.BLOCK_SIZE);
     }
 
+    // convert the pos from unit of the board to pixels
     public Position pixelConverter() {
         return new Position(x*Window.BLOCK_SIZE, y*Window.BLOCK_SIZE);
     }

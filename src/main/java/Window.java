@@ -224,8 +224,16 @@ public class Window extends JFrame  {
         }
     }
 
-    public void displayWin() {  //todo
-        JOptionPane.showMessageDialog(this, "Win!!");
+    public int displayWin() {
+        Object[] options = {"Restart", "Main Menu"};
+        return JOptionPane.showOptionDialog(this,
+                "You Won!",
+                "level completed",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.INFORMATION_MESSAGE,
+                null,
+                options,
+                options[0]);
     }
 
     public void pressedPiece(Position pos) {
