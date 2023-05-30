@@ -29,7 +29,7 @@ class PieceTest {
     void move() {
         Piece piece = new Piece(2,2,2,2);
         piece.move(0); //down
-        assertTrue(piece.getX()==2 && piece.getY()==3); // square 2x2 goes out of bounds but move() doesn't throw an error. Board.Movepiece will make sure that this move won't happen, not move()
+        assertTrue(piece.getX()==2 && piece.getY()==3); //square 2x2 goes out of bounds but move() doesn't throw an error. Board.Movepiece will make sure that this move won't happen, not move()
         assertFalse(piece.getX()==2 && piece.getY()==2);
         piece.move(1); //right
         assertTrue(piece.getX()==3 && piece.getY()==3); //same there

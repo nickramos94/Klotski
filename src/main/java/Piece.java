@@ -5,7 +5,7 @@ public class Piece {
 
     public Piece(int x, int y, int w, int h)
     {
-        if (is_legal(x,y,w,h))  //il controllo della posizione non posso farlo in Position, in quanto la validita della posizione dipende dalla forma
+        if (is_legal(x,y,w,h))
         {
             position = new Position(x,y);
             width = w;
