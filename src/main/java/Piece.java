@@ -23,22 +23,22 @@ public class Piece {
     {
         if(w==1 && h==1) //caso quadrato 1x1
         {
-            if(x>=0 && x<=3 && y>=0 && y<=4)
+            if(x>=0 && x<Board.WIDTH && y>=0 && y<Board.HEIGHT)
                 return true;
         }
         if(w==2 && h==2) //caso quadrato 2x2
         {
-            if(x>=0 && x<=2 && y>=0 && y<=3)
+            if(x>=0 && x<(Board.WIDTH-1) && y>=0 && y<(Board.HEIGHT-1))
                 return true;
         }
         if(w==1 && h==2) //caso rettangolo 1x2
         {
-            if(x>=0 && x<=3 && y>=0 && y<=3)
+            if(x>=0 && x<Board.WIDTH && y>=0 && y<(Board.HEIGHT-1))
                 return true;
         }
         if(w==2 && h==1) //caso rettangolo 2x1
         {
-            if(x>=0 && x<=2 && y>=0 && y<=4)
+            if(x>=0 && x<(Board.WIDTH-1) && y>=0 && y<Board.HEIGHT)
                 return true;
         }
         return false; //tutti gli altri casi non sono validi (o per posizioni non valide oppure per forme/dimensioni non valide)
