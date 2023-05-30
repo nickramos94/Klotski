@@ -41,10 +41,9 @@ public class BoardParser {
             jBlock.putArray("position").add(properties[1]).add(properties[0]);
         }
 
-        jBoard.put("moves", moves);
+        jBoard.put("moves", moves); //Inserisce nel JSON il numero delle mosse effettuate finora
 
         String jBoardString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(root);
-        //System.out.println(jBoardString);
         return jBoardString;
     }
 
