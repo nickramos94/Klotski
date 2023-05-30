@@ -73,7 +73,7 @@ public class Game extends Window {
                         int move_direction = press_position.direction(new Position(e.getPoint()));
                         move(move_direction);
                     }
-                    releasedPiece(board.getSelectedPiece().pixelConverter());
+                    releasedPiece(board.getSelectedPiece().pixelConverter(), board.isSpecial());
                     checkWin();
                 }
             }

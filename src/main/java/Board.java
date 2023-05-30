@@ -6,6 +6,7 @@ public class Board {
     private Piece[] pieces;
     private Piece selected_piece;
     private int selected_index;
+    private int special_index;  // to have the special piece index
     private boolean hasWon;
     private int moves;
     private int configuration;
@@ -25,6 +26,7 @@ public class Board {
         this();
         for(int i=0; i < PIECES_NUMBER; i++) {
             this.pieces[i] = new Piece(pieces[i]);
+            trySetSpecial(i);
         }
     }
 
@@ -33,6 +35,7 @@ public class Board {
         int index = 0;
         for(int[] piece : pieces) {
             this.pieces[index] = new Piece(piece[0], piece[1], piece[2], piece[3]);
+            trySetSpecial(index);
             index++;
         }
     }
@@ -72,6 +75,7 @@ public class Board {
             pieces[8] = new Piece(2, 1, 1, 1);   //quadrato 1x1
             pieces[9] = new Piece(1, 4, 1, 1);   //quadrato 1x1
         }
+        special_index = 0;
     }
 
     public boolean selectPiece(Position pos)
@@ -192,6 +196,19 @@ public class Board {
                 return true;
         }
         return false;
+    }
+
+    private void trySetSpecial(int index) {
+        if(pieces[index].width == 2 && pieces[index].height == 2) {
+            special_index = index;
+        }
+    }
+
+    public boolean isSpecial() {
+        return this.isSpecial(selected_index);
+    }
+    public boolean isSpecial(int index) {
+        return index == special_index;
     }
 
     public boolean checkWin()

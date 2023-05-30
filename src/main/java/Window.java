@@ -140,10 +140,10 @@ public class Window extends JFrame  {
         mainBar.setBackground(Color.WHITE);
 
         Button info = new Button("Info");
-        Button help = new Button("Help");
+        info.addActionListener(e -> showInfo());
 
+        mainBar.add(Box.createHorizontalGlue());
         mainBar.add(info);
-        mainBar.add(help);
     }
 
     public void setWindowSize(int width, int height) {
@@ -191,7 +191,12 @@ public class Window extends JFrame  {
             pieces_view[i] = new JPanel();
             pieces_view[i].setBounds(prop[0] * BLOCK_SIZE, prop[1] * BLOCK_SIZE, prop[2] * BLOCK_SIZE, prop[3] * BLOCK_SIZE);
             pieces_view[i].setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, Color.GRAY));
-            pieces_view[i].setBackground(Color.ORANGE);
+            if(board.isSpecial(i)) {
+                pieces_view[i].setBackground(Color.RED);
+            }
+            else {
+                pieces_view[i].setBackground(Color.ORANGE);
+            }
             board_view.add(pieces_view[i]);
         }
 
@@ -240,8 +245,13 @@ public class Window extends JFrame  {
         getPiece(pos).setBackground(Color.BLUE);
     }
 
-    public void releasedPiece(Position pos) {
-        getPiece(pos).setBackground(Color.ORANGE);
+    public void releasedPiece(Position pos, boolean isSpecial) {
+        if(isSpecial) {
+            getPiece(pos).setBackground(Color.RED);
+        }
+        else {
+            getPiece(pos).setBackground(Color.ORANGE);
+        }
     }
 
     public void remove(JPanel panel) {
@@ -277,5 +287,21 @@ public class Window extends JFrame  {
 
     public JButton getMenuBarButton(String key) {
         return (JButton) menuBar.getClientProperty(key);
+    }
+
+    private void showInfo() {
+        JOptionPane.showMessageDialog(this,
+                "GOAL:\n" +
+                        "Among the blocks, there is a special one (the 2x2 red) which\n" +
+                        "must be moved to a special area, where there is the red line.\n" +
+                        "RULES:\n" +
+                        "The player may only slide blocks horizontally and vertically,\n" +
+                        "cannot bring pieces outside the board and, for that, when you\n" +
+                        "leave the board with the mouse the action will be cancelled.\n" +
+                        "HELP:\n" +
+                        "With the button \"Best move\" the best move will be made,\n" +
+                        "with the button \"Solve all\" all the puzzle will be solved",
+                "This project is the Klotsky game developed by 4 students.",
+                JOptionPane.INFORMATION_MESSAGE);
     }
 }
