@@ -69,14 +69,15 @@ class PieceTest {
     }
 
     @Test
-    void isEqual() {
+    void equals() {
         Piece p1 = new Piece(0,0,2,1);
         Piece p2 = new Piece(p1);
-        assertTrue(p1.isEqual(p2));
+        assertTrue(p1.equals(p2));
         p1.move(1);
-        assertFalse(p2.isEqual(p1));
+        assertFalse(p2.equals(p1));
         p2.move(1);
-        assertTrue(p1.isEqual(p2));
-        assertTrue(new Piece(1,0,2,1).isEqual(p2));
+        assertTrue(p1.equals(p2));
+        assertTrue(new Piece(1,0,2,1).equals(p2));
+        assertFalse(p1.equals(null));
     }
 }

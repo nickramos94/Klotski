@@ -45,7 +45,7 @@ public class Position{
                 return 2;   //up
     }
 
-    public boolean isEqual(Position pos) {
+    public boolean equals(Position pos) {
         return xDistance(pos)==0 && yDistance(pos)==0;
     }
 

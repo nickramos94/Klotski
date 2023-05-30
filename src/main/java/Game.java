@@ -177,7 +177,7 @@ public class Game extends Window {
     // best move using makeBestMove() if the configuration of the board hasn't changed, solve() otherwise
     public boolean bestMove() {
         if(!board.checkWin()) {
-            if (board.isEqual(temp_board))
+            if (board.equals(temp_board))
                 makeBestMove();
             else
                 solve();

@@ -253,11 +253,11 @@ public class Board {
         return moves;
     }
 
-    public boolean isEqual(Board other_board) {
+    public boolean equals(Board other_board) {
         if(other_board == null)
             return false;
         for(int i=0; i < PIECES_NUMBER; i++) {
-            if(!pieces[i].isEqual(other_board.getPieces()[i]))
+            if(!pieces[i].equals(other_board.getPieces()[i]))
                 return false;
         }
         return true;

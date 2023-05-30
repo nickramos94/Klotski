@@ -262,7 +262,7 @@ public class Window extends JFrame  {
 
     private JPanel getPiece(Position piece_pos) {
         for (int i = 0; i < pieces_view.length; i++) {
-            if(piece_pos.isEqual(new Position(pieces_view[i].getLocation()))) {
+            if(piece_pos.equals(new Position(pieces_view[i].getLocation()))) {
                 return pieces_view[i];
             }
         }

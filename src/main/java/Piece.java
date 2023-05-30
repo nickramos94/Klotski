@@ -75,8 +75,10 @@ public class Piece {
         return new int[]{position.x, position.y, width, height};
     }
 
-    public boolean isEqual(Piece other_piece) {
-        return position.isEqual(other_piece.position) &&
+    public boolean equals(Piece other_piece) {
+        if (other_piece == null)
+        return false;
+        return position.equals(other_piece.position) &&
                 width == other_piece.width &&
                 height == other_piece.height;
     }
