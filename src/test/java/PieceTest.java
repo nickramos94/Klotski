@@ -1,18 +1,9 @@
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class PieceTest {
-
-    @BeforeEach
-    void setUp() {
-    }
-
-    @AfterEach
-    void tearDown() {
-    }
 
     @Test
     void contains() {
@@ -29,10 +20,10 @@ class PieceTest {
     void move() {
         Piece piece = new Piece(2,2,2,2);
         piece.move(0); //down
-        assertTrue(piece.getX()==2 && piece.getY()==3); //square 2x2 goes out of bounds but move() doesn't throw an error. Board.Movepiece will make sure that this move won't happen, not move()
+        assertTrue(piece.getX()==2 && piece.getY()==3);
         assertFalse(piece.getX()==2 && piece.getY()==2);
         piece.move(1); //right
-        assertTrue(piece.getX()==3 && piece.getY()==3); //same there
+        assertTrue(piece.getX()==3 && piece.getY()==3);//out of bounds but move() doesn't throw any error.Board.movePiece will make sure that this move won't happen, not Piece.move()
         piece.move(2); //up
         assertTrue(piece.getX()==3 && piece.getY()==2);
         piece.move(3); //left
@@ -41,17 +32,51 @@ class PieceTest {
 
     @Test
     void getX() {
+        Piece piece = new Piece(1,0,1,1);
+        assertEquals(1, piece.getX());
+        piece.move(1);
+        assertEquals(2, piece.getX());
+        piece.move(3);
+        piece.move(3);
+        assertEquals(0, piece.getX());
     }
 
     @Test
     void getY() {
+        Piece piece = new Piece(1,3,1,1);
+        assertEquals(3, piece.getY());
+        piece.move(0);
+        assertEquals(4, piece.getY());
+        piece.move(2);
+        piece.move(2);
+        assertEquals(2, piece.getY());
     }
 
     @Test
     void getProperties() {
+        Piece piece = new Piece(0,0,2,1);
+        piece.move(0); //down
+        assertArrayEquals(piece.getProperties(), new int[]{0, 1, 2, 1});
+        piece.move(1); //right
+        assertArrayEquals(piece.getProperties(), new int[]{1, 1, 2, 1});
+        piece.move(2); //up
+        assertArrayEquals(piece.getProperties(), new int[]{1, 0, 2, 1});
+        piece.move(3); //left
+        assertArrayEquals(piece.getProperties(), new int[]{0, 0, 2, 1});
+
+        Piece piece2 = new Piece(piece);
+        assertArrayEquals(piece2.getProperties(), piece.getProperties());
     }
 
     @Test
     void isEqual() {
+        Piece p1 = new Piece(0,0,2,1);
+        Piece p2 = new Piece(p1);
+        assertTrue(p1.isEqual(p2));
+        p1.move(1);
+        assertFalse(p2.isEqual(p1));
+        p2.move(1);
+        assertTrue(p1.isEqual(p2));
+        assertTrue(new Piece(1,0,2,1).isEqual(p2));
     }
 }
