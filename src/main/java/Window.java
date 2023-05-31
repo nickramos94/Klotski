@@ -243,6 +243,10 @@ public class Window extends JFrame  {
         repaint();
     }
 
+    public JPanel getPiece(int index) {
+        return pieces_view[index];
+    }
+
     public JButton getPlayButton(String key) {
         return ((JButton)menu.getClientProperty(key));
     }
