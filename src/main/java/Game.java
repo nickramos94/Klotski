@@ -16,6 +16,7 @@ public class Game extends Window {
     private List<Move> best_moves;
     private Position press_position;
     private boolean pause_listener;
+    private boolean stop_solving;
     final private String SAVE_FILE = "save.json";
 
     public Game() {
@@ -85,15 +86,28 @@ public class Game extends Window {
         getMenuItem(1, 0).addActionListener(e -> setBoard(1));  // level 1 action listener
         getMenuItem(1, 1).addActionListener(e -> setBoard(2));  // level 2 action listener
         getMenuBarButton("Reset").addActionListener(e -> reset());     // reset action listener
-        getMenuBarButton("Solve all").addActionListener(e -> solveAll());   // solve all action lister
         getMenuBarButton("Undo").addActionListener(e -> undo());     // undo action listener
         getMenuBarButton("Best move").addActionListener(e -> bestMove());     // best move action listener
+
+        // solve all action listener, the button become a stop button when pressed
+        JButton solve_button = getMenuBarButton("Solve all");
+        solve_button.addActionListener(e -> {
+            if (solve_button.getText().equals("Solve all")) {
+                solve_button.setText("Stop");
+                stop_solving = false;
+                solveAll();
+            } else if (solve_button.getText().equals("Stop")) {
+                solve_button.setText("Solve all");
+                stop_solving = true;
+            }
+        });
+
 
         showMenu();
     }
 
     // initialize board and show it in the window
-    private void startGame(int level) {
+    protected void startGame(int level) {
         board = new Board(level);
         showBoard(board);
     }
@@ -135,7 +149,7 @@ public class Game extends Window {
         bParser = new BoardParser();
         try {
             log.saveLog();
-            bParser.saveState(board.getPieces(), file , log.getStep()+1);
+            bParser.saveState(board.getPieces(), file , log.getStep());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -162,28 +176,40 @@ public class Game extends Window {
         }
     }
 
-    // solve all the level with a delay of *** per move
+    // solve all the level with a delay of 0.5 seconds per move
     protected void solveAll() {
-        pause_listener = true;
-        while(!bestMove()) {    //todo
-            /*try {
-                Thread.sleep(500);
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-            }*/
-        }
+        Thread solvingThread = new Thread(() -> {
+            bestMove();
+            while (!best_moves.isEmpty() && !stop_solving) {
+                try {
+                    Thread.sleep(500);
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                }
+                bestMove();
+            }
+        });
+        solvingThread.start();
     }
 
     // best move using makeBestMove() if the configuration of the board hasn't changed, solve() otherwise
-    protected boolean bestMove() {
+    protected void bestMove() {
         if(!board.checkWin()) {
-            if (board.equals(temp_board))
+            if(board.equals(temp_board))
                 makeBestMove();
             else
                 solve();
             temp_board = new Board(board.getPieces());
         }
-        return checkWin();
+        checkWin();
+    }
+
+    public void makeMoves(int moves_num) {
+        int cont = 0;
+        while (cont < moves_num) {
+            bestMove();
+            cont++;
+        }
     }
 
     // send the board config to an extern server that return the list of moves to win the game
@@ -202,15 +228,15 @@ public class Game extends Window {
 
     // make the best move using (and removing) the first element of the list best_moves
     private void makeBestMove() {
-        if(best_moves.isEmpty())
-            throw new IllegalArgumentException("");
-        Move next_move = best_moves.remove(0);
-        board.selectPiece(next_move.getBlockIdx());
-        move(next_move.getDirIdx());
+        if(!best_moves.isEmpty()) {
+            Move next_move = best_moves.remove(0);
+            board.selectPiece(next_move.getBlockIdx());
+            move(next_move.getDirIdx());
+        }
     }
 
     // check the win and display the Pane of the win
-    protected boolean checkWin() {
+    protected void checkWin() {
         if(board.checkWin()) {
             int win_option = displayWin();
             if(win_option == JOptionPane.YES_OPTION) {
@@ -220,17 +246,11 @@ public class Game extends Window {
                 showMenu();
             }
             board.resetWin();
-            return true;
         }
-        return false;
     }
 
     protected void selectPiece(int piece_index) {
         board.selectPiece(piece_index);
-    }
-
-    protected int getSelectedIndex() {
-        return board.getSelectedIndex();
     }
 
     public Board getBoard() {
