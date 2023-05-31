@@ -16,10 +16,10 @@ public class BoardParser {
     public BoardParser()
     {}
 
-    //Metodo che trasforma la scacchiera in una stringa JSON
+    //Methods that turns the board in a JSON string
     public String exportBoard(Piece[] p, int moves) throws JsonProcessingException {
 
-        //Oggetti della libreria Jackson per serializzare gli attributi dei pezzi in un JSON
+        //Objects of the Jackson library that serializes the pieces' attributes in a JSON
         ObjectMapper mapper = new ObjectMapper();
         ArrayNode root = mapper.createArrayNode();
         ObjectNode jBoard = root.addObject();
@@ -32,7 +32,7 @@ public class BoardParser {
         int[] properties = new int[4];
         List<int[]> pieceList = new LinkedList<>();
 
-        //Costruzione del JSON
+        //JSON buildup
         for(int i = 0; (i < p.length) && p[i]!=null; i++){
             properties = p[i].getProperties().clone();
             pieceList.add(properties);
@@ -41,13 +41,14 @@ public class BoardParser {
             jBlock.putArray("position").add(properties[1]).add(properties[0]);
         }
 
-        jBoard.put("moves", moves); //Inserisce nel JSON il numero delle mosse effettuate finora
+        jBoard.put("moves", moves); //Inserts into the JSON the number of moves that have been done so far
+
 
         String jBoardString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(root);
         return jBoardString;
     }
 
-    //Metodo che genera un array di Pieces a partire da un file JSON
+    //Method that generates an array of Pieces from a JSON file
     public List<int[]> importBoard(String fileName) throws IOException {
 
         List<int[]> pieces = new ArrayList<int[]>();
@@ -56,14 +57,14 @@ public class BoardParser {
         ObjectMapper objectMapper = new ObjectMapper();
         List<Map<String, Object>> jsonList = objectMapper.readValue(new File(fileName), List.class);
 
-        //Lettura del file JSON
+        //Reads the JSON file
         for (Map<String, Object> jsonMap : jsonList) {
             String name = (String) jsonMap.get("name");
             moves[0] = (int) jsonMap.get("moves");
             pieces.add(moves);
             List<Map<String, Object>> blocks = (List<Map<String, Object>>) jsonMap.get("blocks");
 
-            //Lettura dei pezzi
+            //Reads the pieces
             for (Map<String, Object> block : blocks) {
                 int[] jTemp = new int[4];
 
@@ -82,7 +83,7 @@ public class BoardParser {
         return pieces;
     }
 
-    //Salva la posizione dei pezzi sulla scacchiera in un file JSOn
+    //Saves the positions of the board's pieces in a JSON file
     public void saveState(Piece[] p, String file, int moves) throws IOException {
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter(file));

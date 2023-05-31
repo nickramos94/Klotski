@@ -11,13 +11,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-//Classe che invia la configurazione della scacchiera al solver e restituisce le mosse successive
+//Class that sends the board's configuration to the solver and return the next moves
 public class Solver {
     private static URL url;
 
     public Solver() {};
 
-    //Manda il JSON delle posizioni dei pezzi sulla scacchiera al server esterno e riceve la lista delle mosse per vincere la partita
+    //Sends the positions' JSON of the pieces on the board to the external server and receiver the moves list needed to win the match
     public static List<Move> sendToSolver(String file) throws MalformedURLException {
 
         String resp = null;
@@ -36,7 +36,7 @@ public class Solver {
                 os.write(input, 0, input.length);
             }
 
-            //Riceve in risposta il JSON con le mosse
+            //Receives as a repsonde the moves' JSON
             if(con.getResponseCode() == HttpURLConnection.HTTP_OK) {
                 try (InputStream inputStream = con.getInputStream()) {
                     StringBuilder response = new StringBuilder();
@@ -52,8 +52,7 @@ public class Solver {
 
             List<Move> moves;
 
-            //Legge il JSON delle mosse e le memorizza in una lista
-
+            //Reads the moves' JSON and stores them in a list
             ObjectMapper objectMapper = new ObjectMapper();
             moves = objectMapper.readValue(resp, new TypeReference<List<Move>>() {
             });
