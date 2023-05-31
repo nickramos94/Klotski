@@ -208,25 +208,8 @@ public class Window extends JFrame  {
         getLabel(menuBar, "moves").setText("Moves: " + m);
     }
 
-    public void movePiecePanel(Position piece_pos, int direction) {
-        int x_temp = piece_pos.x;
-        int y_temp = piece_pos.y;
-
-        if(direction == 2) {
-            getPiece(piece_pos).setLocation(new Point(x_temp, y_temp - BLOCK_SIZE));
-        }
-        else if(direction == 1) {
-            getPiece(piece_pos).setLocation(new Point(x_temp + BLOCK_SIZE, y_temp));
-        }
-        else if(direction == 0) {
-            getPiece(piece_pos).setLocation(new Point(x_temp, y_temp + BLOCK_SIZE));
-        }
-        else if(direction == 3) {
-            getPiece(piece_pos).setLocation(new Point(x_temp - BLOCK_SIZE, y_temp));
-        }
-        else {
-            throw new IllegalArgumentException("wrong direction use: 0 up, 1 right, 2 down, 3 left");
-        }
+    public void movePiecePanel(int piece_index, int x, int y) {
+        pieces_view[piece_index].setLocation(new Point(x, y));
     }
 
     public int displayWin() {
@@ -241,16 +224,16 @@ public class Window extends JFrame  {
                 options[0]);
     }
 
-    public void pressedPiece(Position pos) {
-        getPiece(pos).setBackground(Color.BLUE);
+    public void pressedPiece(int index) {
+        pieces_view[index].setBackground(Color.BLUE);
     }
 
-    public void releasedPiece(Position pos, boolean isSpecial) {
+    public void releasedPiece(int index, boolean isSpecial) {
         if(isSpecial) {
-            getPiece(pos).setBackground(Color.RED);
+            pieces_view[index].setBackground(Color.RED);
         }
         else {
-            getPiece(pos).setBackground(Color.ORANGE);
+            pieces_view[index].setBackground(Color.ORANGE);
         }
     }
 
@@ -258,15 +241,6 @@ public class Window extends JFrame  {
         super.remove(panel);
         revalidate();
         repaint();
-    }
-
-    private JPanel getPiece(Position piece_pos) {
-        for (int i = 0; i < pieces_view.length; i++) {
-            if(piece_pos.equals(new Position(pieces_view[i].getLocation()))) {
-                return pieces_view[i];
-            }
-        }
-        return null;
     }
 
     public JButton getPlayButton(String key) {

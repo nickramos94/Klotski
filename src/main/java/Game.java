@@ -12,8 +12,7 @@ public class Game extends Window {
     private Board temp_board;
     private int level;
     private BoardParser bParser;
-    private Solver solver;
-    private MovesLog log;
+    final private MovesLog log;
     private List<Move> best_moves;
     private Position press_position;
     private boolean pause_listener;
@@ -57,7 +56,7 @@ public class Game extends Window {
                 press_position = new Position(e.getPoint());
                 Position unit_pos = press_position.unitConverter();
                 if(board.selectPiece(unit_pos)) {
-                    pressedPiece(board.getSelectedPiece().pixelConverter());
+                    pressedPiece(board.getSelectedIndex());
                 }
             }
 
@@ -68,12 +67,12 @@ public class Game extends Window {
             @Override
             public void mouseReleased(MouseEvent e) {
                 board_view.requestFocus();
-                if(board.getSelectedPiece() != null) {
+                if(board.getSelectedIndex() != -1) {
                     if (!pause_listener) {
                         int move_direction = press_position.direction(new Position(e.getPoint()));
                         move(move_direction);
                     }
-                    releasedPiece(board.getSelectedPiece().pixelConverter(), board.isSpecial());
+                    releasedPiece(board.getSelectedIndex(), board.isSpecial());
                     checkWin();
                 }
             }
@@ -100,7 +99,7 @@ public class Game extends Window {
     }
 
     // set the board with the level number, removing previous board_view
-    private void setBoard(int level_number) {
+    protected void setBoard(int level_number) {
         level = level_number;
         board = new Board(level_number);
         log.resetLog();
@@ -114,24 +113,25 @@ public class Game extends Window {
     }
 
     // move piece selected in the move_direction: the piece moves in the board and in the board_view
-    private void move(int move_direction) {
-        Position piece_pos = board.getSelectedPiece().pixelConverter();
+    protected void move(int move_direction) {
+        int piece_index = board.getSelectedIndex();
         if (board.movePiece(move_direction)) {
             log.pushMove(board.getSelectedIndex(), move_direction);
             setMoves(board.getMoves());
-            movePiecePanel(piece_pos, move_direction);
+            Position new_pos = board.getSelectedPos().pixelConverter();
+            movePiecePanel(piece_index, new_pos.x, new_pos.y);
         }
     }
 
     // reset the board and the log, removing previous board_view
-    public void reset() {
+    protected void reset() {
         board = new Board(level);
         log.resetLog();
         reloadBoard(board);
     }
 
     // save the current board configuration and moves in a JSON file
-    private void saveState(String file) {
+    protected void saveState(String file) {
         bParser = new BoardParser();
         try {
             log.saveLog();
@@ -142,7 +142,7 @@ public class Game extends Window {
     }
 
     // load the moves and the board configuration saved in a JSON file
-    public void loadState(String file) {
+    protected void loadState(String file) {
         bParser = new BoardParser();
         try {
             log.loadLog();
@@ -155,7 +155,7 @@ public class Game extends Window {
     }
 
     // undo the last move done using the MovesLog and invertedMove method
-    public void undo() {
+    protected void undo() {
         if(!log.isEmpty()) {
             board.invertedMove(log.popMove());
             reloadBoard(board);
@@ -163,7 +163,7 @@ public class Game extends Window {
     }
 
     // solve all the level with a delay of *** per move
-    public void solveAll() {
+    protected void solveAll() {
         pause_listener = true;
         while(!bestMove()) {    //todo
             /*try {
@@ -175,7 +175,7 @@ public class Game extends Window {
     }
 
     // best move using makeBestMove() if the configuration of the board hasn't changed, solve() otherwise
-    public boolean bestMove() {
+    protected boolean bestMove() {
         if(!board.checkWin()) {
             if (board.equals(temp_board))
                 makeBestMove();
@@ -187,9 +187,9 @@ public class Game extends Window {
     }
 
     // send the board config to an extern server that return the list of moves to win the game
-    public void solve() {
+    private void solve() {
         bParser = new BoardParser();
-        solver = new Solver();
+        Solver solver = new Solver();
         try {
             best_moves = solver.sendToSolver(bParser.exportBoard(board.getPieces(), log.getStep()));
             makeBestMove();
@@ -201,17 +201,16 @@ public class Game extends Window {
     }
 
     // make the best move using (and removing) the first element of the list best_moves
-    public void makeBestMove() {
+    private void makeBestMove() {
         if(best_moves.isEmpty())
             throw new IllegalArgumentException("");
         Move next_move = best_moves.remove(0);
-        System.out.println("mossa: " + next_move.getBlockIdx() + " " + next_move.getDirIdx());
         board.selectPiece(next_move.getBlockIdx());
         move(next_move.getDirIdx());
     }
 
     // check the win and display the Pane of the win
-    public boolean checkWin() {
+    protected boolean checkWin() {
         if(board.checkWin()) {
             int win_option = displayWin();
             if(win_option == JOptionPane.YES_OPTION) {
@@ -224,5 +223,21 @@ public class Game extends Window {
             return true;
         }
         return false;
+    }
+
+    protected void selectPiece(int piece_index) {
+        board.selectPiece(piece_index);
+    }
+
+    protected int getSelectedIndex() {
+        return board.getSelectedIndex();
+    }
+
+    public Board getBoard() {
+        return board;
+    }
+
+    public MovesLog getLog() {
+        return log;
     }
 }

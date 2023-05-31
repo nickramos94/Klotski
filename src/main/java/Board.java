@@ -1,4 +1,3 @@
-import java.util.Arrays;
 import java.util.List;
 
 public class Board {
@@ -220,7 +219,7 @@ public class Board {
         hasWon = false;
     }
 
-    public Position getSelectedPiece()
+    public Position getSelectedPos()
     {
         if(selected_piece == null)
             return null;
@@ -234,18 +233,6 @@ public class Board {
     public Piece[] getPieces()
     {
         return pieces;
-    }
-
-    public Piece getPiece(Position pos)
-    {
-        for(int i=0; i<PIECES_NUMBER; i++)
-        {
-            if(pieces[i].contains(pos.x,pos.y))
-            {
-                return pieces[i];
-            }
-        }
-        return null;
     }
 
     public int getMoves()

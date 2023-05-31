@@ -8,7 +8,7 @@ class BoardTest {
     void Boolean_selectPiece() {
         Board board = new Board(1);
         //select the big square clicking on its bottom left (1,1). Then verify that the selected's position is big square's position (1,0)
-        assertTrue(board.selectPiece(new Position(1,1)) && board.getSelectedPiece().equals(new Position(1,0)));
+        assertTrue(board.selectPiece(new Position(1,1)) && board.getSelectedPos().equals(new Position(1,0)));
     }
 
     @Test
@@ -16,7 +16,7 @@ class BoardTest {
         Board board = new Board(1);
         board.selectPiece(0); // select big square
         assertEquals(0, board.getSelectedIndex());
-        assertTrue((new Position(1,0)).equals(board.getSelectedPiece())); // selected piece's position == (1,0)
+        assertTrue((new Position(1,0)).equals(board.getSelectedPos())); // selected piece's position == (1,0)
     }
 
     @Test
