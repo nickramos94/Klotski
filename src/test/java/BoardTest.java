@@ -42,7 +42,7 @@ class BoardTest {
         board.selectPiece(9); //rectangle at the bottom (free to move left and right)
         board.movePiece(1);
         assertEquals(1,board.getMoves());
-        Move move = new Move (0,9,1); //step=1 , block index=9, direction=1
+        Move move = new Move (0,9,1); //step=0 , block index=9, direction=1
         assertTrue(board.invertedMove(move));  // same as selected=piece[9] then movePiece(3).
         assertEquals(0,board.getMoves()); //check if moves went from 1 to 0
         assertTrue(board.equals(new Board(1))); //check if the Board returned to the past configuration testing also equals() method

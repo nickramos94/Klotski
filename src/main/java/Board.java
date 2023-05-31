@@ -6,7 +6,7 @@ public class Board {
     private Piece[] pieces;
     private Piece selected_piece;
     private int selected_index;
-    private int special_index;  // to have the special piece index
+    private int special_index;  // to have the special piece (square 2*2) index
     private boolean hasWon;
     private int moves;
     private int configuration;
@@ -51,29 +51,29 @@ public class Board {
         this();
         configuration = config;
         if (configuration == 1) {
-            pieces[0] = new Piece(1, 0, 2, 2);   //quadrato 2x2
-            pieces[1] = new Piece(0, 0, 1, 2);   //rettangolo 1x2
-            pieces[2] = new Piece(3, 0, 1, 2);   //rettangolo 1x2
-            pieces[3] = new Piece(0, 2, 1, 2);   //rettangolo 1x2
-            pieces[4] = new Piece(3, 2, 1, 2);   //rettangolo 1x2
-            pieces[5] = new Piece(1, 2, 1, 1);   //quadrato 1x1
-            pieces[6] = new Piece(2, 2, 1, 1);   //quadrato 1x1
-            pieces[7] = new Piece(1, 3, 1, 1);   //quadrato 1x1
-            pieces[8] = new Piece(2, 3, 1, 1);   //quadrato 1x1
-            pieces[9] = new Piece(1, 4, 2, 1);   //rettangolo 2x1
+            pieces[0] = new Piece(1, 0, 2, 2);   //2x2 square
+            pieces[1] = new Piece(0, 0, 1, 2);   //1x2 rectangle
+            pieces[2] = new Piece(3, 0, 1, 2);   //1x2 rectangle
+            pieces[3] = new Piece(0, 2, 1, 2);   //1x2 rectangle
+            pieces[4] = new Piece(3, 2, 1, 2);   //1x2 rectangle
+            pieces[5] = new Piece(1, 2, 1, 1);   //1x1 square
+            pieces[6] = new Piece(2, 2, 1, 1);   //1x1 square
+            pieces[7] = new Piece(1, 3, 1, 1);   //1x1 square
+            pieces[8] = new Piece(2, 3, 1, 1);   //1x1 square
+            pieces[9] = new Piece(1, 4, 2, 1);   //2x1 rectangle
         }
         else if(configuration == 2) {       // TEMPORARY ADDITION: second configuration
                                             // to try level selection and win condition
-            pieces[0] = new Piece(1, 2, 2, 2);   //quadrato 2x2
-            pieces[1] = new Piece(0, 0, 1, 2);   //rettangolo 1x2
-            pieces[2] = new Piece(3, 0, 1, 2);   //rettangolo 1x2
-            pieces[3] = new Piece(0, 2, 1, 2);   //rettangolo 1x2
-            pieces[4] = new Piece(3, 2, 1, 2);   //rettangolo 1x2
-            pieces[5] = new Piece(1, 0, 1, 1);   //quadrato 1x1
-            pieces[6] = new Piece(2, 0, 1, 1);   //quadrato 1x1
-            pieces[7] = new Piece(1, 1, 1, 1);   //quadrato 1x1
-            pieces[8] = new Piece(2, 1, 1, 1);   //quadrato 1x1
-            pieces[9] = new Piece(1, 4, 1, 1);   //quadrato 1x1
+            pieces[0] = new Piece(1, 2, 2, 2);   //2x2 square
+            pieces[1] = new Piece(0, 0, 1, 2);   //1x2 rectangle
+            pieces[2] = new Piece(3, 0, 1, 2);   //1x2 rectangle
+            pieces[3] = new Piece(0, 2, 1, 2);   //1x2 rectangle
+            pieces[4] = new Piece(3, 2, 1, 2);   //1x2 rectangle
+            pieces[5] = new Piece(1, 0, 1, 1);   //1x1 square
+            pieces[6] = new Piece(2, 0, 1, 1);   //1x1 square
+            pieces[7] = new Piece(1, 1, 1, 1);   //1x1 square
+            pieces[8] = new Piece(2, 1, 1, 1);   //1x1 square
+            pieces[9] = new Piece(1, 4, 1, 1);   //1x1 square
         }
         special_index = 0;
     }
@@ -104,57 +104,57 @@ public class Board {
             return false;
 
         if(direction>3 || direction <0)
-            throw new IllegalArgumentException("Direzione non valida");
+            throw new IllegalArgumentException("Invalid direction");
 
-        if(out_of_bounds(direction))
+        if(out_of_bounds(direction)) //this method checks if the movement would make the piece go out of bounds and...
             return false;
-        int x = selected_piece.getX();     //uso nomi variabili piu comodi
+        int x = selected_piece.getX();     //using simplified variable's names
         int y = selected_piece.getY();
         int w = selected_piece.width;
         int h = selected_piece.height;
 
-        //il resto del codice si occupa delle possibili sovrapposizioni fra pezzi
+        //...the rest of the code controls potential overlap
         int i;
         if(direction == 0) //down
         {
-            for(i=x; i<=(x+w-1); i++)  //scorro orizzontalmente il pezzo
+            for(i=x; i<=(x+w-1); i++)  //scrolling the piece horizontally
             {
-                if(isOccupied(i,y+h))  // e controllo che sotto la parte piu bassa del pezzo sia libero
+                if(isOccupied(i,y+h))  //and controlling if the part under the piece (i;y+h) is free
                     return false;
             }
         } else if(direction == 1) //right
         {
-            for(i=y; i<=(y+h-1); i++)  //scorro verticalmente il pezzo
+            for(i=y; i<=(y+h-1); i++)  //scrolling the piece vertically
             {
-                if(isOccupied((x+w),i))  // e controllo che accanto alla parte piu a destra del pezzo sia libero
+                if(isOccupied((x+w),i))  //and controlling if the part on it's right(x+w;i) is free
                     return false;
             }
         } else if(direction == 2) //up
         {
-            for(i=x; i<=(x+w-1); i++)  //scorro orizzontalmente il pezzo
+            for(i=x; i<=(x+w-1); i++)  //scrolling the piece horizontally
             {
-                if(isOccupied(i,y-1)) //e guardo se e libero sopra di 1
+                if(isOccupied(i,y-1)) //and controlling if the part over it (i;y-1) is free
                     return false;
             }
         } else if(direction == 3) //left
         {
-            for(i=y; i<=(y+h-1); i++)  //scorro verticalmente il pezzo
+            for(i=y; i<=(y+h-1); i++)  //scrolling the piece vertically
             {
-                if(isOccupied((x-1),i))  // e controllo a sinistra di 1
+                if(isOccupied((x-1),i))  //and controlling if the part on it's left(x-1;i) is free
                     return false;
             }
         }
 
         selected_piece.move(direction);
         moves++;
-        if(pieces[0].getX() == 1 && pieces[0].getY() == 3) //caso in cui il pezzo 2x2 si trova all'uscita
+        if(pieces[0].getX() == 1 && pieces[0].getY() == 3) //checking if the big square is on the bottom middle
         {
             hasWon = true;
         }
         return true;
     }
 
-    public boolean invertedMove(Move move)
+    public boolean invertedMove(Move move) //method called by Game.undo(). invertedMove receives the move that has to be repeated in the opposite direction
     {
         if(moves<1)
             return false;
@@ -174,7 +174,7 @@ public class Board {
         else return direction-2;
     }
 
-    private boolean out_of_bounds(int dir)  //metodo a parte per semplificare movePieces(). Si occupa di una parte dei movimenti non fattibili
+    private boolean out_of_bounds(int dir)  //called by Board.movePiece(). Checks only if the movement would make the piece go out of the Board
     {
         boolean out_of_bounds = false;
         if(dir==0 && (selected_piece.getY() + selected_piece.height) == HEIGHT)
@@ -192,7 +192,7 @@ public class Board {
     {
         for(int i=0; i<PIECES_NUMBER; i++)
         {
-            if(pieces[i].contains(x,y))   //scorro tutti e 10 i pezzi
+            if(pieces[i].contains(x,y))
                 return true;
         }
         return false;

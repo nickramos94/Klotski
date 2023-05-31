@@ -1,5 +1,5 @@
 public class Piece {
-    Position position;
+    Position position; // coordinates of the top left part of the piece.
     int width;
     int height;
 
@@ -12,31 +12,37 @@ public class Piece {
             height = h;
         }
         else
-            throw new IllegalArgumentException("Forma o posizione del pezzo non valida");
+            throw new IllegalArgumentException("Invalid form or position");
     }
 
     public Piece(Piece piece) {
         this(piece.getX(), piece.getY(), piece.width, piece.height);
     }
-
-    private boolean is_legal(int x, int y, int w, int h) //METODO INUTILE? visto che siamo noi in Board() a creare i pezzi e sicuramente non sbagliamo
+    public Piece()
     {
-        if(w==1 && h==1) //caso quadrato 1x1
+        position = null;
+        width = 0;
+        height = 0;
+    }
+
+    private boolean is_legal(int x, int y, int w, int h)
+    {
+        if(w==1 && h==1) //1x1 square
         {
             if(x>=0 && x<Board.WIDTH && y>=0 && y<Board.HEIGHT)
                 return true;
         }
-        if(w==2 && h==2) //caso quadrato 2x2
+        if(w==2 && h==2) //2x2 square
         {
             if(x>=0 && x<(Board.WIDTH-1) && y>=0 && y<(Board.HEIGHT-1))
                 return true;
         }
-        if(w==1 && h==2) //caso rettangolo 1x2
+        if(w==1 && h==2) //1x2 rectangle
         {
             if(x>=0 && x<Board.WIDTH && y>=0 && y<(Board.HEIGHT-1))
                 return true;
         }
-        if(w==2 && h==1) //caso rettangolo 2x1
+        if(w==2 && h==1) //2x1 rectangle
         {
             if(x>=0 && x<(Board.WIDTH-1) && y>=0 && y<Board.HEIGHT)
                 return true;
@@ -44,13 +50,13 @@ public class Piece {
         return false; //tutti gli altri casi non sono validi (o per posizioni non valide oppure per forme/dimensioni non valide)
     }
 
-    public boolean contains(int x, int y)    //verifico se questo Piece contiene il punto (x;y)
+    public boolean contains(int x, int y)    //verify if this piece occupies (x;y). Method called by Board.isOccupied(int x, int y)
     {
         return (x >= position.x && y >= position.y &&
                 x < (position.x + this.width) && y < (position.y + this.height));
     }
 
-    public void move(int direction)  //funzione chiamata da movePiece() di Board, dove sara fatto anche il controllo della validita del valore di direction
+    public void move(int direction)  //method called by Board.movePiece(int direction), which controls if the direction is valid and if the movement is possible
     {
         if (direction == 0) // down
             position.y++;

@@ -23,34 +23,13 @@ class PieceTest {
         assertTrue(piece.getX()==2 && piece.getY()==3);
         assertFalse(piece.getX()==2 && piece.getY()==2);
         piece.move(1); //right
-        assertTrue(piece.getX()==3 && piece.getY()==3);//out of bounds but move() doesn't throw any error.Board.movePiece will make sure that this move won't happen, not Piece.move()
+        assertTrue(piece.getX()==3 && piece.getY()==3);//out of bounds but move() doesn't throw any error. Board.movePiece will make sure that this move won't happen, not Piece.move()
         piece.move(2); //up
         assertTrue(piece.getX()==3 && piece.getY()==2);
         piece.move(3); //left
         assertTrue(piece.getX()==2 && piece.getY()==2);
     }
 
-    @Test
-    void getX() {
-        Piece piece = new Piece(1,0,1,1);
-        assertEquals(1, piece.getX());
-        piece.move(1);
-        assertEquals(2, piece.getX());
-        piece.move(3);
-        piece.move(3);
-        assertEquals(0, piece.getX());
-    }
-
-    @Test
-    void getY() {
-        Piece piece = new Piece(1,3,1,1);
-        assertEquals(3, piece.getY());
-        piece.move(0);
-        assertEquals(4, piece.getY());
-        piece.move(2);
-        piece.move(2);
-        assertEquals(2, piece.getY());
-    }
 
     @Test
     void getProperties() {
