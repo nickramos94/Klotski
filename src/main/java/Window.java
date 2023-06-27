@@ -88,11 +88,34 @@ class Button extends JButton {
 
 public class Window extends JFrame  {
 
+    /*
+     * Window name
+     */
     final static String winName = "Klotski";
+    
+    /*
+     * Size of a 1x1 block in pixels
+     */
     final static public int BLOCK_SIZE = 130;
+    
+    /*
+     * Board width 
+     */
     final static public int BOARD_WIDTH = Board.WIDTH * BLOCK_SIZE;
+    
+    /* 
+     * Board height
+     */
     final static public int BOARD_HEIGHT = Board.HEIGHT * BLOCK_SIZE + 5;
+    
+    /*
+     * Title popup window for the game info
+     */
     final static private String infoTitle = "This project is the Klotsky game developed by 4 students.";
+    
+    /*
+     * Game rules inside the info popup window
+     */
     final static private String infoGameRules = "GOAL:\n" +
     "Among the blocks, there is a special one (the 2x2 red) which\n" +
     "must be moved to a special area, where there is the red line.\n" +
@@ -104,13 +127,37 @@ public class Window extends JFrame  {
     "With the button \"Best move\" the best move will be made,\n" +
     "with the button \"Solve all\" all the puzzle will be solved";
 
+    /* 
+     * JPanel to handle the menu
+    */
     protected JPanel menu;
-    private JMenuBar mainBar;
+    
+    /* 
+     * Top bar for the menu 
+     */
     private JMenuBar menuBar;
+
+    /* 
+     * JPanel to handle the board for the game
+    */
     protected JPanel board_view;
+
+    /* 
+     * Top bar for the board view
+     */
+    private JMenuBar boardBar;
+
+    /*
+     * Array that store every single piace as a JPannel
+     */
     private JPanel[] pieces_view;
 
+    /*
+     * Window constructor where the JPanels of the Main Menu and of the Board View will be played are created
+     */
     public Window() {
+
+        // Set up the window: title, name, size, ecc..
         super(winName);
         setSize(BOARD_WIDTH, BOARD_HEIGHT);
         setWindowSize(BOARD_WIDTH, BOARD_HEIGHT);
@@ -119,7 +166,8 @@ public class Window extends JFrame  {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
         setVisible(true);
-        // Create MENU
+        
+        // Create the MENU
         menu = new JPanel();
         menu.setLayout(new BorderLayout());
 
@@ -130,8 +178,6 @@ public class Window extends JFrame  {
 
         String[] levels = { "Level 1", "Level 2", "Level 3", "Level 4" };
         JComboBox<String>  selectLevel = new JComboBox<String>(levels);
-        // selectLevel.setBackground(Theme.menu);
-        // selectLevel.setForeground(Theme.menuText);
         menu.putClientProperty("level_selection", selectLevel);
         selectLevel.setPreferredSize(new Dimension(100, 50));
 
@@ -147,22 +193,31 @@ public class Window extends JFrame  {
         menu.add(title, BorderLayout.NORTH);
         menu.add(levelSelection, BorderLayout.CENTER);
 
-        // Create BOARD
+        // main menu bar
+        boardBar = new JMenuBar();
+        boardBar.setBackground(Color.WHITE);
+
+        Button info = new Button("Info");
+        info.addActionListener(e -> showInfo());
+
+        menuBar.add(Box.createHorizontalGlue());
+        menuBar.add(info);
+
+        // Create the BOARD VIEW 
         board_view = new JPanel(null);
         board_view.setBackground(Theme.background);
 
         JButton b = new JButton("TEST");
         b.setBackground(Color.ORANGE);
-        // button.setEnabled(false); // Set the button as disabled
         b.setBounds(0, 0,BOARD_WIDTH, BOARD_HEIGHT);
         board_view.add(b);
 
-        // Menu bar
-        menuBar = new JMenuBar();
-        menuBar.setBackground(Color.WHITE);
+        // create the board bar
+        boardBar = new JMenuBar();
+        boardBar.setBackground(Color.WHITE);
         
         JMenu fileMenu = new JMenu("Settings");
-        menuBar.putClientProperty("Settings", fileMenu);
+        boardBar.putClientProperty("Settings", fileMenu);
 
         fileMenu.addMouseListener(new MouseAdapter() {
             @Override
@@ -177,78 +232,76 @@ public class Window extends JFrame  {
         });
 
         JMenu levelMenu = new JMenu("Levels");
-        menuBar.putClientProperty("Levels", levelMenu);
+        boardBar.putClientProperty("Levels", levelMenu);
         
         Button reset = new Button("Reset");
-        menuBar.putClientProperty("Reset", reset);
+        boardBar.putClientProperty("Reset", reset);
 
         Button solveAll = new Button("Solve all");
-        menuBar.putClientProperty("Solve all", solveAll);
+        boardBar.putClientProperty("Solve all", solveAll);
 
         Button undo = new Button("Undo");
-        menuBar.putClientProperty("Undo", undo);
+        boardBar.putClientProperty("Undo", undo);
 
         Button bestMove = new Button("Best move");
-        menuBar.putClientProperty("Best move", bestMove);
+        boardBar.putClientProperty("Best move", bestMove);
 
         JLabel moves = new JLabel("Moves: 0");
-        menuBar.putClientProperty("moves", moves);
+        boardBar.putClientProperty("moves", moves);
 
-        // fileMenu items
         JMenuItem newItem = new JMenuItem("Save");
         JMenuItem openItem = new JMenuItem("Load");
         JMenuItem mainItem = new JMenuItem("Main menu");
         fileMenu.add(newItem);
         fileMenu.add(openItem);
         fileMenu.add(mainItem);
-        menuBar.setVisible(true);
+        boardBar.setVisible(true);
 
-        // levelMenu items
         JMenuItem level1 = new JMenuItem("Level 1");
         JMenuItem level2 = new JMenuItem("Level 2");
         levelMenu.add(level1);
         levelMenu.add(level2);
-        menuBar.setVisible(true);
+        boardBar.setVisible(true);
 
-        // add to menu and buttons to menu bar
-        menuBar.add(fileMenu);
-        menuBar.add(levelMenu);
-        menuBar.add(reset);
-        menuBar.add(moves);
-        menuBar.add(Box.createHorizontalGlue());
-        menuBar.add(solveAll);
-        menuBar.add(undo);
-        menuBar.add(bestMove);
-
-
-        // main menu bar
-        mainBar = new JMenuBar();
-        mainBar.setBackground(Color.WHITE);
-
-        Button info = new Button("Info");
-        info.addActionListener(e -> showInfo());
-
-        mainBar.add(Box.createHorizontalGlue());
-        mainBar.add(info);
+        boardBar.add(fileMenu);
+        boardBar.add(levelMenu);
+        boardBar.add(reset);
+        boardBar.add(moves);
+        boardBar.add(Box.createHorizontalGlue());
+        boardBar.add(solveAll);
+        boardBar.add(undo);
+        boardBar.add(bestMove);
     }
 
+    /**
+     * Sets the size of the window.
+     *
+     * @param width  the width of the window
+     * @param height the height of the window
+     */
     public void setWindowSize(int width, int height) {
         Container c = getContentPane();
         Dimension d = new Dimension(width, height);
         c.setPreferredSize(d);
     }
 
+    /**
+     * Displays the menu and hides the board view.
+     */
     public void showMenu() {
         remove(board_view);
-        setJMenuBar(mainBar);
+        setJMenuBar(menuBar);
         add(menu, BorderLayout.CENTER);
         revalidate();
         repaint();
     }
 
+    /**
+     * Displays the menu and hides the board view.
+     */
     public void showBoard(Board board) {
         remove(menu);
-        setJMenuBar(menuBar);
+        setJMenuBar(boardBar);
         pack();
         reloadBoard(board);
         add(board_view);
@@ -256,11 +309,21 @@ public class Window extends JFrame  {
         repaint();
     }
 
+    /**
+     * Reloads the game board with the provided board.
+     *
+     * @param board the game board to be reloaded
+     */
     public void reloadBoard(Board board) {
         board_view.removeAll();
         setBoardView(board);
     }
 
+    /**
+     * Sets the view of the game board based on the provided board object.
+     *
+     * @param board the game board object
+     */
     public void setBoardView(Board board) {
         setMoves(board.getMoves());
         Piece[] pieces = board.getPieces();
@@ -290,14 +353,31 @@ public class Window extends JFrame  {
         repaint();
     }
 
+    /**
+     * Sets the number of moves in the game and updates the corresponding label in the board bar.
+     *
+     * @param m the number of moves
+     */
     public void setMoves(int m) {
-        getLabel(menuBar, "moves").setText("Moves: " + m);
+        getLabel(boardBar, "moves").setText("Moves: " + m);
     }
 
+    /**
+     * Moves the specified piece panel to the new coordinates (x, y).
+     *
+     * @param piece_index the index of the piece panel to move
+     * @param x           the new x-coordinate
+     * @param y           the new y-coordinate
+     */
     public void movePiecePanel(int piece_index, int x, int y) {
         pieces_view[piece_index].setLocation(new Point(x, y));
     }
 
+    /**
+     * Displays a win message
+     *
+     * @return the user's choice, either 0 for restart or 1 for main menu
+     */
     public int displayWin() {
         Object[] options = {"Restart", "Main Menu"};
         return JOptionPane.showOptionDialog(this,
@@ -310,10 +390,21 @@ public class Window extends JFrame  {
                 options[0]);
     }
 
+    /**
+     * Sets the background color of the specified piece panel to indicate it has been pressed.
+     *
+     * @param index the index of the piece panel
+     */
     public void pressedPiece(int index) {
         pieces_view[index].setBackground(Theme.blockSelected);
     }
 
+    /**
+     * Sets the background color of the specified piece panel to indicate it has been released.
+     *
+     * @param index     the index of the piece panel
+     * @param isSpecial a flag indicating if the piece is special
+     */
     public void releasedPiece(int index, boolean isSpecial) {
         if(isSpecial) {
             pieces_view[index].setBackground(Theme.bigBlock);
@@ -323,6 +414,11 @@ public class Window extends JFrame  {
         }
     }
 
+    /**
+     * Removes the specified panel from the container and refreshes the window.
+     *
+     * @param panel the panel to be removed
+     */
     public void remove(JPanel panel) {
         super.remove(panel);
         revalidate();
@@ -346,13 +442,16 @@ public class Window extends JFrame  {
     }
 
     public JMenuItem getMenuItem(int menu_index, int item_index) {
-        return (JMenuItem) menuBar.getMenu(menu_index).getItem(item_index);
+        return (JMenuItem) boardBar.getMenu(menu_index).getItem(item_index);
     }
 
     public JButton getMenuBarButton(String key) {
-        return (JButton) menuBar.getClientProperty(key);
+        return (JButton) boardBar.getClientProperty(key);
     }
 
+    /**
+     * Displays an information message dialog with the game rules.
+     */
     private void showInfo() {
         JOptionPane.showMessageDialog(this,
                 infoGameRules,

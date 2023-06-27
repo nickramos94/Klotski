@@ -10,7 +10,7 @@ Progetto finale di ingegneria del software, la traccia del progetto la potete tr
 </div>
 
 #### - [Manuale](./Manuale.md)
-#### - [Use Cases](./UseCases.md)
+#### - [Use Cases](./UseCases.pdf)
 #### - [Domain model](./DomainModel.md)
 #### - [Design model](./DesignModel.md)
 #### - [Sequence Diagrams](SequenceDiagrams.md)
