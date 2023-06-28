@@ -176,7 +176,7 @@ public class Window extends JFrame  {
         title.setBorder(new EmptyBorder(150, 10, 10, 10));
         title.setHorizontalAlignment(JLabel.CENTER);
 
-        String[] levels = { "Level 1", "Level 2", "Level 3", "Level 4", "Level 5" };
+        String[] levels = { "Level 1", "Level 2", "Level 3", "Level 4", "Level 5", "Random" };
         JComboBox<String>  selectLevel = new JComboBox<String>(levels);
         menu.putClientProperty("level_selection", selectLevel);
         selectLevel.setPreferredSize(new Dimension(100, 50));
@@ -262,11 +262,13 @@ public class Window extends JFrame  {
         JMenuItem level3 = new JMenuItem("Level 3");
         JMenuItem level4 = new JMenuItem("Level 4");
         JMenuItem level5 = new JMenuItem("Level 5");
+        JMenuItem random = new JMenuItem("Random");
         levelMenu.add(level1);
         levelMenu.add(level2);
         levelMenu.add(level3);
         levelMenu.add(level4);
         levelMenu.add(level5);
+        levelMenu.add(random);
         boardBar.setVisible(true);
 
         boardBar.add(fileMenu);

@@ -88,6 +88,7 @@ public class Game extends Window {
         getMenuItem(1, 2).addActionListener(e -> setBoard(3));  // level 3 action listener
         getMenuItem(1, 3).addActionListener(e -> setBoard(4));  // level 4 action listener
         getMenuItem(1, 4).addActionListener(e -> setBoard(5));  // level 5 action listener
+        getMenuItem(1, 5).addActionListener(e -> setBoard(6));  // level 6 (level random) action listener
         getMenuBarButton("Reset").addActionListener(e -> reset());     // reset action listener
         getMenuBarButton("Undo").addActionListener(e -> undo());     // undo action listener
         getMenuBarButton("Best move").addActionListener(e -> bestMove());     // best move action listener
@@ -111,15 +112,11 @@ public class Game extends Window {
 
     // initialize board and show it in the window
     protected void startGame(int level) {
-        /*loadState("levels/level" + level + ".json");
-        showBoard(board);*/
-        if(level==5)
-        {
+        if(level==6) {
             board = new Board();
             board.randomize();;
         }
-        else
-        {
+        else {
             loadState("levels/level" + level + ".json");
         }
         showBoard(board);
@@ -129,17 +126,10 @@ public class Game extends Window {
     // set the board with the level number, removing previous board_view
     protected void setBoard(int level_number) {
         level = level_number;
-
-      /*  loadState("levels/level" + level_number + ".json");
-        log.resetLog();
-        reloadBoard(board); */
-        if(level==5)
-        {
-            board = new Board();
+        if(level==6) {
             board.randomize();;
         }
-        else
-        {
+        else {
             loadState("levels/level" + level_number + ".json");
         }
         log.resetLog();
