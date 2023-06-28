@@ -200,8 +200,8 @@ public class Window extends JFrame  {
         Button info = new Button("Info");
         info.addActionListener(e -> showInfo());
 
-        menuBar.add(Box.createHorizontalGlue());
-        menuBar.add(info);
+        boardBar.add(Box.createHorizontalGlue());
+        boardBar.add(info);
 
         // Create the BOARD VIEW 
         board_view = new JPanel(null);
