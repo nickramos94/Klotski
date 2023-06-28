@@ -8,7 +8,6 @@ public class Board {
     private int special_index;  // to have the special piece (square 2*2) index
     private boolean hasWon;
     private int moves;
-    private int configuration;
     final static int WIDTH = 4;
     final static int HEIGHT = 5;
     private final static int PIECES_NUMBER = 10;
@@ -43,38 +42,6 @@ public class Board {
     {
         this(pieces);
         moves = move_num;
-    }
-
-    public Board(int config)
-    {
-        this();
-        configuration = config;
-        if (configuration == 1) {
-            pieces[0] = new Piece(1, 0, 2, 2);   //2x2 square
-            pieces[1] = new Piece(0, 0, 1, 2);   //1x2 rectangle
-            pieces[2] = new Piece(3, 0, 1, 2);   //1x2 rectangle
-            pieces[3] = new Piece(0, 2, 1, 2);   //1x2 rectangle
-            pieces[4] = new Piece(3, 2, 1, 2);   //1x2 rectangle
-            pieces[5] = new Piece(1, 2, 1, 1);   //1x1 square
-            pieces[6] = new Piece(2, 2, 1, 1);   //1x1 square
-            pieces[7] = new Piece(1, 3, 1, 1);   //1x1 square
-            pieces[8] = new Piece(2, 3, 1, 1);   //1x1 square
-            pieces[9] = new Piece(1, 4, 2, 1);   //2x1 rectangle
-        }
-        else if(configuration == 2) {       // TEMPORARY ADDITION: second configuration
-                                            // to try level selection and win condition
-            pieces[0] = new Piece(1, 2, 2, 2);   //2x2 square
-            pieces[1] = new Piece(0, 0, 1, 2);   //1x2 rectangle
-            pieces[2] = new Piece(3, 0, 1, 2);   //1x2 rectangle
-            pieces[3] = new Piece(0, 2, 1, 2);   //1x2 rectangle
-            pieces[4] = new Piece(3, 2, 1, 2);   //1x2 rectangle
-            pieces[5] = new Piece(1, 0, 1, 1);   //1x1 square
-            pieces[6] = new Piece(2, 0, 1, 1);   //1x1 square
-            pieces[7] = new Piece(1, 1, 1, 1);   //1x1 square
-            pieces[8] = new Piece(2, 1, 1, 1);   //1x1 square
-            pieces[9] = new Piece(1, 4, 1, 1);   //1x1 square
-        }
-        special_index = 0;
     }
 
     public boolean selectPiece(Position pos)
