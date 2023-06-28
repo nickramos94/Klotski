@@ -111,14 +111,14 @@ public class Game extends Window {
 
     // initialize board and show it in the window
     protected void startGame(int level) {
-        loadState("levels\\level" + level + ".json");
+        loadState("levels/level" + level + ".json");
         showBoard(board);
     }
 
     // set the board with the level number, removing previous board_view
     protected void setBoard(int level_number) {
         level = level_number;
-        loadState("levels\\level" + level_number + ".json");
+        loadState("levels/level" + level_number + ".json");
         log.resetLog();
         reloadBoard(board);
     }
