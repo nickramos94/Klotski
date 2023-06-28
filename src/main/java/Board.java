@@ -47,11 +47,15 @@ public class Board {
     public void randomize()
     {
         int x, y, w, h;
-        x = (int) Math.round(Math.random()*(WIDTH-2));       //from 0 to 2
-        y = (int) Math.round(Math.random()*(HEIGHT-2));     //from 0 to 3
-        pieces[0] = new Piece(x,y,2,2);  //there will always be a 2x2 square
+        do {
+            //creating big square's coordinates
+            x = (int) Math.round(Math.random()*(WIDTH-2));       //big square's x, can have values from 0 to 2
+            y = (int) Math.round(Math.random()*(HEIGHT-2));     //big square's y, can have values from 0 to 3
+        }while (x==1 && y==3);                                  //if the 2x2 square is going to be in the winning position, change its coordinates
+
+        pieces[0] = new Piece(x,y,2,2);              //the 2x2 square must always exist, but the position is random
         trySetSpecial(0);
-        int rectangles_counter = 0;            //there can't be more than 5 rectangles
+        int rectangles_counter = 0;                      //there can't be more than 5 rectangles
         int pieces_counter = 1;
         while(pieces_counter<10)
         {
@@ -62,22 +66,22 @@ public class Board {
             }
             else
             {
-                w = (int) Math.round(Math.random() + 1);   //1 to 2
+                w = (int) Math.round(Math.random() + 1);   //width= 1 or 2
                 if(w==2){
-                    h = 1;
+                    h = 1;                                //if it's 2, height must me 1 (can't have more big squares)
                 }
                 else {
-                    h = (int) Math.round(Math.random() + 1); //1 to 2
+                    h = (int) Math.round(Math.random() + 1);        //1 or 2
                 }
             }
 
             x = (int) Math.round(Math.random()*WIDTH-1);   //0 to 4
             y = (int) Math.round(Math.random()*HEIGHT-1);  //0 to 5
 
-            if(!isOccupied(x,y) && !isOccupied(x+w-1,y) && !isOccupied(x,y+h-1) )
+            if(!isOccupied(x,y) && !isOccupied(x+w-1,y) && !isOccupied(x,y+h-1) )  //we can only create the piece if all the position that it's going to occupy are free
             {
                 try{
-                    pieces[pieces_counter] = new Piece(x,y,w,h);
+                    pieces[pieces_counter] = new Piece(x,y,w,h);     //throws error if out of bounds (positions out of bounds are free so they pass the isOccupied() check, must manage them here)
                     pieces_counter++;
                     if(w==2 || h==2)
                         rectangles_counter++;
