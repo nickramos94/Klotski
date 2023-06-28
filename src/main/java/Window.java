@@ -176,7 +176,7 @@ public class Window extends JFrame  {
         title.setBorder(new EmptyBorder(150, 10, 10, 10));
         title.setHorizontalAlignment(JLabel.CENTER);
 
-        String[] levels = { "Level 1", "Level 2", "Level 3", "Level 4" };
+        String[] levels = { "Level 1", "Level 2", "Level 3", "Level 4", "Level 5" };
         JComboBox<String>  selectLevel = new JComboBox<String>(levels);
         menu.putClientProperty("level_selection", selectLevel);
         selectLevel.setPreferredSize(new Dimension(100, 50));
@@ -194,14 +194,14 @@ public class Window extends JFrame  {
         menu.add(levelSelection, BorderLayout.CENTER);
 
         // main menu bar
-        boardBar = new JMenuBar();
-        boardBar.setBackground(Color.WHITE);
+        menuBar = new JMenuBar();
+        menuBar.setBackground(Color.WHITE);
 
         Button info = new Button("Info");
         info.addActionListener(e -> showInfo());
 
-        boardBar.add(Box.createHorizontalGlue());
-        boardBar.add(info);
+        menuBar.add(Box.createHorizontalGlue());
+        menuBar.add(info);
 
         // Create the BOARD VIEW 
         board_view = new JPanel(null);
@@ -259,8 +259,14 @@ public class Window extends JFrame  {
 
         JMenuItem level1 = new JMenuItem("Level 1");
         JMenuItem level2 = new JMenuItem("Level 2");
+        JMenuItem level3 = new JMenuItem("Level 3");
+        JMenuItem level4 = new JMenuItem("Level 4");
+        JMenuItem level5 = new JMenuItem("Level 5");
         levelMenu.add(level1);
         levelMenu.add(level2);
+        levelMenu.add(level3);
+        levelMenu.add(level4);
+        levelMenu.add(level5);
         boardBar.setVisible(true);
 
         boardBar.add(fileMenu);

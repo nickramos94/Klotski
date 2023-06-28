@@ -85,6 +85,9 @@ public class Game extends Window {
         getMenuItem(0, 2).addActionListener(e -> showMenu());   // return to main menu action listener
         getMenuItem(1, 0).addActionListener(e -> setBoard(1));  // level 1 action listener
         getMenuItem(1, 1).addActionListener(e -> setBoard(2));  // level 2 action listener
+        getMenuItem(1, 2).addActionListener(e -> setBoard(3));  // level 3 action listener
+        getMenuItem(1, 3).addActionListener(e -> setBoard(4));  // level 4 action listener
+        getMenuItem(1, 4).addActionListener(e -> setBoard(5));  // level 5 action listener
         getMenuBarButton("Reset").addActionListener(e -> reset());     // reset action listener
         getMenuBarButton("Undo").addActionListener(e -> undo());     // undo action listener
         getMenuBarButton("Best move").addActionListener(e -> bestMove());     // best move action listener
@@ -108,14 +111,14 @@ public class Game extends Window {
 
     // initialize board and show it in the window
     protected void startGame(int level) {
-        board = new Board(level);
+        loadState("levels/level" + level + ".json");
         showBoard(board);
     }
 
     // set the board with the level number, removing previous board_view
     protected void setBoard(int level_number) {
         level = level_number;
-        board = new Board(level_number);
+        loadState("levels/level" + level_number + ".json");
         log.resetLog();
         reloadBoard(board);
     }
@@ -139,9 +142,7 @@ public class Game extends Window {
 
     // reset the board and the log, removing previous board_view
     protected void reset() {
-        board = new Board(level);
-        log.resetLog();
-        reloadBoard(board);
+        setBoard(level);
     }
 
     // save the current board configuration and moves in a JSON file
@@ -238,6 +239,8 @@ public class Game extends Window {
     // check the win and display the Pane of the win
     protected void checkWin() {
         if(board.checkWin()) {
+            getMenuBarButton("Solve all").setText("Solve all");
+            stop_solving = true;
             int win_option = displayWin();
             if(win_option == JOptionPane.YES_OPTION) {
                 reset();
