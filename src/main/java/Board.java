@@ -1,7 +1,7 @@
 import java.util.List;
 
 public class Board {
-    
+
     private Piece[] pieces;
     private Piece selected_piece;
     private int selected_index;
@@ -42,6 +42,53 @@ public class Board {
     {
         this(pieces);
         moves = move_num;
+    }
+
+    public void randomize()
+    {
+        int x, y, w, h;
+        x = (int) Math.round(Math.random()*(WIDTH-2));       //from 0 to 2
+        y = (int) Math.round(Math.random()*(HEIGHT-2));     //from 0 to 3
+        pieces[0] = new Piece(x,y,2,2);  //there will always be a 2x2 square
+        trySetSpecial(0);
+        int rectangles_counter = 0;            //there can't be more than 5 rectangles
+        int pieces_counter = 1;
+        while(pieces_counter<10)
+        {
+            if(rectangles_counter==5)      //if there are already 5 rectangles we can only generate 1x1 squares till the end
+            {
+                w = 1;
+                h = 1;
+            }
+            else
+            {
+                w = (int) Math.round(Math.random() + 1);   //1 to 2
+                if(w==2){
+                    h = 1;
+                }
+                else {
+                    h = (int) Math.round(Math.random() + 1); //1 to 2
+                }
+            }
+
+            x = (int) Math.round(Math.random()*WIDTH-1);   //0 to 4
+            y = (int) Math.round(Math.random()*HEIGHT-1);  //0 to 5
+
+            if(!isOccupied(x,y) && !isOccupied(x+w-1,y) && !isOccupied(x,y+h-1) )
+            {
+                try{
+                    pieces[pieces_counter] = new Piece(x,y,w,h);
+                    pieces_counter++;
+                    if(w==2 || h==2)
+                        rectangles_counter++;
+                }
+                catch(IllegalArgumentException e)
+                {}
+            }
+
+
+        }
+
     }
 
     public boolean selectPiece(Position pos)
@@ -158,7 +205,7 @@ public class Board {
     {
         for(int i=0; i<PIECES_NUMBER; i++)
         {
-            if(pieces[i].contains(x,y))
+            if(pieces[i]!=null && pieces[i].contains(x,y))
                 return true;
         }
         return false;
@@ -216,5 +263,6 @@ public class Board {
         }
         return true;
     }
+
 }
 
