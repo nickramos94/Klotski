@@ -113,8 +113,7 @@ public class Game extends Window {
     // initialize board and show it in the window
     protected void startGame(int level) {
         if(level==6) {
-            board = new Board();
-            board.randomize();;
+            setRandomBoard();
         }
         else {
             loadState("levels/level" + level + ".json");
@@ -127,7 +126,7 @@ public class Game extends Window {
     protected void setBoard(int level_number) {
         level = level_number;
         if(level==6) {
-            board.randomize();;
+            setRandomBoard();
         }
         else {
             loadState("levels/level" + level_number + ".json");
@@ -140,6 +139,23 @@ public class Game extends Window {
     private void setBoard(Board board) {
         this.board = board;
         reloadBoard(board);
+    }
+
+    private void setRandomBoard() {
+        bParser = new BoardParser();
+        Solver solver = new Solver();
+        do {
+            board = new Board();
+            board.randomize();
+            try {
+                best_moves = solver.sendToSolver(bParser.exportBoard(board.getPieces(), log.getStep()));
+            } catch (MalformedURLException e) {
+                throw new RuntimeException(e);
+            } catch (JsonProcessingException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        while(best_moves == null);
     }
 
     // move piece selected in the move_direction: the piece moves in the board and in the board_view
