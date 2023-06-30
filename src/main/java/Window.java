@@ -399,6 +399,19 @@ public class Window extends JFrame  {
     }
 
     /**
+     * Display a message with a title
+     *
+     * @param message the message to display
+     * @param title the title to display
+     */
+    public void displayMessage(String title, String message) {
+        JOptionPane.showMessageDialog(this,
+                message,
+                title,
+                JOptionPane.WARNING_MESSAGE);
+    }
+
+    /**
      * Sets the background color of the specified piece panel to indicate it has been pressed.
      *
      * @param index the index of the piece panel

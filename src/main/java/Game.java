@@ -3,6 +3,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import javax.swing.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.List;
@@ -43,12 +44,12 @@ public class Game extends Window {
 
         // mouse listener to move pieces on board (Board) and on the board_view (JPanel)
         board_view.addMouseListener(new MouseAdapter() {
-            
+
             @Override
             public void mouseEntered(MouseEvent e) {
                 pause_listener = false;
             }
-            
+
             @Override
             public void mouseExited(MouseEvent e) {
                 pause_listener = true;
@@ -123,7 +124,7 @@ public class Game extends Window {
     /** Initializes board and shows it in the window
      * @param level level selector
      */
-    protected void startGame(int level) {
+    private void startGame(int level) {
         if(level==6) {
             setRandomBoard();
         }
@@ -222,7 +223,7 @@ public class Game extends Window {
             int moves = pieces.remove(0)[0];    // first array in the list contains the moves number
             setBoard(new Board(pieces, moves));
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            displayMessage("load error...", "You have to save first!");
         }
     }
 
@@ -268,14 +269,10 @@ public class Game extends Window {
         checkWin();
     }
 
-    /**
-     * @param moves_num
-     */
-    public void makeMoves(int moves_num) {
-        int cont = 0;
-        while (cont < moves_num) {
-            bestMove();
-            cont++;
+    protected void makeMoves(List<Move> moves) {
+        best_moves = moves;
+        while(!best_moves.isEmpty()) {
+            makeBestMove();
         }
     }
 
@@ -310,7 +307,7 @@ public class Game extends Window {
     /**
      * Checks if the game has been won and displays the Pane of the win
      */
-    protected void checkWin() {
+    private void checkWin() {
         if(board.checkWin()) {
             getMenuBarButton("Solve all").setText("Solve all");
             stop_solving = true;
@@ -335,14 +332,14 @@ public class Game extends Window {
     /** Returns the board's configuration
      * @return board
      */
-    public Board getBoard() {
+    protected Board getBoard() {
         return board;
     }
 
     /** Returns the moves' log
      * @return log
      */
-    public MovesLog getLog() {
+    protected MovesLog getLog() {
         return log;
     }
 }
