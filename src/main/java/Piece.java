@@ -1,8 +1,18 @@
+/**
+ * Implements the abstraction of a piece on the Board
+ */
 public class Piece {
     Position position; // coordinates of the top left part of the piece.
     int width;
     int height;
 
+    /**
+     * Generates a piece according the specified size and position
+     * @param x x coordinate
+     * @param y y coordinate
+     * @param w width of the piece
+     * @param h height of the piece
+     */
     public Piece(int x, int y, int w, int h)
     {
         if (is_legal(x,y,w,h))
@@ -15,9 +25,16 @@ public class Piece {
             throw new IllegalArgumentException("Invalid form or position");
     }
 
+    /** Places a piece on the board according to the Position passed as value
+     * @param piece a piece
+     */
     public Piece(Piece piece) {
         this(piece.getX(), piece.getY(), piece.width, piece.height);
     }
+
+    /**
+     * Generates an empty piece
+     */
     public Piece()
     {
         position = null;
@@ -25,6 +42,14 @@ public class Piece {
         height = 0;
     }
 
+    /**
+     *  Checks if the Piece's shape is valid
+     * @param x x coordinate
+     * @param y y coordinate
+     * @param w width of the piece
+     * @param h height of the piece
+     * @return true if valid
+     */
     private boolean is_legal(int x, int y, int w, int h)
     {
         if(w==1 && h==1) //1x1 square
@@ -50,13 +75,21 @@ public class Piece {
         return false; //tutti gli altri casi non sono validi (o per posizioni non valide oppure per forme/dimensioni non valide)
     }
 
-    public boolean contains(int x, int y)    //verify if this piece occupies (x;y). Method called by Board.isOccupied(int x, int y)
+    /** verify if this piece occupies (x;y).
+     * @param x x coordinate
+     * @param y y coordinate
+     * @return true if the coordinates correspond
+     */
+    public boolean contains(int x, int y)   // Method called by Board.isOccupied(int x, int y)
     {
         return (x >= position.x && y >= position.y &&
                 x < (position.x + this.width) && y < (position.y + this.height));
     }
 
-    public void move(int direction)  //method called by Board.movePiece(int direction), which controls if the direction is valid and if the movement is possible
+    /** Controls if the direction is valid and if the movement is possible
+     * @param direction int that speficies the direction (0 = down, 1 = right, 2 = up, 3 = left)
+     */
+    public void move(int direction)  //method called by Board.movePiece(int direction)
     {
         if (direction == 0) // down
             position.y++;
@@ -67,20 +100,35 @@ public class Piece {
         else if (direction == 3) // left
             position.x--;
     }
+
+    /** Get the X value of a piece's position
+     * @return  X coordinate
+     */
     public int getX()
     {
         return position.x;
     }
+
+    /** Get the Y value of a piece's position
+     * @return  Y coordinate
+     */
     public int getY()
     {
         return position.y;
     }
 
+    /** Get a Piece's attributes
+     * @return an array of ints containing the attributes
+     */
     public int[] getProperties()
     {
         return new int[]{position.x, position.y, width, height};
     }
 
+    /** Checks if a piece is equal to the piece passed as argument
+     * @param other_piece Piece to compare
+     * @return true if they're equivalent
+     */
     public boolean equals(Piece other_piece) {
         if (other_piece == null)
         return false;
