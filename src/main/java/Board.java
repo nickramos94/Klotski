@@ -1,5 +1,8 @@
 import java.util.List;
 
+/**
+ * Implements the astraction of the checkerboard
+ */
 public class Board {
 
     private Piece[] pieces;
@@ -12,6 +15,9 @@ public class Board {
     final static int HEIGHT = 5;
     private final static int PIECES_NUMBER = 10;
 
+    /**
+     * Creates an empty board
+     */
     public Board() {
         pieces = new Piece[PIECES_NUMBER];
         selected_piece = null;
@@ -20,6 +26,9 @@ public class Board {
         moves = 0;
     }
 
+    /** Builds a board with pieces on it
+     * @param pieces array of pieces with their positions
+     */
     public  Board(Piece[] pieces) {
         this();
         for(int i=0; i < PIECES_NUMBER; i++) {
@@ -28,6 +37,9 @@ public class Board {
         }
     }
 
+    /** Builds a board with pieces on it
+     * @param pieces List of array of ints containing the size and position of the pieces
+     */
     public Board(List<int[]> pieces) {
         this();
         int index = 0;
@@ -38,12 +50,19 @@ public class Board {
         }
     }
 
+    /** Builds a board with pieces on it
+     * @param pieces List of array of ints containing the size and position of the pieces
+     * @param move_num Number of moves performed
+     */
     public Board(List<int[]> pieces, int move_num)
     {
         this(pieces);
         moves = move_num;
     }
 
+    /**
+     * Generates a board of randomly places pieces
+     */
     public void randomize()
     {
         int x, y, w, h;
@@ -95,6 +114,10 @@ public class Board {
 
     }
 
+    /** Select a piece on the board based on its position
+     * @param pos Position of the piece
+     * @return a boolean that tells whether the piece has been found or not
+     */
     public boolean selectPiece(Position pos)
     {
         for(int i=0; i<PIECES_NUMBER; i++)
@@ -109,12 +132,19 @@ public class Board {
         return false;
     }
 
+    /** Select a piece on the board based on its index
+     * @param piece_index piece's index
+     */
     public void selectPiece(int piece_index)
     {
         selected_piece = pieces[piece_index];
         selected_index = piece_index;
     }
 
+    /** Moves a piece on the board
+     * @param direction int that speficies the direction (0 = down, 1 = right, 2 = up, 3 = left)
+     * @return if false the piece cannot be moved because the space is occupied by another piece or it's going through the edge of the board
+     */
     public boolean movePiece(int direction)
     {
         if(selected_piece == null || direction == -1)   //empty space selection and no movement cases
@@ -171,7 +201,11 @@ public class Board {
         return true;
     }
 
-    public boolean invertedMove(Move move) //method called by Game.undo(). invertedMove receives the move that has to be repeated in the opposite direction
+    /** Receives a move that has to be repeated in the opposite direction
+     * @param move
+     * @return
+     */
+    public boolean invertedMove(Move move) //method called by Game.undo(). invertedMove
     {
         if(moves<1)
             return false;
@@ -184,6 +218,10 @@ public class Board {
         return b;
     }
 
+    /** Utilized by invertedMove, the piece goes in the opposite direction of the move that is being inverted
+     * @param direction
+     * @return returns the direction that needs to be performed
+     */
     private int invertedDirection(int direction)
     {
         if (direction == 0 || direction == 1)
@@ -191,7 +229,11 @@ public class Board {
         else return direction-2;
     }
 
-    private boolean out_of_bounds(int dir)  //called by Board.movePiece(). Checks only if the movement would make the piece go out of the Board
+    /** Checks if a movement would make the piece go out of the Board
+     * @param dir direction that the piece is about to do
+     * @return if true the move will put the piece out bounds
+     */
+    private boolean out_of_bounds(int dir)  //called by Board.movePiece().
     {
         boolean out_of_bounds = false;
         if(dir==0 && (selected_piece.getY() + selected_piece.height) == HEIGHT)
@@ -205,6 +247,11 @@ public class Board {
         return out_of_bounds;
     }
 
+    /** Checks whether a space in the board is occupied by a piece
+     * @param x position x
+     * @param y position y
+     * @return if true the space is occupied
+     */
     private boolean isOccupied(int x, int y)
     {
         for(int i=0; i<PIECES_NUMBER; i++)
@@ -215,28 +262,48 @@ public class Board {
         return false;
     }
 
+    /**
+     * @param index
+     */
     private void trySetSpecial(int index) {
         if(pieces[index].width == 2 && pieces[index].height == 2) {
             special_index = index;
         }
     }
 
+    /**
+     * @return
+     */
     public boolean isSpecial() {
         return this.isSpecial(selected_index);
     }
+
+    /**
+     * @param index
+     * @return
+     */
     public boolean isSpecial(int index) {
         return index == special_index;
     }
 
+    /** Tells that the game has been won
+     * @return a true boolean
+     */
     public boolean checkWin()
     {
         return hasWon;
     }
 
+    /** Turns the hasWon variable back to false
+     *
+     */
     public void resetWin() {
         hasWon = false;
     }
 
+    /** Returns the position of the selected piece
+     * @return position of the selected piece
+     */
     public Position getSelectedPos()
     {
         if(selected_piece == null)
@@ -244,20 +311,33 @@ public class Board {
         return new Position(selected_piece.getX(), selected_piece.getY());
     }
 
+    /** Returns the index of the selected piece
+     * @return index of the piece
+     */
     public int getSelectedIndex() {
         return selected_index;
     }
 
+    /** Returns all the pieces of the board
+     * @return array of the pieces
+     */
     public Piece[] getPieces()
     {
         return pieces;
     }
 
+    /** Returns the number of moves that have been performed so far
+     * @return int of moves
+     */
     public int getMoves()
     {
         return moves;
     }
 
+    /** Checks whether the current board is identical to another board
+     * @param other_board board to be compared
+     * @return true is they are identical
+     */
     public boolean equals(Board other_board) {
         if(other_board == null)
             return false;
