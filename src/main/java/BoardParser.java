@@ -11,12 +11,23 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * BoardParser handles the conversion of the board's configuration to and from a JSON file format.
+ * It also saves and loads the board from the filesystem.
+ */
 public class BoardParser {
 
     public BoardParser()
     {}
 
-    //Methods that turns the board in a JSON string
+    /**
+     * Turns the board in a JSON string
+     * @param p an array containing the board's pieces
+     * @param moves number of moves that have been done so far
+     * @return a string containing the JSON of the board
+     * @throws JsonProcessingException
+     */
+    //
     public String exportBoard(Piece[] p, int moves) throws JsonProcessingException {
 
         //Objects of the Jackson library that serializes the pieces' attributes in a JSON
@@ -48,7 +59,12 @@ public class BoardParser {
         return jBoardString;
     }
 
-    //Method that generates an array of Pieces from a JSON file
+    /**
+     * Generates an array of Pieces from a JSON file
+     * @param fileName
+     * @return pieces a list of pieces on the board
+     * @throws IOException
+     */
     public List<int[]> importBoard(String fileName) throws IOException {
 
         List<int[]> pieces = new ArrayList<int[]>();
@@ -83,7 +99,14 @@ public class BoardParser {
         return pieces;
     }
 
-    //Saves the positions of the board's pieces in a JSON file
+    /**
+     * Saves the positions of the board's pieces in a JSON file
+     * @param p an array containing the board's pieces
+     * @param file file name
+     * @param moves number of moves that have been made so far
+     * @throws IOException
+     */
+
     public void saveState(Piece[] p, String file, int moves) throws IOException {
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter(file));
