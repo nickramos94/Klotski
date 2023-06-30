@@ -11,13 +11,20 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-//Class that sends the board's configuration to the solver and return the next moves
+/**
+ * Sends the board's configuration to an external server and receives from it the moves needed in order to win the game
+ */
 public class Solver {
     private static URL url;
 
     public Solver() {};
 
-    //Sends the positions' JSON of the pieces on the board to the external server and receiver the moves list needed to win the match
+    /** Sends the positions' JSON of the pieces on the board to the external server and receiver the moves list needed to win the match
+     * @param file JSON that contains the board's configuration
+     * @return array of moves needed to be performed
+     * @throws MalformedURLException
+     */
+
     public static List<Move> sendToSolver(String file) throws MalformedURLException {
 
         String resp = null;
