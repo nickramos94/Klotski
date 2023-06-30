@@ -7,6 +7,9 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.List;
 
+/**
+ * Manages the gameplay
+ */
 public class Game extends Window {
     private Board board;
     private Board temp_board;
@@ -19,8 +22,11 @@ public class Game extends Window {
     private boolean stop_solving;
     final private String SAVE_FILE = "save.json";
 
+    /**
+     * initialize the game window with the Window() constructor
+     */
     public Game() {
-        // initialize the game window with the Window() constructor
+
         super();
 
         // initialize the moves log
@@ -48,9 +54,10 @@ public class Game extends Window {
                 pause_listener = true;
             }
 
-            /* mousePressed event
-            * select the piece in the board that correspond to the mouse press position,
-            * change color of the pressed piece to signal the piece on the board_view */
+            /** Selects the piece in the board that corresponds to the mouse pressed position,
+             * changes the color of the pressed piece to signal the piece on the board_view
+             * @param e the event to be processed
+             */
             @Override
             public void mousePressed(MouseEvent e) {
                 board_view.requestFocus();
@@ -61,10 +68,13 @@ public class Game extends Window {
                 }
             }
 
+            /** Moves the selected piece in the cardinal direction given by the vector that
+             * links the point where the mouse is released and the initial pressed position,
+             * changes color of the released piece in the board_view with the default color
+             * @param e the event to be processed
+             */
             /* mouseReleased event
-            * move the selected piece in the cardinal direction given by the vector that
-            * link the point where the mouse is released and the initial pressed position,
-            * change color of the released piece in the board_view with the default color */
+            *  */
             @Override
             public void mouseReleased(MouseEvent e) {
                 board_view.requestFocus();
@@ -110,7 +120,9 @@ public class Game extends Window {
         showMenu();
     }
 
-    // initialize board and show it in the window
+    /** Initializes board and shows it in the window
+     * @param level level selector
+     */
     protected void startGame(int level) {
         if(level==6) {
             setRandomBoard();
@@ -122,7 +134,10 @@ public class Game extends Window {
 
     }
 
-    // set the board with the level number, removing previous board_view
+    /** sets the board with the level number, removing the previous board_view
+     * @param level_number level selector
+     */
+    //
     protected void setBoard(int level_number) {
         level = level_number;
         if(level==6) {
@@ -135,12 +150,17 @@ public class Game extends Window {
         reloadBoard(board);
     }
 
-    // set the board with another board, removing previous board_view, but keeping the previous log
+    /** Sets the board with another board, removing the previous board_view, but keeping the previous log
+     * @param board
+     */
     private void setBoard(Board board) {
         this.board = board;
         reloadBoard(board);
     }
 
+    /**
+     * Sets the board with a random placement of pieces
+     */
     private void setRandomBoard() {
         bParser = new BoardParser();
         Solver solver = new Solver();
@@ -158,7 +178,9 @@ public class Game extends Window {
         while(best_moves == null);
     }
 
-    // move piece selected in the move_direction: the piece moves in the board and in the board_view
+    /** Moves the selected piece in the move_direction: the piece moves in the board and in the board_view
+     * @param move_direction int that speficies the direction (0 = down, 1 = right, 2 = up, 3 = left)
+     */
     protected void move(int move_direction) {
         int piece_index = board.getSelectedIndex();
         if (board.movePiece(move_direction)) {
@@ -169,12 +191,16 @@ public class Game extends Window {
         }
     }
 
-    // reset the board and the log, removing previous board_view
+    /**
+     * Resets the board and the log, removing the previous board_view
+     */
     protected void reset() {
         setBoard(level);
     }
 
-    // save the current board configuration and moves in a JSON file
+    /** Saves the current board configuration and moves it in a JSON file
+     * @param file file path
+     */
     protected void saveState(String file) {
         bParser = new BoardParser();
         try {
@@ -185,7 +211,9 @@ public class Game extends Window {
         }
     }
 
-    // load the moves and the board configuration saved in a JSON file
+    /** Loads the moves and the board configuration saved in a JSON file
+     * @param file file path
+     */
     protected void loadState(String file) {
         bParser = new BoardParser();
         try {
@@ -198,7 +226,9 @@ public class Game extends Window {
         }
     }
 
-    // undo the last move done using the MovesLog and invertedMove method
+    /**
+     *  Undoes the last move done using the MovesLog and invertedMove method
+     */
     protected void undo() {
         if(!log.isEmpty()) {
             board.invertedMove(log.popMove());
@@ -206,7 +236,9 @@ public class Game extends Window {
         }
     }
 
-    // solve all the level with a delay of 0.5 seconds per move
+    /**
+     * Solves the whole level with a delay of 0.5 seconds per move
+     */
     protected void solveAll() {
         Thread solvingThread = new Thread(() -> {
             bestMove();
@@ -222,7 +254,9 @@ public class Game extends Window {
         solvingThread.start();
     }
 
-    // best move using makeBestMove() if the configuration of the board hasn't changed, solve() otherwise
+    /**
+     * best move using makeBestMove() if the configuration of the board hasn't changed, solve() otherwise
+     */
     protected void bestMove() {
         if(!board.checkWin()) {
             if(board.equals(temp_board))
@@ -234,6 +268,9 @@ public class Game extends Window {
         checkWin();
     }
 
+    /**
+     * @param moves_num
+     */
     public void makeMoves(int moves_num) {
         int cont = 0;
         while (cont < moves_num) {
@@ -242,7 +279,9 @@ public class Game extends Window {
         }
     }
 
-    // send the board config to an extern server that return the list of moves to win the game
+    /**
+     * Sends the board config to an external server that returns the list of moves to win the game
+     */
     private void solve() {
         bParser = new BoardParser();
         Solver solver = new Solver();
@@ -256,7 +295,10 @@ public class Game extends Window {
         }
     }
 
-    // make the best move using (and removing) the first element of the list best_moves
+    /**
+     * Makes the best move using (and removing) the first element of the list best_moves
+     */
+    //
     private void makeBestMove() {
         if(!best_moves.isEmpty()) {
             Move next_move = best_moves.remove(0);
@@ -265,7 +307,9 @@ public class Game extends Window {
         }
     }
 
-    // check the win and display the Pane of the win
+    /**
+     * Checks if the game has been won and displays the Pane of the win
+     */
     protected void checkWin() {
         if(board.checkWin()) {
             getMenuBarButton("Solve all").setText("Solve all");
@@ -281,14 +325,23 @@ public class Game extends Window {
         }
     }
 
+    /** Selects an index given its index
+     * @param piece_index
+     */
     protected void selectPiece(int piece_index) {
         board.selectPiece(piece_index);
     }
 
+    /** Returns the board's configuration
+     * @return board
+     */
     public Board getBoard() {
         return board;
     }
 
+    /** Returns the moves' log
+     * @return log
+     */
     public MovesLog getLog() {
         return log;
     }
