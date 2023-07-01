@@ -265,6 +265,8 @@ public class Game extends Window {
         if(!board.checkWin()) {
             if(board.equals(temp_board)) {
                 if (best_moves == null) {
+                    if(getMenuBarButton("Solve all").getText().equals("Stop"))
+                        getMenuBarButton("Solve all").setText("Solve all");
                     displayMessage("internet disconnected...", "Really?" +
                             "\nWithout internet you have to solve it on your own...");
                 } else {
@@ -295,6 +297,8 @@ public class Game extends Window {
             best_moves = solver.sendToSolver(bParser.exportBoard(board.getPieces(), log.getStep()));
             makeBestMove();
         } catch (RuntimeException e) {
+            if(getMenuBarButton("Solve all").getText().equals("Stop"))
+                getMenuBarButton("Solve all").setText("Solve all");
             displayMessage("internet disconnected...", "Without internet connection we can't solve it." +
                     "\nCheck your internet!");
         } catch (JsonProcessingException | MalformedURLException e) {
