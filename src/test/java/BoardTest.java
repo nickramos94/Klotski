@@ -28,14 +28,14 @@ class BoardTest {
 
     @Test
     void Boolean_selectPiece() {
-        Board board = new Board(pieces); //LIVELLO 1
+        Board board = new Board(pieces); //Level 1
         //select the big square clicking on its bottom left (1,1). Then verify that the selected's position is big square's position (1,0)
         assertTrue(board.selectPiece(new Position(1,1)) && board.getSelectedPos().equals(new Position(1,0)));
     }
 
     @Test
     void Void_selectPiece() {
-        Board board = new Board(pieces); //LIVELLO 1
+        Board board = new Board(pieces); //Level 1
         board.selectPiece(0); // select big square
         assertEquals(0, board.getSelectedIndex());
         for (int i=1; i<10 ; i++)
@@ -45,7 +45,7 @@ class BoardTest {
 
     @Test
     void movePiece() {
-        Board board = new Board(pieces); //LIVELLO 1
+        Board board = new Board(pieces); //Leveò 1
         board.selectPiece(0);
         assertFalse(board.movePiece(0) && board.movePiece(2)); //impossible to move the big square
         assertFalse(board.movePiece(1) && board.movePiece(3)); //impossible to move the big square
@@ -55,14 +55,14 @@ class BoardTest {
         assertTrue(board.movePiece(3));
         assertTrue(board.movePiece(3));
         assertFalse(board.movePiece(3)); //can't move left anymore
-        assertEquals(3,board.getMoves()); //test getMoves() method. We did 3 valid moves so we expect it returns 3
+        assertEquals(3,board.getMoves()); //test getMoves() method. 3 valid moves have been done so we expect it returns 3
         Board board2 = new Board(); // selected == null
         assertFalse(board2.movePiece(2));
     }
 
     @Test
     void invertedMove() {
-        Board board = new Board(pieces); //LIVELLO 1
+        Board board = new Board(pieces); //Level 1
         board.selectPiece(9); //rectangle at the bottom (free to move left and right)
         board.movePiece(1);
         assertEquals(1,board.getMoves());
@@ -75,7 +75,7 @@ class BoardTest {
     }
 
     @Test
-    void isSpecial(){                                //there's isSpecial()  and isSpecial(int intex)
+    void isSpecial(){                                //there's isSpecial()  and isSpecial(int index)
         Board board = new Board();
         board.randomize();
         assertTrue(board.isSpecial(0));
