@@ -25,7 +25,7 @@ public class Piece {
             throw new IllegalArgumentException("Invalid form or position");
     }
 
-    /** Places a piece on the board according to the Position passed as value
+    /** Generates a piece identical to another one
      * @param piece a piece
      */
     public Piece(Piece piece) {
@@ -43,7 +43,7 @@ public class Piece {
     }
 
     /**
-     *  Checks if the Piece's shape is valid
+     *  Checks if the Piece's Position is valid according to its shape
      * @param x x coordinate
      * @param y y coordinate
      * @param w width of the piece
@@ -72,7 +72,7 @@ public class Piece {
             if(x>=0 && x<(Board.WIDTH-1) && y>=0 && y<Board.HEIGHT)
                 return true;
         }
-        return false; //tutti gli altri casi non sono validi (o per posizioni non valide oppure per forme/dimensioni non valide)
+        return false; //every other case in not valid (invalid positions or invalid dimensions)
     }
 
     /** verify if this piece occupies (x;y).
@@ -86,10 +86,10 @@ public class Piece {
                 x < (position.x + this.width) && y < (position.y + this.height));
     }
 
-    /** Controls if the direction is valid and if the movement is possible
+    /** moves the Piece
      * @param direction int that speficies the direction (0 = down, 1 = right, 2 = up, 3 = left)
      */
-    public void move(int direction)  //method called by Board.movePiece(int direction)
+    public void move(int direction)  //method called by Board.movePiece(int direction) which will check if the move is possible
     {
         if (direction == 0) // down
             position.y++;

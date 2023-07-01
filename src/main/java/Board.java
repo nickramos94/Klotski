@@ -8,7 +8,7 @@ public class Board {
     private Piece[] pieces;
     private Piece selected_piece;
     private int selected_index;
-    private int special_index;  // to have the special piece (square 2*2) index
+    private int special_index;  // special piece (2*2 square) index
     private boolean hasWon;
     private int moves;
     final static int WIDTH = 4;
@@ -61,7 +61,7 @@ public class Board {
     }
 
     /**
-     * Generates a board of randomly places pieces
+     * Generates a board of randomly placed pieces
      */
     public void randomize()
     {
@@ -85,9 +85,9 @@ public class Board {
             }
             else
             {
-                w = (int) Math.round(Math.random() + 1);   //width= 1 or 2
+                w = (int) Math.round(Math.random() + 1);   //width = 1 or 2
                 if(w==2){
-                    h = 1;                                //if it's 2, height must me 1 (can't have more big squares)
+                    h = 1;                                //if w == 2, height must me 1 (can't have more 2*2 squares)
                 }
                 else {
                     h = (int) Math.round(Math.random() + 1);        //1 or 2
@@ -100,7 +100,7 @@ public class Board {
             if(!isOccupied(x,y) && !isOccupied(x+w-1,y) && !isOccupied(x,y+h-1) )  //we can only create the piece if all the position that it's going to occupy are free
             {
                 try{
-                    pieces[pieces_counter] = new Piece(x,y,w,h);     //throws error if out of bounds (positions out of bounds are free so they pass the isOccupied() check, must manage them here)
+                    pieces[pieces_counter] = new Piece(x,y,w,h); //error if out of bounds (positions out of bounds are free so they pass the isOccupied() check, must manage them here)
                     pieces_counter++;
                     if(w==2 || h==2)
                         rectangles_counter++;
@@ -116,7 +116,7 @@ public class Board {
 
     /** Select a piece on the board based on its position
      * @param pos Position of the piece
-     * @return a boolean that tells whether the piece has been found or not
+     * @return a boolean that tells whether a piece containing that Position has been found or not
      */
     public boolean selectPiece(Position pos)
     {
