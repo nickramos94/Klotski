@@ -164,18 +164,21 @@ public class Game extends Window {
     private void setRandomBoard() {
         bParser = new BoardParser();
         Solver solver = new Solver();
+        boolean is_connected = true;
         do {
             board = new Board();
             board.randomize();
             try {
                 best_moves = solver.sendToSolver(bParser.exportBoard(board.getPieces(), log.getStep()));
-            } catch (MalformedURLException e) {
-                throw new RuntimeException(e);
-            } catch (JsonProcessingException e) {
+            } catch (RuntimeException e) {
+                displayMessage("unsafe random level", "A solution is not guaranteed for this level" +
+                        "\nCheck your internet!");
+                is_connected = false;
+            } catch (MalformedURLException | JsonProcessingException e) {
                 throw new RuntimeException(e);
             }
         }
-        while(best_moves == null);
+        while(best_moves == null && is_connected);
     }
 
     /** Moves the selected piece in the move_direction: the piece moves in the board and in the board_view
@@ -248,7 +251,8 @@ public class Game extends Window {
                 } catch (InterruptedException e) {
                     Thread.currentThread().interrupt();
                 }
-                bestMove();
+                if(!stop_solving)
+                    bestMove();
             }
         });
         solvingThread.start();
@@ -259,8 +263,14 @@ public class Game extends Window {
      */
     protected void bestMove() {
         if(!board.checkWin()) {
-            if(board.equals(temp_board))
-                makeBestMove();
+            if(board.equals(temp_board)) {
+                if (best_moves == null) {
+                    displayMessage("internet disconnected...", "Really?" +
+                            "\nWithout internet you have to solve it on your own...");
+                } else {
+                    makeBestMove();
+                }
+            }
             else
                 solve();
             temp_board = new Board(board.getPieces());
@@ -284,10 +294,11 @@ public class Game extends Window {
         try {
             best_moves = solver.sendToSolver(bParser.exportBoard(board.getPieces(), log.getStep()));
             makeBestMove();
-        } catch (MalformedURLException e) {
-            throw new RuntimeException(e);
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
+        } catch (RuntimeException e) {
+            displayMessage("internet disconnected...", "Without internet connection we can't solve it." +
+                    "\nCheck your internet!");
+        } catch (JsonProcessingException | MalformedURLException e) {
+            throw new RuntimeException();
         }
     }
 
