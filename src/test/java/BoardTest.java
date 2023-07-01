@@ -45,7 +45,7 @@ class BoardTest {
 
     @Test
     void movePiece() {
-        Board board = new Board(pieces); //Leveò 1
+        Board board = new Board(pieces); //Level 1
         board.selectPiece(0);
         assertFalse(board.movePiece(0) && board.movePiece(2)); //impossible to move the big square
         assertFalse(board.movePiece(1) && board.movePiece(3)); //impossible to move the big square
