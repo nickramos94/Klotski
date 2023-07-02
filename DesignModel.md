@@ -4,7 +4,7 @@ Domain model is like a blueprint that helps developers understand and represent 
 #### Package design
 #### Models design
 Is the blueprint of the classes and their organization and communications
-![Models Design](./img/ModelsDesigns.drawio.svg)
+![Models Design](./img/ModelsDesigns.drawio.png)
 
 #### Views design
 #### Controllers design
