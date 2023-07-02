@@ -1,4 +1,4 @@
-![UseCase](img/UseCase.png)
+![UseCase](../img/UseCase.png)
 
 <br />
 
