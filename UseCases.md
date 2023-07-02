@@ -150,7 +150,7 @@
 
 | |USE CASE 13 |
 | - | - |
-|**Name** |Player Solve all |
+|**Name** |Solve all |
 |**Actors** |Solver |
 |**Brief Description** |The game is solved automatically as asked by the Player. |
 |**Preconditions** |Player must be connected to interntet. |
