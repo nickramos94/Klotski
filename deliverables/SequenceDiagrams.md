@@ -4,29 +4,39 @@ A sequence diagram is a visual representation of the interactions between object
 ## Main Menu
 ### System Sequence Diagram
 User-System interaction when the the User launch the program.
-
 ![Models Design](../img/Sequence_Diagrams/SD-main_menu-light_theme.png#gh-light-mode-only)
 ![Models Design](../img/Sequence_Diagrams/SD-main_menu-dark_theme.png#gh-dark-mode-only)
+
+### Internal Sequence Diagrams
+
+#### \- Info
+
+#### \- GitHub
+
+#### \- Level Selection
+Internal behavior of the system when the user press the Play Button after selecting a level.
+![Models Design](../img/Sequence_Diagrams/SD-SD-level_selection-light_theme.png#gh-light-mode-only)
+![Models Design](../img/Sequence_Diagrams/SD-SD-level_selection-dark_theme.png#gh-light-mode-only)
+
 
 ## Play the Game
 ### System Sequence Diagram
 User-System interaction when the User plays the game after selecting a level.
-
 ![Models Design](../img/Sequence_Diagrams/SD-play_game-light_theme.png#gh-light-mode-only)
 ![Models Design](../img/Sequence_Diagrams/SD-play_game-dark_theme.png#gh-dark-mode-only)
 
 ### Internal Sequence Diagrams
 
-#### - Move a Piece
+#### \- Move a Piece
 
-#### - Settings
+#### \- Settings
 
-#### - Levels
+#### \- Levels
 
-#### - Reset
+#### \- Reset
 
-#### - Auto Solve
+#### \- Auto Solve
 
-#### - Undo
+#### \- Undo
 
-#### - Next Best Move
+#### \- Next Best Move
