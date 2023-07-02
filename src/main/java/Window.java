@@ -492,9 +492,14 @@ public class Window extends JFrame  {
             openWebpage("https://en.wikipedia.org/wiki/Klotski");
     }
 
-    private void openWebpage(String urlString) {
+    /**
+     * Opens a web page based on the URL
+     *
+     * @param url the URL to open
+     */
+    private void openWebpage(String url) {
         try {
-            Desktop.getDesktop().browse(new URL(urlString).toURI());
+            Desktop.getDesktop().browse(new URL(url).toURI());
         } catch (Exception e) {
             e.printStackTrace();
         }
