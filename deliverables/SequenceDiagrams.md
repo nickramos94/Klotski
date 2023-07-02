@@ -5,5 +5,5 @@ A sequence diagram is a visual representation of the interactions between object
 ### System Sequence Diagram
 User-System interaction when the the User launch the program and the Main Menu window opens
 
-![Models Design](../img/SD-choose_level-light_theme.png#gh-light-mode-only)
-![Models Design](../img/SD-choose_level-dark_theme.png#gh-dark-mode-only)
+![Models Design](../img/Sequence_Diagrams/SD-choose_level-light_theme.png#gh-light-mode-only)
+![Models Design](../img/Sequence_Diagrams/SD-choose_level-dark_theme.png#gh-dark-mode-only)
