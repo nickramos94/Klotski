@@ -130,8 +130,9 @@
 |**Brief Description** |The Player resets the game|
 |**Preconditions** |A game must have started (use case #4) |
 |**Basic flow** |After making some moves the Player decides to reset |
-|**Alternate flows** |The Player resets the game without making any move, the configuration doesn’t change. &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp;  &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;|
+|**Alternate flows** |The Player resets the game without making any move, the configuration doesn’t change.|
 |**Postconditions**&nbsp;&nbsp;&nbsp;&nbsp; |New game with the same level starts. |
+|**Note** |If the player selects the level "random" and resets the game, a new one with a different random configuration will start. &nbsp;|
 
 <br />
 
