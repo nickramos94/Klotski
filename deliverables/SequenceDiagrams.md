@@ -11,8 +11,10 @@ User-System interaction when the the User launch the program.
 ### Internal Sequence Diagrams
 
 #### - Info
+Internal behavior of the system when the user press the Info Button.
 
-#### - GitHub
+![Models Design](../img/Sequence_Diagrams/SD-info-light_theme.png#gh-light-mode-only)
+![Models Design](../img/Sequence_Diagrams/SD-info-dark_theme.png#gh-dark-mode-only)
 
 #### - Level Selection
 Internal behavior of the system when the user press the Play Button after selecting a level.
