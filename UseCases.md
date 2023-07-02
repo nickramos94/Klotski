@@ -59,7 +59,7 @@
 |**Preconditions** |A piece has to be selected. |
 |**Basic flow** |The Player drags the pieces to the free spots. |
 |**Alternate flows** |The Player tries to drag the blocks outside the board, to move them diagonally or to overlapping them. The piece won’t move in any pf these cases. |
-|**Postconditions**&nbsp;&nbsp;&nbsp;&nbsp; |The moves counter increments and now the Player has the opportunity to undo (use case #6). |
+|**Postconditions**&nbsp;&nbsp;&nbsp;&nbsp; |The moves counter increments and now the Player has the opportunity to undo (use case #6). The game ends if the Player moves the 2x2 square to the winning position. |
 
 <br />
 
@@ -167,7 +167,7 @@
 |**Brief Description** |Player stops the automatic solving. |
 |**Preconditions** |Use case #13. |
 |**Basic flow** |After letting the Solver move some pieces the Player decides to stop it. &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;|
-|**Alternate flows** |none |
+|**Alternate flows** |The player doesn't stop the Solver. The Solver won't stop until the end of the game. |
 |**Postconditions**&nbsp;&nbsp;&nbsp;&nbsp; |The Solver stops solving. |
 
 <br />
