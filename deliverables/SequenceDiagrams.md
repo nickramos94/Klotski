@@ -10,15 +10,15 @@ User-System interaction when the the User launch the program.
 
 ### Internal Sequence Diagrams
 
-#### \- Info
+#### - Info
 
-#### \- GitHub
+#### - GitHub
 
-#### \- Level Selection
+#### - Level Selection
 Internal behavior of the system when the user press the Play Button after selecting a level.
 
 ![Models Design](../img/Sequence_Diagrams/SD-level_selection-light_theme.png#gh-light-mode-only)
-![Models Design](../img/Sequence_Diagrams/SD-level_selection-dark_theme.png#gh-light-mode-only)
+![Models Design](../img/Sequence_Diagrams/SD-level_selection-dark_theme.png#gh-dark-mode-only)
 
 
 ## Play the Game
@@ -30,16 +30,20 @@ User-System interaction when the User plays the game after selecting a level.
 
 ### Internal Sequence Diagrams
 
-#### \- Move a Piece
+#### - Move a Piece
+Internal behaviour of the system when the user click with the mouse inside the game board.
 
-#### \- Settings
+![Models Design](../img/Sequence_Diagrams/SD-move_piece-light_theme.png#gh-light-mode-only)
+![Models Design](../img/Sequence_Diagrams/SD-move_piece-dark_theme.png#gh-dark-mode-only)
 
-#### \- Levels
+#### - Settings
 
-#### \- Reset
+#### - Levels
 
-#### \- Auto Solve
+#### - Reset
 
-#### \- Undo
+#### - Auto Solve
 
-#### \- Next Best Move
+#### - Undo
+
+#### - Next Best Move
