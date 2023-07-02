@@ -4,6 +4,7 @@ import javax.swing.border.EmptyBorder;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.Color;
+import java.net.URL;
 
 
 /**
@@ -200,8 +201,12 @@ public class Window extends JFrame  {
         Button info = new Button("Info");
         info.addActionListener(e -> showInfo());
 
-        menuBar.add(Box.createHorizontalGlue());
+        Button github = new Button("GitHub");
+        github.addActionListener(e -> openWebpage("https://github.com/nickramos94/Klotski.git"));
+
         menuBar.add(info);
+        menuBar.add(Box.createHorizontalGlue());
+        menuBar.add(github);
 
         // Create the BOARD VIEW 
         board_view = new JPanel(null);
@@ -474,9 +479,24 @@ public class Window extends JFrame  {
      * Displays an information message dialog with the game rules.
      */
     private void showInfo() {
-        JOptionPane.showMessageDialog(this,
+        Object[] options = {"More Info"};
+        int option = JOptionPane.showOptionDialog(this,
                 infoGameRules,
                 infoTitle,
-                JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.INFORMATION_MESSAGE,
+                null,
+                options,
+                options[0]);
+        if(option == JOptionPane.YES_OPTION)
+            openWebpage("https://en.wikipedia.org/wiki/Klotski");
+    }
+
+    private void openWebpage(String urlString) {
+        try {
+            Desktop.getDesktop().browse(new URL(urlString).toURI());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
