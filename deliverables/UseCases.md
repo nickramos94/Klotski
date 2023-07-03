@@ -41,6 +41,18 @@
 
 | |USE CASE 4 |
 | - | - |
+|**Name** |GitHub |
+|**Actors** |Player |
+|**Brief Description** |The Player visualizes the GitHub repository.&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; |
+|**Preconditions**  |The Player must be connected to internet. |
+|**Basic flow** |The Player selects “GitHub”. |
+|**Alternate flows** |none |
+|**Postconditions**&nbsp;&nbsp;&nbsp;&nbsp; |The GitHub repository opens. |
+
+<br />
+
+| |USE CASE 5 |
+| - | - |
 |**Name** |Play |
 |**Actors** |Player |
 |**Brief Description** |The Player starts the game. |
@@ -51,7 +63,7 @@
 
 <br />
 
-| |USE CASE 5 |
+| |USE CASE 6 |
 | - | - |
 |**Name** |Move |
 |**Actors** |Player |
@@ -59,11 +71,11 @@
 |**Preconditions** |A piece has to be selected. |
 |**Basic flow** |The Player drags the pieces to the free spots. |
 |**Alternate flows** |The Player tries to drag the blocks outside the board, to move them diagonally or to overlapping them. The piece won’t move in any pf these cases. |
-|**Postconditions**&nbsp;&nbsp;&nbsp;&nbsp; |The moves counter increments and now the Player has the opportunity to undo (use case #6). The game ends if the Player moves the 2x2 square to the winning position. |
+|**Postconditions**&nbsp;&nbsp;&nbsp;&nbsp; |The moves counter increments and now the Player has the opportunity to undo (use case #7). The game ends if the Player moves the 2x2 square to the winning position. |
 
 <br />
 
-| |USE CASE 6 |
+| |USE CASE 7 |
 | - | - |
 |**Name** |Undo |
 |**Actors** |Player |
@@ -75,60 +87,60 @@
 
 <br />
 
-| |USE CASE 7 |
+| |USE CASE 8 |
 | - | - |
 |**Name** |Settings |
 |**Actors** |Player |
 |**Brief Description** |The Player selects "settings". |
-|**Preconditions** |A game must have started (use case #4), can’t do it from the main menu. |
+|**Preconditions** |A game must have started (use case #5), can’t do it from the main menu. |
 |**Basic flow** |Player selects "settings" and 3 different options are displayed. He can save the game, load a saved one or return to the main menu. |
 |**Alternate flows** |Player doesn’t select any of the 3 options. |
-|**Postconditions**&nbsp;&nbsp;&nbsp;&nbsp; |Use case #8, #9 or #10. |
-
-<br />
-
-| |USE CASE 8 |
-| - | - |
-|**Name** |Save |
-|**Actors** |Player |
-|**Brief Description** |The current board configuration gets saved. |
-|**Preconditions** |Use case #7. |
-|**Basic flow** |After making some moves, the Player saves the configuration. |
-|**Alternate flows** |The player saves before making any move. That equals to saving the selected configuration. &nbsp; &nbsp; &nbsp;&nbsp;&nbsp; &nbsp; &nbsp;&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp; &nbsp; &nbsp;&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;|
-|**Postconditions**&nbsp;&nbsp;&nbsp;&nbsp; |The configuration is saved and can be loaded (use case #9). |
+|**Postconditions**&nbsp;&nbsp;&nbsp;&nbsp; |Use case #9, #10 or #11 |
 
 <br />
 
 | |USE CASE 9 |
 | - | - |
+|**Name** |Save |
+|**Actors** |Player |
+|**Brief Description** |The current board configuration gets saved. |
+|**Preconditions** |Use case #8. |
+|**Basic flow** |After making some moves, the Player saves the configuration. |
+|**Alternate flows** |The player saves before making any move. That equals to saving the selected configuration. &nbsp; &nbsp; &nbsp;&nbsp;&nbsp; &nbsp; &nbsp;&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp; &nbsp; &nbsp;&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;|
+|**Postconditions**&nbsp;&nbsp;&nbsp;&nbsp; |The configuration is saved and can be loaded (use case #10). |
+
+<br />
+
+| |USE CASE 10 |
+| - | - |
 |**Name** |Load |
 |**Actors** |Player |
 |**Brief Description** |The saved configuration gets loaded |
-|**Preconditions** |Use case #8 and #7. |
+|**Preconditions** |Use case #9 and #8. |
 |**Basic flow** |Player saves a game, makes some moves and then loads the saving. The saved configuration is displayed and the moves counter changes too. |
 |**Alternate flows** |Player tries to load a configuration without saving one before. A message window is displayed. |
 |**Postconditions**&nbsp;&nbsp;&nbsp;&nbsp; |The configuration and the moves counter change. |
 
 <br />
 
-| |USE CASE 10 |
+| |USE CASE 11 |
 | - | - |
 |**Name** |Return to main menu |
 |**Actors** |Player |
 |**Brief Description** |The Player returns to the home screen using the settings. |
-|**Preconditions** |Use case #7 |
+|**Preconditions** |Use case #8 |
 |**Basic flow** |The main menu is displayed. The situation is the same one as in use case #1.&nbsp;&nbsp;&nbsp; &nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp;  &nbsp; &nbsp;&nbsp;  &nbsp; &nbsp;&nbsp;  &nbsp; &nbsp;&nbsp;  &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp;|
 |**Alternate flows** |none |
 |**Postconditions**&nbsp;&nbsp;&nbsp;&nbsp; |Use case #1. |
 
 <br />
 
-| |USE CASE 11 |
+| |USE CASE 12 |
 | - | - |
 |**Name** |Reset |
 |**Actors** |Player |
 |**Brief Description** |The Player resets the game|
-|**Preconditions** |A game must have started (use case #4) |
+|**Preconditions** |A game must have started (use case #5) |
 |**Basic flow** |After making some moves the Player decides to reset |
 |**Alternate flows** |The Player resets the game without making any move, the configuration doesn’t change.|
 |**Postconditions**&nbsp;&nbsp;&nbsp;&nbsp; |New game with the same level starts. |
@@ -136,48 +148,48 @@
 
 <br />
 
-| |USE CASE 12 |
+| |USE CASE 13 |
 | - | - |
 |**Name** |Next best move |
 |**Actors** |Player Solver |
 |**Brief Description** |The best possible move is performed automatically as asked by the Player. |
-|**Preconditions** |Player must be connected to internet. |
+|**Preconditions** |The Player must be connected to internet. |
 |**Basic flow** |The solver performes the best move. |
 |**Alternate flows** |none |
 |**Postconditions**&nbsp;&nbsp;&nbsp;&nbsp; |The configuration changes and moves counter increments by one. &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;|
 
 <br />
 
-| |USE CASE 13 |
+| |USE CASE 14 |
 | - | - |
 |**Name** |Solve all |
 |**Actors** |Solver |
 |**Brief Description** |The game is solved automatically as asked by the Player. |
-|**Preconditions** |Player must be connected to interntet. |
+|**Preconditions** |The Player must be connected to interntet. |
 |**Basic flow** |The pieces move automatically until the 2x2 square reaches the winning position. &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; |
-|**Alternate flows** |The Player stops the Solver (use case #14). |
-|**Postconditions**&nbsp;&nbsp;&nbsp;&nbsp; |Win (use case #15). |
+|**Alternate flows** |The Player stops the Solver (use case #15). |
+|**Postconditions**&nbsp;&nbsp;&nbsp;&nbsp; |Win (use case #16). |
 
 <br />
 
-| |USE CASE 14 |
+| |USE CASE 15 |
 | - | - |
 |**Name** |Stop |
 |**Actors** |Player and Solver |
 |**Brief Description** |Player stops the automatic solving. |
-|**Preconditions** |Use case #13. |
+|**Preconditions** |Use case #14. |
 |**Basic flow** |After letting the Solver move some pieces the Player decides to stop it. &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;|
 |**Alternate flows** |The player doesn't stop the Solver. The Solver won't stop until the end of the game. |
 |**Postconditions**&nbsp;&nbsp;&nbsp;&nbsp; |The Solver stops solving. |
 
 <br />
 
-| |USE CASE 15 |
+| |USE CASE 16 |
 | - | - |
 |**Name** |Win |
 |**Actors** |Player and/or Solver |
-|**Brief Description** |Player (or Solver) wins the game |
+|**Brief Description** |The Player (or Solver) wins the game |
 |**Preconditions** |The 2x2 square is moved to the winning position. |
 |**Basic flow** |Player (or Solver) moves the pieces until the 2x2 reaches the winning position. |
 |**Alternate flows** |Player isn’t able to make the 2x2 square go to the winning position. |
-|**Postconditions**&nbsp;&nbsp;&nbsp;&nbsp; |Restart (same as use case #11) or go back to the main menu  (use case #1).  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;|
+|**Postconditions**&nbsp;&nbsp;&nbsp;&nbsp; |Restart (same as use case #12) or go back to the main menu  (use case #1).  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;|
