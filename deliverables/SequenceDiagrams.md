@@ -68,9 +68,21 @@ Internal behaviour of the system when the user click on the Levels button and ch
 ![Models Design](../img/Sequence_Diagrams/SD-levels-dark_theme.png#gh-dark-mode-only)
 
 #### - Reset
+Internal behaviour of the system when the user click on the Reset button.
+
+![Models Design](../img/Sequence_Diagrams/SD-reset-light_theme.png#gh-light-mode-only)
+![Models Design](../img/Sequence_Diagrams/SD-reset-dark_theme.png#gh-dark-mode-only)
 
 #### - Auto Solve
+Internal behaviour of the system when the user click on the Solve all button.
+
+![Models Design](../img/Sequence_Diagrams/SD-solve_all-light_theme.png#gh-light-mode-only)
+![Models Design](../img/Sequence_Diagrams/SD-solve_all-dark_theme.png#gh-dark-mode-only)
 
 #### - Undo
+Internal behaviour of the system when the user click on the Undo button.
+
+![Models Design](../img/Sequence_Diagrams/SD-undo-light_theme.png#gh-light-mode-only)
+![Models Design](../img/Sequence_Diagrams/SD-undo-dark_theme.png#gh-dark-mode-only)
 
 #### - Next Best Move
