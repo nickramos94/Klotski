@@ -36,7 +36,7 @@ class BoardParserTest {
                 "  } ],\n" +
                 "  \"moves\" : 0\n" +
                 "} ]";
-        Assert.assertEquals(result, b.exportBoard(board.getPieces(), moves));
+        Assert.assertEquals(result.toString(), (b.exportBoard(board.getPieces(), moves).toString()));
     }
 
     @Test
