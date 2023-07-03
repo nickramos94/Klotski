@@ -62,6 +62,10 @@ Internal behaviour of the system when the user click on the settings button and 
 ![Models Design](../img/Sequence_Diagrams/SD-settings-dark_theme.png#gh-dark-mode-only)
 
 #### - Levels
+Internal behaviour of the system when the user click on the Levels button and choose a level among the 6 that are displayed.
+
+![Models Design](../img/Sequence_Diagrams/SD-levels-light_theme.png#gh-light-mode-only)
+![Models Design](../img/Sequence_Diagrams/SD-levels-dark_theme.png#gh-dark-mode-only)
 
 #### - Reset
 
