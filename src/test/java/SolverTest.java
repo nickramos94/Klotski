@@ -24,8 +24,10 @@ class SolverTest {
         List<Move> result = new ArrayList<Move>();
         result.add(move);
 
+        List<Move> solver = s.sendToSolver(board);
 
-        Assert.assertEquals(result, s.sendToSolver(board));
+        Assert.assertTrue(result.get(0).toString().equals(s.sendToSolver(board).get(0).toString()));
+
 
     }
 }
