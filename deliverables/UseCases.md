@@ -35,7 +35,7 @@
 |**Preconditions**  |none |
 |**Basic flow** |The Player selects “info” and information about the game and it's rules is displayed. &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;|
 |**Alternate flows** |none |
-|**Postconditions**&nbsp;&nbsp;&nbsp;&nbsp; |none |
+|**Postconditions**&nbsp;&nbsp;&nbsp;&nbsp; |The player can select "more info" and the wikipedia page opens. |
 
 <br />
 
@@ -47,7 +47,7 @@
 |**Preconditions**  |The Player must be connected to internet. |
 |**Basic flow** |The Player selects “GitHub”. |
 |**Alternate flows** |none |
-|**Postconditions**&nbsp;&nbsp;&nbsp;&nbsp; |The GitHub repository opens. |
+|**Postconditions**&nbsp;&nbsp;&nbsp;&nbsp; |The GitHub repository webpage opens. |
 
 <br />
 
@@ -93,7 +93,7 @@
 |**Actors** |Player |
 |**Brief Description** |The Player selects "settings". |
 |**Preconditions** |A game must have started (use case #5), can’t do it from the main menu. |
-|**Basic flow** |Player selects "settings" and 3 different options are displayed. He can save the game, load a saved one or return to the main menu. |
+|**Basic flow** |Player selects "settings" and 3 different options are displayed. Then he can saves the game, loads a saved one or returns to the main menu. |
 |**Alternate flows** |Player doesn’t select any of the 3 options. |
 |**Postconditions**&nbsp;&nbsp;&nbsp;&nbsp; |Use case #9, #10 or #11 |
 
@@ -117,9 +117,9 @@
 |**Actors** |Player |
 |**Brief Description** |The saved configuration gets loaded |
 |**Preconditions** |Use case #9 and #8. |
-|**Basic flow** |Player saves a game, makes some moves and then loads the saving. The saved configuration is displayed and the moves counter changes too. |
+|**Basic flow** |Player saves a game, makes some moves and then loads the saving.|
 |**Alternate flows** |Player tries to load a configuration without saving one before. A message window is displayed. |
-|**Postconditions**&nbsp;&nbsp;&nbsp;&nbsp; |The configuration and the moves counter change. |
+|**Postconditions**&nbsp;&nbsp;&nbsp;&nbsp; |The saved configuration is displayed and the moves counter changes too. |
 
 <br />
 
