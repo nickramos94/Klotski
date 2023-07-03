@@ -2,7 +2,7 @@
 
 ## Introduzione
 
-Progetto finale di ingegneria del software, la traccia del progetto la potete trovare su questa cartella con il nome [TracciaProgetto.pdf](./deliverables/TracciaProgetto.pdf). L'obbiettivo è di creare il gioco [Klotski](https://en.wikipedia.org/wiki/Klotski) in Java.
+Progetto finale di ingegneria del software, la traccia del progetto la potete trovare su questa cartella con il nome [TracciaProgetto.pdf](./img/TracciaProgetto.pdf). L'obbiettivo è di creare il gioco [Klotski](https://en.wikipedia.org/wiki/Klotski) in Java.
 
 <div style="display: flex; justify-content: center;">
     <img src="./img/Menu.png" alt="Menu" width="400" />
