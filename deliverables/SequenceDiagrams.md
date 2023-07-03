@@ -1,14 +1,14 @@
 # Sequence Diagrams
 A sequence diagram is a visual representation of the interactions between objects or components in a system, showcasing the flow of messages exchanged over time to achieve a particular behavior or scenario
 
-- [**Main Menu**](#main-menu)
-    - [**System Sequence Diagram**](#system-sequence-diagram-1)
-    - [**Internal Sequence Diagram**](#internal-sequence-diagram-1)
+- [Main Menu](#main-menu)
+    - [System Sequence Diagram](#system-sequence-diagram-1)
+    - [Internal Sequence Diagram](#internal-sequence-diagram-1)
         - [Info](#--info)
         - [Level Selection](#--level-selection)
-- [**Play the Game**](#play-the-game)
-    - [**System Sequence Diagram**](#system-sequence-diagram-2)
-    - [**Internal Sequence Diagram**](#internal-sequence-diagram-2)
+- [Play the Game](#play-the-game)
+    - [System Sequence Diagram](#system-sequence-diagram-2)
+    - [Internal Sequence Diagram](#internal-sequence-diagram-2)
         - [Move a Piece](#--move-a-piece)
         - [Settings](#--settings)
         - [Levels](#--levels)
