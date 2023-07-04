@@ -151,7 +151,7 @@
 | |USE CASE 13 |
 | - | - |
 |**Name** |Next best move |
-|**Actors** |Player Solver |
+|**Actors** |Player and Solver |
 |**Brief Description** |The best possible move is performed automatically as asked by the Player. |
 |**Preconditions** |The Player must be connected to internet. |
 |**Basic flow** |The solver performes the best move. |
@@ -163,7 +163,7 @@
 | |USE CASE 14 |
 | - | - |
 |**Name** |Solve all |
-|**Actors** |Solver |
+|**Actors** |Player Solver |
 |**Brief Description** |The game is solved automatically as asked by the Player. |
 |**Preconditions** |The Player must be connected to interntet. |
 |**Basic flow** |The pieces move automatically until the 2x2 square reaches the winning position. &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; |
