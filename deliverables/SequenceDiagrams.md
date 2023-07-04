@@ -3,12 +3,12 @@ A sequence diagram is a visual representation of the interactions between object
 
 - [Main Menu](#main-menu)
     - [System Sequence Diagram](#system-sequence-diagram)
-    - [Internal Sequence Diagram](#internal-sequence-diagrams)
+    - [Internal Sequence Diagrams](#internal-sequence-diagrams)
         - [Info](#--info)
         - [Level Selection](#--level-selection)
 - [Play the Game](#play-the-game)
     - [System Sequence Diagram](#system-sequence-diagram-1)
-    - [Internal Sequence Diagram](#internal-sequence-diagrams-1)
+    - [Internal Sequence Diagrams](#internal-sequence-diagrams-1)
         - [Move a Piece](#--move-a-piece)
         - [Settings](#--settings)
         - [Levels](#--levels)
@@ -16,6 +16,9 @@ A sequence diagram is a visual representation of the interactions between object
         - [Auto Solve](#--auto-solve)
         - [Undo](#--undo)
         - [Next Best Move](#--next-best-move)
+- [Others Internal Sequence Diagrams](#others-internal-sequence-diagrams)
+    - [Check Win](#--check-win)
+    - [Solve](#--solve)
 
 
 ## Main Menu
@@ -86,3 +89,14 @@ Internal behaviour of the system when the user click on the Undo button.
 ![Models Design](../img/Sequence_Diagrams/SD-undo-dark_theme.png#gh-dark-mode-only)
 
 #### - Next Best Move
+Internal behaviour of the system when the user click on the Best Move button.
+
+![Models Design](../img/Sequence_Diagrams/SD-next_best_move-light_theme.png#gh-light-mode-only)
+![Models Design](../img/Sequence_Diagrams/SD-next_best_move-dark_theme.png#gh-dark-mode-only)
+
+
+### Others Internal Sequence Diagrams
+
+#### - Check Win
+
+#### - Solve
