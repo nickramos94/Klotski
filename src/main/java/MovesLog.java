@@ -1,7 +1,7 @@
 import java.util.Stack;
 
 /**
- * Stores the number of moves that are performed during gameplay
+ * Stores the Moves that are performed during gameplay
  */
 public class MovesLog {
     private Stack<Move> moves_log;
@@ -34,7 +34,7 @@ public class MovesLog {
     }
 
     /** Pop a move from the moves_log stack and return it
-     * @return
+     * @return last move done
      */
     public Move popMove() {
         step--;
