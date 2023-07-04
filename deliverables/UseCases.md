@@ -137,7 +137,7 @@
 |**Brief Description** |The best possible move is performed automatically as asked by the Player. |
 |**Preconditions** |The Player must be connected to internet. |
 |**Basic flow** |The solver performes the best move. |
-|**Alternate flows** | The player selects this option without being connected to the internet. A message window is displayed |
+|**Alternate flows** | The player selects this option without being connected to the internet. A message window is displayed. |
 |**Postconditions**&nbsp;&nbsp;&nbsp;&nbsp; |The configuration changes and moves counter increments by one. The game ends if the 2x2 square moves to the winning position. &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;|
 
 <br />
@@ -149,7 +149,7 @@
 |**Brief Description** |The game is solved automatically as asked by the Player. |
 |**Preconditions** |The Player must be connected to internet. |
 |**Basic flow** |The pieces move automatically until the 2x2 square reaches the winning position. &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; |
-|**Alternate flows** |The player selects this option without being connected to the internet. A message window is displayed |
+|**Alternate flows** |The player selects this option without being connected to the internet. A message window is displayed. |
 |**Postconditions**&nbsp;&nbsp;&nbsp;&nbsp; |Win (use case #16). |
 
 <br />
