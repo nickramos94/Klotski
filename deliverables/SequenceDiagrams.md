@@ -1,8 +1,6 @@
-<a href="../README.md">
-    <p style="text-align: right;">
-        HOME
-    </p>
-</a>
+<div style="text-align: right;">
+    [Home](../README.md)
+</div>
 
 # Sequence Diagrams
 A sequence diagram is a visual representation of the interactions between objects or components in a system, showcasing the flow of messages exchanged over time to achieve a particular behavior or scenario.
