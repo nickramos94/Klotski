@@ -1,7 +1,7 @@
 import java.awt.*;
 
 /**
- * Implements the abstracion of each square on the checkerboard
+ * Implements the abstraction of each square on the checkerboard
  */
 public class Position{
     int x;
