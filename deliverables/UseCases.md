@@ -2,7 +2,8 @@
 
 # Use Case
 
-![UseCase](../img/UseCases.png)
+![Models Design](../img/UseCases-light_theme.png#gh-light-mode-only){.center}
+![Models Design](../img/UseCases-dark_theme.png#gh-dark-mode-only){.center}
 
 <br />
 
@@ -174,3 +175,12 @@
 |**Basic flow** |Player (or Solver) moves the pieces until the 2x2 reaches the winning position. &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; |
 |**Alternate flows** |Player isn’t able to make the 2x2 square go to the winning position. |
 |**Postconditions**&nbsp;&nbsp;&nbsp;&nbsp; |Restart (same as use case #10) or return to the main menu (use case #9). |
+
+
+<style>
+    .center {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+</style>
