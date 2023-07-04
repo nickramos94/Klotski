@@ -69,7 +69,7 @@
 |**Actors** |Player |
 |**Brief Description** |The player undoes the move. |
 |**Preconditions** |The moves counter can’t be 0, at least one move must have been performed. |
-|**Basic flow** |The Player selecets "undo" and the board returns to the previous configuration. |
+|**Basic flow** |The Player selects "undo" and the board returns to the previous configuration. |
 |**Alternate flows** |Moves counter is 0 and can’t decrement. The board configuration doesn’t change. |
 |**Postconditions**&nbsp;&nbsp;&nbsp;&nbsp; |The moves counter decrements by one and the board returns to the previous configuration.&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;|
 
@@ -80,7 +80,7 @@
 |**Name** |Save |
 |**Actors** |Player |
 |**Brief Description** |The current board configuration gets saved. |
-|**Preconditions** |The player selected "settings". |
+|**Preconditions** |The player selected "settings"(after the game started). |
 |**Basic flow** |After making some moves, the Player saves the configuration. |
 |**Alternate flows** |The player saves before making any move. That equals to saving the selected configuration. &nbsp; &nbsp; &nbsp;&nbsp;&nbsp; &nbsp; &nbsp;&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp; &nbsp; &nbsp;&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;|
 |**Postconditions**&nbsp;&nbsp;&nbsp;&nbsp; |The configuration is saved and can be loaded (use case #8). |
@@ -92,7 +92,7 @@
 |**Name** | Load |
 |**Actors** | Player |
 |**Brief Description** | The saved configuration gets loaded. |
-|**Preconditions** | The player saved a game (use case #7) and selected "settings". |
+|**Preconditions** | The player saved a game (use case #7) and selected "settings"(after the game started). |
 |**Basic flow** | The Player saves a game, makes some moves and then loads the saved file. |
 |**Alternate flows** | The Player tries to load a configuration without saving one before. A message window is displayed. &nbsp;&nbsp;&nbsp; &nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp;  &nbsp; &nbsp;&nbsp;  &nbsp; &nbsp;&nbsp;  &nbsp; &nbsp;&nbsp;  &nbsp; &nbsp;|
 |**Postconditions**&nbsp;&nbsp;&nbsp;&nbsp; | The saved configuration is displayed and the moves counter changes too. |
@@ -104,7 +104,7 @@
 |**Name** | Return to the main menu |
 |**Actors** | Player |
 |**Brief Description** | The Player returns to the home screen from the settings menu. |
-|**Preconditions** | The player selected "settings". |
+|**Preconditions** | The player selected "settings"(after the game started). |
 |**Basic flow** | The main menu is displayed as selected by the Player. |
 |**Alternate flows** | none |
 |**Postconditions**&nbsp;&nbsp;&nbsp;&nbsp; | The situation is the same as when the application just opened. &nbsp;&nbsp;&nbsp; &nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp;  &nbsp; &nbsp;&nbsp;  &nbsp; &nbsp;&nbsp;  &nbsp; &nbsp;&nbsp;  &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp;|
@@ -142,7 +142,7 @@
 |**Name** |Solve all |
 |**Actors** |Player and Solver |
 |**Brief Description** |The game is solved automatically as asked by the Player. |
-|**Preconditions** |The Player must be connected to interntet. |
+|**Preconditions** |The Player must be connected to internet. |
 |**Basic flow** |The pieces move automatically until the 2x2 square reaches the winning position. &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; |
 |**Alternate flows** |The player selects this option without being connected to the internet. A message window is displayed |
 |**Postconditions**&nbsp;&nbsp;&nbsp;&nbsp; |Win (use case #16). |
