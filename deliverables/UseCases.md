@@ -2,12 +2,8 @@
 
 # Use Case
 
-<center>
 ![Models Design](../img/UseCases-light_theme.png#gh-light-mode-only)
-</center>
-<center>
 ![Models Design](../img/UseCases-dark_theme.png#gh-dark-mode-only)
-</center>
 
 <br />
 
