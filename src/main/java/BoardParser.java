@@ -53,8 +53,7 @@ public class BoardParser {
         jBoard.put("moves", moves); //Inserts into the JSON the number of moves that have been done so far
 
 
-        String jBoardString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(root);
-        return jBoardString;
+        return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(root);
     }
 
     /**
@@ -68,7 +67,6 @@ public class BoardParser {
         List<int[]> pieces = new ArrayList<int[]>();
         int[] moves = new int[1];
 
-        InputStream input = null;
         List<Map<String, Object>> jsonList = null;
 
         ObjectMapper objectMapper = new ObjectMapper();
@@ -77,7 +75,7 @@ public class BoardParser {
         }
         else {
             // search the file in the root of the classpath
-            input = getClass().getResourceAsStream("/" + fileName);
+            InputStream input = getClass().getResourceAsStream("/" + fileName);
             jsonList = objectMapper.readValue(input, List.class);
         }
 

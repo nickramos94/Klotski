@@ -21,7 +21,7 @@ public class Solver {
 
     /** Sends the positions' JSON of the pieces on the board to the external server and receiver the moves list needed to win the match
      * @param file JSON that contains the board's configuration
-     * @return array of moves needed to be performed
+     * @return List of moves needed to be performed
      * @throws MalformedURLException
      */
 
@@ -39,7 +39,7 @@ public class Solver {
 
             //Send the JSON to the server
             try(OutputStream os = con.getOutputStream()) {
-                byte[] input = file.getBytes("utf-8");
+                byte[] input = file.getBytes(StandardCharsets.UTF_8);
                 os.write(input, 0, input.length);
             }
 
@@ -64,15 +64,9 @@ public class Solver {
             moves = objectMapper.readValue(resp, new TypeReference<List<Move>>() {
             });
 
-
-            //System.out.println(con.getResponseCode() + " " + con.getResponseMessage());
-
             con.disconnect();
 
             return moves;
-        } catch (MalformedURLException e) {
-            throw new RuntimeException(e);
-
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

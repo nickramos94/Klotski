@@ -151,7 +151,7 @@ public class Game extends Window {
     }
 
     /** Sets the board with another board, removing the previous board_view, but keeping the previous log
-     * @param board
+     * @param board Board to set
      */
     private void setBoard(Board board) {
         this.board = board;
@@ -309,7 +309,6 @@ public class Game extends Window {
     /**
      * Makes the best move using (and removing) the first element of the list best_moves
      */
-    //
     private void makeBestMove() {
         if(!best_moves.isEmpty()) {
             Move next_move = best_moves.remove(0);
@@ -337,7 +336,7 @@ public class Game extends Window {
     }
 
     /** Selects an index given its index
-     * @param piece_index
+     * @param piece_index index of the piece
      */
     protected void selectPiece(int piece_index) {
         board.selectPiece(piece_index);

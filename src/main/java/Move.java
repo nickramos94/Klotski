@@ -1,5 +1,5 @@
 /**
- * A class that implements the abstraction of a piece's position
+ * A class that implements the abstraction of the movement of a piece
  */
 public class Move {
 
@@ -74,7 +74,7 @@ public class Move {
     }
 
     /** Returns a move to a string
-     * @return string containing the move
+     * @return String containing the move
      */
     public String toString() {
         return step + ", " + blockIdx + ", " + dirIdx;
