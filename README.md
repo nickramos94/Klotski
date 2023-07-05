@@ -15,4 +15,4 @@ The objective is to create a [Klotski](https://en.wikipedia.org/wiki/Klotski) ga
 #### - [Design model](./deliverables/DesignModel.md)
 #### - [Sequence Diagrams](./deliverables/SequenceDiagrams.md)
 #### - [Test](./deliverables/Test.md)
-#### - [Javadoc](./deliverables/Javadoc.md) 
+#### - [Javadoc](./deliverables/JavaDoc/package-summary.html) 
