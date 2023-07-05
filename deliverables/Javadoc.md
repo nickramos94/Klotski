@@ -1,2 +1,0 @@
-[//]: # (Todo)
-[HOME](../README.md)

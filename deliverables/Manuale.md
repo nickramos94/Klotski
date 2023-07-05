@@ -1,4 +1,4 @@
-[HOME](../README.md)
+[Home](../README.md)
 
 # Manual
 ###  Game description
