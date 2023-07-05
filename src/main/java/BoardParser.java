@@ -68,11 +68,18 @@ public class BoardParser {
         List<int[]> pieces = new ArrayList<int[]>();
         int[] moves = new int[1];
 
-        ObjectMapper objectMapper = new ObjectMapper();
-        // search the file in the root of the classpath
-        InputStream input = getClass().getResourceAsStream("/" + fileName);
-        List<Map<String, Object>> jsonList = objectMapper.readValue(input, List.class);
+        InputStream input = null;
+        List<Map<String, Object>> jsonList = null;
 
+        ObjectMapper objectMapper = new ObjectMapper();
+        if(fileName.equals(Game.SAVE_FILE)) {
+            jsonList = objectMapper.readValue(new File(fileName), List.class);
+        }
+        else {
+            // search the file in the root of the classpath
+            input = getClass().getResourceAsStream("/" + fileName);
+            jsonList = objectMapper.readValue(input, List.class);
+        }
 
         //Reads the JSON file
         for (Map<String, Object> jsonMap : jsonList) {
