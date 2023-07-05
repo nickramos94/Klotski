@@ -2,10 +2,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+
+import java.io.*;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -61,7 +59,7 @@ public class BoardParser {
 
     /**
      * Generates an array of Pieces from a JSON file
-     * @param fileName
+     * @param fileName name of the JSON file to import
      * @return pieces a list of pieces on the board
      * @throws IOException
      */
@@ -71,7 +69,10 @@ public class BoardParser {
         int[] moves = new int[1];
 
         ObjectMapper objectMapper = new ObjectMapper();
-        List<Map<String, Object>> jsonList = objectMapper.readValue(new File(fileName), List.class);
+        // search the file in the root of the classpath
+        InputStream input = getClass().getResourceAsStream("/" + fileName);
+        List<Map<String, Object>> jsonList = objectMapper.readValue(input, List.class);
+
 
         //Reads the JSON file
         for (Map<String, Object> jsonMap : jsonList) {
