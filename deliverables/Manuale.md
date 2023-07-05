@@ -1,3 +1,5 @@
+[HOME](../README.md)
+
 # Manual
 ###  Game description
 Klotski is a game based on a set of pieces arranged on a chessboard of a certain size and number of pieces, with the goal of "removing" a specific piece from the board.

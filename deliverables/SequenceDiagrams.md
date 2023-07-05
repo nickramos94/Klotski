@@ -1,3 +1,5 @@
+[Home](../README.md)
+
 # Sequence Diagrams
 A sequence diagram is a visual representation of the interactions between objects or components in a system, showcasing the flow of messages exchanged over time to achieve a particular behavior or scenario.
 
@@ -98,5 +100,15 @@ Internal behaviour of the system when the user click on the Best Move button.
 ### Others Internal Sequence Diagrams
 
 #### - Check Win
+Internal behaviour of the system when a Check Win is requested by the System.
+Normally after a Move or a Best Move.
+
+![Models Design](../img/Sequence_Diagrams/SD-check_win-light_theme.png#gh-light-mode-only)
+![Models Design](../img/Sequence_Diagrams/SD-check_win-dark_theme.png#gh-dark-mode-only)
 
 #### - Solve
+Internal behaviour of the system when Solve is requested by the System.
+Normally when the Random Level is selected or when a Best Move is made.
+
+![Models Design](../img/Sequence_Diagrams/SD-solve-light_theme.png#gh-light-mode-only)
+![Models Design](../img/Sequence_Diagrams/SD-solve-dark_theme.png#gh-dark-mode-only)

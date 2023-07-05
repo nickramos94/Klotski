@@ -67,6 +67,12 @@ public class Move {
         return step;
     }
 
+    public boolean equals(Move other_move) {
+        return step == other_move.getStep() &&
+                blockIdx == other_move.getBlockIdx() &&
+                dirIdx == other_move.getDirIdx();
+    }
+
     /** Returns a move to a string
      * @return string containing the move
      */

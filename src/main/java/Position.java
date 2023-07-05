@@ -1,7 +1,7 @@
 import java.awt.*;
 
 /**
- * Implements the abstracion of each square on the checkerboard
+ * Implements the abstraction of each square on the checkerboard
  */
 public class Position{
     int x;
@@ -31,7 +31,7 @@ public class Position{
      * @param final_pos Position
      * @return distance
      */
-    public int xDistance(Position final_pos) {
+    private int xDistance(Position final_pos) {
         return final_pos.x - x;
     }
 
@@ -39,7 +39,7 @@ public class Position{
      * @param final_pos Position
      * @return distance
      */
-    public int yDistance(Position final_pos) {
+    private int yDistance(Position final_pos) {
         return final_pos.y - y;
     }
 
@@ -52,12 +52,12 @@ public class Position{
         int dy = yDistance(final_pos);
         if(Math.abs(dx) < MIN_MOUSE_DRAG || Math.abs(dy) < MIN_MOUSE_DRAG)  // no movement
             return -1;
-        if(Math.abs(dx) > Math.abs(dy))     // y axis
+        if(Math.abs(dx) > Math.abs(dy))     // x axis
             if(dx > 0)
                 return 1;   // right
             else
                 return 3;   // left
-        else                                // x axis
+        else                                // y axis
             if(dy > 0)
                 return 0;   //down
             else

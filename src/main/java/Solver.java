@@ -37,13 +37,13 @@ public class Solver {
             con.setRequestProperty("Accept", "application/json");
             con.setDoOutput(true);
 
-            //Manda il JSON al server
+            //Send the JSON to the server
             try(OutputStream os = con.getOutputStream()) {
                 byte[] input = file.getBytes("utf-8");
                 os.write(input, 0, input.length);
             }
 
-            //Receives as a repsonde the moves' JSON
+            //Receives as a response the moves' JSON
             if(con.getResponseCode() == HttpURLConnection.HTTP_OK) {
                 try (InputStream inputStream = con.getInputStream()) {
                     StringBuilder response = new StringBuilder();
@@ -56,7 +56,6 @@ public class Solver {
                     resp = response.toString();
                 }
             }
-            System.out.println(resp);
 
             List<Move> moves;
 

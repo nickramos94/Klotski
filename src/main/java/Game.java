@@ -128,7 +128,7 @@ public class Game extends Window {
             setRandomBoard();
         }
         else {
-            loadState("levels/level" + level + ".json");
+            loadState("level" + level + ".json");
         }
         showBoard(board);
 
@@ -144,7 +144,7 @@ public class Game extends Window {
             setRandomBoard();
         }
         else {
-            loadState("levels/level" + level_number + ".json");
+            loadState("level" + level_number + ".json");
         }
         log.resetLog();
         reloadBoard(board);
