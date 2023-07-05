@@ -20,7 +20,7 @@ public class Game extends Window {
     private Position press_position;
     private boolean pause_listener;
     private boolean stop_solving;
-    final private String SAVE_FILE = "save.json";
+    static final public String SAVE_FILE = "save.json";
 
     /**
      * initialize the game window with the Window() constructor
