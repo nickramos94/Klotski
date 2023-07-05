@@ -16,3 +16,4 @@ The objective is to create a [Klotski](https://en.wikipedia.org/wiki/Klotski) ga
 - #### [Sequence Diagrams](./deliverables/SequenceDiagrams.md)
 - #### [Test](./deliverables/Test.md)
 - <h4><a href="http://3.76.125.121/JavaDoc/package-summary.html" target="_blank">Javadoc</a></h4>
+- <h4><a href="http://3.76.125.121/TestResults.html" target="_blank">JUnit Test Report</a></h4>
