@@ -5,7 +5,7 @@ import java.util.List;
  */
 public class Board {
 
-    private Piece[] pieces;
+    private final Piece[] pieces;
     private Piece selected_piece;
     private int selected_index;
     private int special_index;  // special piece (2*2 square) index
@@ -105,7 +105,7 @@ public class Board {
                     if(w==2 || h==2)
                         rectangles_counter++;
                 }
-                catch(IllegalArgumentException e)
+                catch(IllegalArgumentException ignored)
                 {}
             }
 
@@ -142,7 +142,7 @@ public class Board {
     }
 
     /** Moves a piece on the board
-     * @param direction int that speficies the direction (0 = down, 1 = right, 2 = up, 3 = left)
+     * @param direction int that specifies the direction (0 = down, 1 = right, 2 = up, 3 = left)
      * @return if false the piece cannot be moved because the space is occupied by another piece or it's going through the edge of the board
      */
     public boolean movePiece(int direction)
@@ -183,7 +183,7 @@ public class Board {
                 if(isOccupied(i,y-1)) //and controlling if the part over it (i;y-1) is free
                     return false;
             }
-        } else if(direction == 3) //left
+        } else  //left
         {
             for(i=y; i<=(y+h-1); i++)  //scrolling the piece vertically
             {
@@ -202,8 +202,8 @@ public class Board {
     }
 
     /** Receives a move that has to be repeated in the opposite direction
-     * @param move
-     * @return
+     * @param move Move that has to be inverted
+     * @return if the move is legal to invert
      */
     public boolean invertedMove(Move move) //method called by Game.undo(). invertedMove
     {
@@ -219,7 +219,7 @@ public class Board {
     }
 
     /** Utilized by invertedMove, the piece goes in the opposite direction of the move that is being inverted
-     * @param direction
+     * @param direction int that specifies the direction to invert
      * @return returns the direction that needs to be performed
      */
     private int invertedDirection(int direction)
@@ -262,8 +262,8 @@ public class Board {
         return false;
     }
 
-    /**
-     * @param index
+    /** Try to set the special_index for the 2x2 block
+     * @param index int that represents the index in pieces
      */
     private void trySetSpecial(int index) {
         if(pieces[index].width == 2 && pieces[index].height == 2) {
@@ -271,16 +271,16 @@ public class Board {
         }
     }
 
-    /**
-     * @return
+    /** Checks if the selected_index is of the special piece (2x2 block)
+     * @return true if it is the special piece
      */
     public boolean isSpecial() {
         return this.isSpecial(selected_index);
     }
 
-    /**
-     * @param index
-     * @return
+    /** Checks if the index is of the special piece (2x2 block)
+     * @param index int that represents the index in pieces
+     * @return true if it is the special piece
      */
     public boolean isSpecial(int index) {
         return index == special_index;
@@ -294,8 +294,8 @@ public class Board {
         return hasWon;
     }
 
-    /** Turns the hasWon variable back to false
-     *
+    /**
+     * Turns the hasWon variable back to false
      */
     public void resetWin() {
         hasWon = false;
@@ -334,9 +334,9 @@ public class Board {
         return moves;
     }
 
-    /** Checks whether the current board is identical to another board
+    /** Checks whether the current board has the same pieces as another board
      * @param other_board board to be compared
-     * @return true is they are identical
+     * @return true is the pieces correspond
      */
     public boolean equals(Board other_board) {
         if(other_board == null)

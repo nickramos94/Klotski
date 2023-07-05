@@ -108,6 +108,16 @@ public class Window extends JFrame  {
      * Board height
      */
     final static public int BOARD_HEIGHT = Board.HEIGHT * BLOCK_SIZE + 5;
+
+    /*
+     * GitHub URL of the project
+     */
+    final static private String gitUrl = "https://github.com/nickramos94/Klotski.git";
+
+    /*
+     * Klotski Wikipedia page
+     */
+    final static private String klotskiPage = "https://en.wikipedia.org/wiki/Klotski";
     
     /*
      * Title popup window for the game info
@@ -136,7 +146,7 @@ public class Window extends JFrame  {
     /* 
      * Top bar for the menu 
      */
-    private JMenuBar menuBar;
+    private final JMenuBar menuBar;
 
     /* 
      * JPanel to handle the board for the game
@@ -146,10 +156,10 @@ public class Window extends JFrame  {
     /* 
      * Top bar for the board view
      */
-    private JMenuBar boardBar;
+    private final JMenuBar boardBar;
 
     /*
-     * Array that store every single piace as a JPannel
+     * Array that store every single piece as a JPanel
      */
     private JPanel[] pieces_view;
 
@@ -202,7 +212,7 @@ public class Window extends JFrame  {
         info.addActionListener(e -> showInfo());
 
         Button github = new Button("GitHub");
-        github.addActionListener(e -> openWebpage("https://github.com/nickramos94/Klotski.git"));
+        github.addActionListener(e -> openWebpage(gitUrl));
 
         menuBar.add(info);
         menuBar.add(Box.createHorizontalGlue());
@@ -426,7 +436,7 @@ public class Window extends JFrame  {
     }
 
     /**
-     * Sets the background color of the specified piece panel to indicate it has been released.
+     * Resets the background color of the specified piece panel to indicate it has been released.
      *
      * @param index     the index of the piece panel
      * @param isSpecial a flag indicating if the piece is special
@@ -489,7 +499,7 @@ public class Window extends JFrame  {
                 options,
                 options[0]);
         if(option == JOptionPane.YES_OPTION)
-            openWebpage("https://en.wikipedia.org/wiki/Klotski");
+            openWebpage(klotskiPage);
     }
 
     /**

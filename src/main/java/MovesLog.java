@@ -9,14 +9,14 @@ public class MovesLog {
     private int step;
 
     /**
-     * Resets the counter
+     * Initialize the moves_log
      */
     public MovesLog() {
         resetLog();
     }
 
     /**
-     * Resets the counter and its related data structures
+     * Resets the moves_log
      */
     public void resetLog() {
         moves_log = new Stack<>();

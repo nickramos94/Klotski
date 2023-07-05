@@ -87,7 +87,7 @@ public class Piece {
     }
 
     /** moves the Piece
-     * @param direction int that speficies the direction (0 = down, 1 = right, 2 = up, 3 = left)
+     * @param direction int that specifies the direction (0 = down, 1 = right, 2 = up, 3 = left)
      */
     public void move(int direction)  //method called by Board.movePiece(int direction) which will check if the move is possible
     {
@@ -131,7 +131,7 @@ public class Piece {
      */
     public boolean equals(Piece other_piece) {
         if (other_piece == null)
-        return false;
+            return false;
         return position.equals(other_piece.position) &&
                 width == other_piece.width &&
                 height == other_piece.height;

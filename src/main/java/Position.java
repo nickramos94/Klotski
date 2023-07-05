@@ -1,14 +1,14 @@
 import java.awt.*;
 
 /**
- * Implements the abstraction of each square on the checkerboard
+ * Implements the abstraction of each square on the checkerboard or pixels on the board view
  */
 public class Position{
     int x;
     int y;
     final int MIN_MOUSE_DRAG = 3;
 
-    /** initialize x and y checking if they are inside the board (in pixel)
+    /** initialize x and y checking if they are inside the board view
      * @param x x value
      * @param y y value
      */
@@ -21,7 +21,7 @@ public class Position{
     }
 
     /** constructor with Point (mainly for the mouse getPoint() method that returns a point)
-     * @param point
+     * @param point Point that will be converted in Position
      */
     public Position(Point point) {
         this(point.x, point.y);
@@ -43,9 +43,10 @@ public class Position{
         return final_pos.y - y;
     }
 
-    /** return the cardinal direction of the vector this -> final_pos approximate to: up=2, right=1, down=0, left=3
-     * @param final_pos
-     * @return
+    /** Returns the cardinal direction of the vector this -> final_pos approximate to: up=2, right=1, down=0, left=3
+     * there is no movement=-1 when the x or y distances is less than MIN_MOUSE_DRAG
+     * @param final_pos Position
+     * @return int of direction
      */
     public int direction(Position final_pos) {
         int dx = xDistance(final_pos);
@@ -72,15 +73,15 @@ public class Position{
         return xDistance(pos)==0 && yDistance(pos)==0;
     }
 
-    /** Converts the pos from pixels the unit of measurement of the board
-     * @return a Position
+    /** Converts the pos from pixels to the units of board
+     * @return Position in units
      */
     public Position unitConverter() {
         return new Position(x/Window.BLOCK_SIZE, y/Window.BLOCK_SIZE);
     }
 
-    /** Converts the pos from the unit of measurement the board to pixels
-     * @return Position
+    /** Converts the pos from the units of board to pixels
+     * @return Position in pixels
      */
     public Position pixelConverter() {
         return new Position(x*Window.BLOCK_SIZE, y*Window.BLOCK_SIZE);
