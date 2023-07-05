@@ -1,7 +1,0 @@
-[ {
-  "name" : "Game",
-  "blocks" : [ {
-    "shape" : [ 2, 2 ],
-    "position" : [ 3, 1 ]
-  } ]
-} ]
