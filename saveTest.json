@@ -1,0 +1,8 @@
+[ {
+  "name" : "Game",
+  "blocks" : [ {
+    "shape" : [ 1, 1 ],
+    "position" : [ 0, 0 ]
+  } ],
+  "moves" : 0
+} ]
